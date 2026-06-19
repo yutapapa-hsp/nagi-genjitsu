@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ja" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なぎ｜現実をかえる数秘デザイン</title>
+<meta name="description" content="すべての悩みは、数字で説明がつく。占いではなく、生年月日という動かせない事実から読み解く「自分の取扱説明書」。まずは無料で、自分の3つの数字を調べてみてください。">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="なぎ｜現実をかえる数秘デザイン">
+<meta property="og:description" content="すべての悩みは、数字で説明がつく。生年月日から読み解く「自分の取扱説明書」。まずは無料で、自分の3つの数字を調べてみてください。">
+<!-- ▼公開後に差し替え：本番URLとOGP画像 -->
+<meta property="og:url" content="https://nagi-design.example/">
+<meta property="og:image" content="https://nagi-design.example/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="なぎ｜現実をかえる数秘デザイン">
+<meta name="twitter:description" content="すべての悩みは、数字で説明がつく。生年月日から読み解く「自分の取扱説明書」。">
+<meta name="twitter:image" content="https://nagi-design.example/ogp.png">
+<!-- ▼公開後に差し替え：本番URL -->
+<link rel="canonical" href="https://nagi-design.example/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --bg:#F7F8FC; --white:#FFFFFF;
+    --ink:#1A1A2E; --sub:#4A5568; --sub2:#5B6473;
+    --line:#E2E8F0; --line-soft:#EDF0F6;
+    --accent:#2272A8; --accent2:#4FADDF; --accent-soft:rgba(34,114,168,.08);
+    --navy:#1A1A2E;
+    --serif:'Noto Serif JP',serif; --sans:'Noto Sans JP',sans-serif; --en:'Montserrat',sans-serif;
+    --maxw:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.9;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden}
+  .serif{font-family:var(--serif)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+
+  /* ── layout ── */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{position:relative}
+  .sec-pad{padding:84px 0}
+  .sec-white{background:var(--white)}
+  .sec-tight{padding:64px 0}
+
+  /* ── kicker（英字＋短い線） ── */
+  .kicker{font-family:var(--en);font-size:11px;font-weight:600;letter-spacing:.42em;
+    text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:14px;margin-bottom:22px}
+  .kicker::before{content:"";width:30px;height:1px;background:var(--accent);opacity:.6}
+  .kicker.center{justify-content:center}
+  .sec-head{text-align:center;margin-bottom:48px}
+  .sec-head .kicker{margin-bottom:18px}
+  h2.h{font-family:var(--serif);font-weight:600;font-size:clamp(23px,5.4vw,30px);line-height:1.55;letter-spacing:.02em}
+  .sec-head p.lead{color:var(--sub);font-size:15px;margin-top:18px;line-height:1.95}
+
+  /* ── buttons ── */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-family:var(--sans);font-weight:700;font-size:15px;cursor:pointer;
+    border-radius:999px;padding:16px 34px;border:1px solid transparent;
+    transition:transform .2s cubic-bezier(.2,.7,.2,1),background .2s,box-shadow .2s,border-color .2s;
+    text-decoration:none;letter-spacing:.02em;line-height:1.4;text-align:center}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible,summary:focus-visible,.res-again:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .btn-sub{background:var(--accent);color:#fff;box-shadow:0 8px 22px rgba(34,114,168,.26)}
+  .btn-sub:hover{background:#1b5e8c;transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,114,168,.32)}
+  .btn-ink{background:var(--ink);color:#fff}
+  .btn-ink:hover{background:#2b2b48;transform:translateY(-2px);box-shadow:0 12px 28px rgba(26,26,46,.28)}
+  .btn-ghost{background:var(--white);color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  .btn-lg{padding:18px 44px;font-size:16px}
+  .btn .ic{width:18px;height:18px;flex:none}
+
+  /* ── header ── */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(247,248,252,.72);backdrop-filter:saturate(150%) blur(14px);
+    -webkit-backdrop-filter:saturate(150%) blur(14px);
+    border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  header.scrolled{border-bottom-color:var(--line);background:rgba(247,248,252,.86)}
+  .hbar{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;flex-direction:row;align-items:center;gap:10px;line-height:1;text-decoration:none}
+  .logo-ava{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:center 40%;border:1px solid var(--line);background:#fff;flex:none}
+  .logo-txt{display:flex;flex-direction:column}
+  .logo .en{font-family:var(--en);font-weight:600;font-size:13px;letter-spacing:.24em;color:var(--ink)}
+  .logo .ja{font-family:var(--serif);font-size:11px;color:var(--sub2);margin-top:5px;letter-spacing:.06em}
+  .hcta{opacity:0;transform:translateY(-6px);pointer-events:none;transition:.3s}
+  header.scrolled .hcta{opacity:1;transform:none;pointer-events:auto}
+  .hcta .btn{padding:9px 20px;font-size:12.5px;box-shadow:none}
+
+  /* ── hero ── */
+  #hero{padding:148px 0 96px;overflow:hidden}
+  #hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%,#FFFFFF 0%,var(--bg) 60%)}
+  .hero-digits{position:absolute;z-index:0;top:0;right:-2vw;height:100%;display:flex;
+    flex-direction:column;justify-content:center;gap:.04em;pointer-events:none;
+    font-family:var(--serif);font-weight:700;font-size:clamp(120px,30vw,260px);
+    color:var(--ink);opacity:.028;line-height:.92;letter-spacing:-.04em}
+  .hero-inner{position:relative;z-index:1;text-align:center}
+  h1.hero-h{font-family:var(--serif);font-weight:700;font-size:clamp(30px,8.4vw,50px);
+    line-height:1.42;letter-spacing:.02em;color:var(--ink)}
+  h1.hero-h .em{color:var(--accent)}
+  .hero-sub{margin-top:26px;color:var(--sub);font-size:clamp(15px,3.9vw,17px);line-height:1.95}
+  .hero-cta{margin-top:40px}
+  .hero-note{margin-top:18px;font-size:12.5px;color:var(--sub2);letter-spacing:.02em}
+
+  /* ── numbers / diagnostic ── */
+  #numbers{scroll-margin-top:72px}
+  .dia-card{background:var(--white);border:1px solid var(--line);border-radius:22px;
+    padding:40px 32px;box-shadow:0 24px 60px -32px rgba(26,26,46,.22)}
+  .dia-lead{text-align:center;color:var(--sub);font-size:14.5px;margin-bottom:26px}
+  .dia-form{display:flex;gap:10px;justify-content:center;align-items:flex-end;flex-wrap:wrap}
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field label{font-size:11px;letter-spacing:.16em;color:var(--sub2);font-family:var(--en);font-weight:600;text-align:center}
+  .sel{position:relative}
+  select{appearance:none;-webkit-appearance:none;font-family:var(--serif);font-size:17px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    padding:13px 34px 13px 16px;cursor:pointer;transition:border-color .2s;line-height:1.2}
+  select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .sel::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;
+    border-right:1.5px solid var(--sub2);border-bottom:1.5px solid var(--sub2);
+    transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .sel.y select{min-width:104px}.sel.m select,.sel.d select{min-width:78px}
+  .dia-go{text-align:center;margin-top:28px}
+  .dia-err{text-align:center;color:#B4452F;font-size:13px;margin-top:14px;min-height:1px}
+
+  /* result */
+  #result{display:none;margin-top:8px}
+  #result.show{display:block;animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
+  .res-head{text-align:center;margin-bottom:30px}
+  .res-head .small{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:.08em}
+  .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .num-card{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:16px;
+    padding:26px 12px 22px;text-align:center;overflow:hidden;
+    opacity:0;transform:translateY(16px)}
+  #result.show .num-card{animation:numIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+  #result.show .num-card:nth-child(1){animation-delay:.12s}
+  #result.show .num-card:nth-child(2){animation-delay:.34s}
+  #result.show .num-card:nth-child(3){animation-delay:.56s}
+  .num-role{font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:600;text-transform:uppercase}
+  .num-role-ja{font-size:11.5px;color:var(--sub2);margin-top:6px;letter-spacing:.04em}
+  .num-big{font-family:var(--serif);font-weight:700;font-size:clamp(48px,15vw,76px);line-height:1;
+    color:var(--ink);margin:8px 0 4px;letter-spacing:-.02em}
+  .num-big .mn{display:block;font-size:11px;font-family:var(--en);font-weight:600;letter-spacing:.18em;
+    color:var(--accent);margin-top:4px}
+  .num-tag{font-family:var(--serif);font-size:11.5px;color:var(--sub);line-height:1.55;margin-top:9px;min-height:36px}
+  /* 数字ごとの読み解き（才能/つまずき/向く環境） */
+  .res-reads{margin-top:24px;display:grid;gap:14px}
+  .read{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:16px;padding:22px 22px}
+  .read-head{margin-bottom:15px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .read-head .role{display:block;font-family:var(--serif);font-size:12.5px;color:var(--accent);letter-spacing:.08em}
+  .read-head .role b{font-size:21px;font-weight:700;margin-left:5px;letter-spacing:.02em}
+  .read-head .reframe{display:block;font-family:var(--serif);font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.6;margin-top:7px}
+  .read-body{display:grid;gap:13px}
+  .read-body > div{display:grid;grid-template-columns:62px 1fr;gap:13px;align-items:start}
+  .read-body dt{font-size:11px;font-weight:700;letter-spacing:.04em;padding-top:3px;white-space:nowrap}
+  .read-body dt.t,.read-body dt.f{color:var(--accent)}
+  .read-body dt.s{color:#B4452F}
+  .read-body dd{font-size:13px;color:var(--sub);line-height:1.82}
+  .res-cta{margin-top:30px;background:var(--navy);border-radius:18px;padding:32px 26px;text-align:center;color:#EDEFF6}
+  .res-cta .h{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.6;color:#fff}
+  .res-cta .p{font-size:13.5px;color:#B7BCD0;margin-top:12px;line-height:1.85}
+  .res-cta .btn{margin-top:22px}
+  .res-again{display:block;margin:18px auto 0;background:none;border:none;color:var(--sub2);
+    font-size:13px;font-family:var(--sans);cursor:pointer;letter-spacing:.04em}
+  .res-again:hover{color:var(--ink)}
+
+  /* ── why numbers ── */
+  .why-pos{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:14px;padding:26px 26px;font-family:var(--serif);font-size:16px;line-height:1.95;color:var(--ink)}
+  .three-num{margin-top:34px;display:grid;gap:14px}
+  .tn{display:flex;gap:20px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
+    border-radius:14px;padding:22px 24px}
+  .tn .n{font-family:var(--serif);font-weight:700;font-size:34px;line-height:1;color:var(--accent);flex:none;width:46px;text-align:center}
+  .tn .b h3{font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:5px}
+  .tn .b p{font-size:13.5px;color:var(--sub);line-height:1.85}
+
+  /* ── voices ── */
+  .voices{display:grid;gap:16px}
+  .vc{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px 26px;
+    box-shadow:0 18px 44px -34px rgba(26,26,46,.2)}
+  .vc .mark{font-family:var(--serif);font-size:34px;line-height:.6;color:var(--accent2);height:18px}
+  .vc q{display:block;quotes:none;font-family:var(--serif);font-size:15.5px;line-height:1.95;color:var(--ink);margin:6px 0 14px}
+  .vc q::before,.vc q::after{content:""}
+  .vc .who{font-size:12px;color:var(--sub2);letter-spacing:.04em;border-top:1px solid var(--line-soft);padding-top:13px}
+
+  /* ── three paths ── */
+  .paths{display:grid;gap:16px}
+  .path{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:28px 26px;
+    transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,border-color .25s}
+  .path:hover{transform:translateY(-3px);box-shadow:0 22px 48px -30px rgba(26,26,46,.3);border-color:#D5DCEA}
+  .path .step{font-family:var(--en);font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--accent)}
+  .path h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 4px}
+  .path .for{font-size:12.5px;color:var(--sub2);margin-bottom:14px}
+  .path p{font-size:13.5px;color:var(--sub);line-height:1.85;margin-bottom:20px}
+  .path .price{font-family:var(--serif);color:var(--ink);font-weight:600}
+  .path .btn{width:100%}
+  .path .seat{display:inline-block;margin-top:12px;font-size:11.5px;color:var(--accent);
+    background:var(--accent-soft);border-radius:999px;padding:4px 14px;letter-spacing:.04em}
+
+  /* ── about ── */
+  .about{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:38px 32px}
+  .about-portrait{display:block;width:clamp(132px,40vw,160px);height:clamp(132px,40vw,160px);object-fit:cover;object-position:center 40%;margin:0 auto 22px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:0 16px 40px -22px rgba(26,26,46,.3)}
+  .about .name{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:4px;text-align:center}
+  .about .role{font-family:var(--en);font-size:11px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:24px;text-align:center}
+  .about p{font-size:14px;color:var(--sub);line-height:1.95;margin-bottom:14px}
+  .about p:last-child{margin-bottom:0}
+  .about .ink{color:var(--ink)}
+  .about .mn11{display:inline-block;font-family:var(--serif);font-weight:700;color:var(--accent)}
+
+  /* ── final CTA (navy) ── */
+  #final{background:var(--navy);color:#EDEFF6;padding:92px 0;position:relative;overflow:hidden}
+  #final::before{content:"11";position:absolute;right:-2vw;bottom:-6vh;font-family:var(--serif);font-weight:700;
+    font-size:clamp(200px,42vw,360px);color:#fff;opacity:.035;line-height:.8;pointer-events:none}
+  #final .wrap{position:relative;z-index:1;text-align:center}
+  #final .kicker{color:var(--accent2)}
+  #final .kicker::before{background:var(--accent2);opacity:.7}
+  #final h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,6vw,33px);line-height:1.55;color:#fff}
+  #final p.sub{margin:22px auto 0;max-width:520px;color:#B7BCD0;font-size:15px;line-height:1.95}
+  #final .gift{margin:30px auto 6px;max-width:440px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 22px;font-size:13px;color:#D8DBE8;line-height:1.8}
+  #final .gift b{color:#fff;font-weight:700}
+  #final .btn{margin-top:26px}
+
+  /* ── FAQ ── */
+  .faq{display:grid;gap:12px}
+  details.q{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s}
+  details.q[open]{border-color:#D5DCEA}
+  details.q summary{list-style:none;cursor:pointer;padding:20px 24px;font-family:var(--serif);font-size:15px;font-weight:600;
+    display:flex;justify-content:space-between;align-items:center;gap:16px}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary .pm{flex:none;width:18px;height:18px;position:relative;transition:transform .25s}
+  details.q summary .pm::before,details.q summary .pm::after{content:"";position:absolute;background:var(--accent);
+    border-radius:2px;top:50%;left:50%;transform:translate(-50%,-50%)}
+  details.q summary .pm::before{width:14px;height:1.6px}
+  details.q summary .pm::after{width:1.6px;height:14px;transition:transform .25s}
+  details.q[open] summary .pm::after{transform:translate(-50%,-50%) scaleY(0)}
+  details.q .a{padding:0 24px 22px;font-size:13.5px;color:var(--sub);line-height:1.9}
+
+  /* ── footer ── */
+  footer{background:var(--bg);border-top:1px solid var(--line);padding:48px 0 calc(120px + env(safe-area-inset-bottom))}
+  footer .wrap{text-align:center}
+  .f-logo .en{font-family:var(--en);font-weight:600;font-size:14px;letter-spacing:.22em;color:var(--ink)}
+  .f-logo .ja{font-family:var(--serif);font-size:11.5px;color:var(--sub2);margin-top:5px}
+  .f-links{display:flex;gap:8px 22px;justify-content:center;flex-wrap:wrap;margin:24px 0 22px;font-size:12.5px}
+  .f-links a{color:var(--sub);text-decoration:none;transition:color .2s}
+  .f-links a:hover{color:var(--accent)}
+  .f-note{font-size:11px;color:var(--sub2);line-height:1.8;max-width:520px;margin:0 auto}
+  .f-copy{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;color:var(--sub2);margin-top:18px}
+
+  /* ── sticky 登録バー（4箇所目） ── */
+  #stickybar{position:fixed;left:0;right:0;bottom:0;z-index:45;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);box-shadow:0 -8px 30px -16px rgba(26,26,46,.25);
+    transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.7,.2,1);
+    padding-bottom:env(safe-area-inset-bottom)}
+  #stickybar.show{transform:none}
+  .sb-inner{max-width:var(--maxw);margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .sb-txt{font-size:12.5px;color:var(--ink);line-height:1.5;font-weight:500}
+  .sb-txt b{color:var(--accent)}
+  #stickybar .btn{flex:none;padding:11px 22px;font-size:13px;box-shadow:none}
+
+  /* ── reveal on scroll ── */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  .js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}.js .reveal.d3{transition-delay:.24s}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes numIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+
+  @media(max-width:560px){
+    .sec-pad{padding:64px 0}
+    .wrap{padding:0 20px}
+    .dia-card{padding:30px 18px}
+    .res-grid{gap:9px}
+    .num-card{padding:20px 6px 16px}
+    .num-mean{font-size:11px;min-height:56px}
+    .tn{gap:14px;padding:20px}
+    .tn .n{width:38px;font-size:30px}
+    .about{padding:30px 22px}
+    .sb-txt{font-size:11.5px}
+    #stickybar .btn{padding:10px 16px;font-size:12px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    .js .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ HEADER ════════ -->
+<header id="hdr">
+  <div class="hbar">
+    <a class="logo" href="#hero" aria-label="なぎ 現実をかえる数秘デザイン">
+      <img class="logo-ava" src="assets/nagi-icon.jpg" alt="" onerror="this.style.display='none'">
+      <span class="logo-txt">
+        <span class="en">NAGI</span>
+        <span class="ja">現実をかえる数秘デザイン</span>
+      </span>
+    </a>
+    <div class="hcta">
+      <a class="btn btn-sub js-sub" href="#" target="_blank" rel="noopener" aria-label="無料メールレターに登録して取扱説明書を受け取る">レターを受け取る</a>
+    </div>
+  </div>
+</header>
+
+<!-- ════════ ① HERO ════════ -->
+<section id="hero">
+  <div class="hero-digits" aria-hidden="true">
+    <span>3</span><span>7</span><span>1</span>
+  </div>
+  <div class="wrap hero-inner">
+    <span class="kicker center">Numerology Design</span>
+    <h1 class="hero-h">すべての悩みは、<br><span class="em">数字</span>で説明がつく。</h1>
+    <p class="hero-sub">自分の"取扱説明書"は、生年月日に書かれています。<br>占いではなく、動かせない事実から読み解く設計図です。</p>
+    <div class="hero-cta">
+      <a class="btn btn-ink btn-lg" href="#numbers">自分の数字を調べる（無料・10秒）</a>
+    </div>
+    <p class="hero-note">生年月日を入れるだけ。登録も入力も、これ以外は要りません。</p>
+  </div>
+</section>
+
+<!-- ════════ ② 数秘診断（埋め込み）★最重要 ════════ -->
+<section id="numbers" class="sec-pad sec-white">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">Your Numbers</span>
+      <h2 class="h">まず、自分の3つの数字を出してみる。</h2>
+      <p class="lead">生年月日から、いまの自分・持って生まれたクセ・向かう方向が出ます。</p>
+    </div>
+
+    <div class="dia-card reveal d1">
+      <!-- 入力 -->
+      <div id="diaForm">
+        <p class="dia-lead">生まれた年・月・日を選んでください。</p>
+        <div class="dia-form">
+          <div class="field"><label for="selY">Year</label><div class="sel y"><select id="selY" aria-label="生まれた年"></select></div></div>
+          <div class="field"><label for="selM">Month</label><div class="sel m"><select id="selM" aria-label="生まれた月"></select></div></div>
+          <div class="field"><label for="selD">Day</label><div class="sel d"><select id="selD" aria-label="生まれた日"></select></div></div>
+        </div>
+        <div class="dia-go">
+          <button class="btn btn-ink btn-lg" id="calcBtn" type="button">3つの数字を出す</button>
+        </div>
+        <p class="dia-err" id="diaErr" role="alert"></p>
+        <noscript><p class="dia-lead" style="margin-top:14px">※この診断は計算にJavaScriptを使います。オンにすると、自分の数字が出せます。</p></noscript>
+      </div>
+
+      <!-- 結果 -->
+      <div id="result" role="status" aria-live="polite" tabindex="-1">
+        <div class="res-head">
+          <span class="small serif">自分の3つの数字が出ました。</span>
+        </div>
+        <div class="res-grid">
+          <div class="num-card">
+            <div class="num-role">Now</div><div class="num-role-ja">現在数</div>
+            <div class="num-big" id="nNow">―</div><div class="num-tag" id="tNow"></div>
+          </div>
+          <div class="num-card">
+            <div class="num-role">Past</div><div class="num-role-ja">過去数</div>
+            <div class="num-big" id="nPast">―</div><div class="num-tag" id="tPast"></div>
+          </div>
+          <div class="num-card">
+            <div class="num-role">Future</div><div class="num-role-ja">未来数</div>
+            <div class="num-big" id="nFut">―</div><div class="num-tag" id="tFut"></div>
+          </div>
+        </div>
+
+        <div class="res-reads">
+          <article class="read">
+            <div class="read-head"><span class="role">現在数<b id="rNowN"></b> ─ いまの自分のOS</span><span class="reframe" id="rNowR"></span></div>
+            <dl class="read-body">
+              <div><dt class="t">才能</dt><dd id="rNowT"></dd></div>
+              <div><dt class="s">つまずき</dt><dd id="rNowS"></dd></div>
+              <div><dt class="f">向く環境</dt><dd id="rNowF"></dd></div>
+            </dl>
+          </article>
+          <article class="read">
+            <div class="read-head"><span class="role">過去数<b id="rPastN"></b> ─ 持って生まれたクセ</span><span class="reframe" id="rPastR"></span></div>
+            <dl class="read-body">
+              <div><dt class="t">才能</dt><dd id="rPastT"></dd></div>
+              <div><dt class="s">つまずき</dt><dd id="rPastS"></dd></div>
+              <div><dt class="f">向く環境</dt><dd id="rPastF"></dd></div>
+            </dl>
+          </article>
+          <article class="read">
+            <div class="read-head"><span class="role">未来数<b id="rFutN"></b> ─ これから向かう方向</span><span class="reframe" id="rFutR"></span></div>
+            <dl class="read-body">
+              <div><dt class="t">才能</dt><dd id="rFutT"></dd></div>
+              <div><dt class="s">つまずき</dt><dd id="rFutS"></dd></div>
+              <div><dt class="f">向く環境</dt><dd id="rFutF"></dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <div class="res-cta">
+          <p class="h">本当の答えは、3つの"掛け合わせ"にあります。</p>
+          <p class="p">ここまでは、数字ひとつずつの輪郭です。<br>現在数 × 過去数 × 未来数を重ねると、「なぜ自分はこう動くのか」が一本につながります。その読み解きと、12数字ぜんぶの取扱説明書（PDF）を、無料のメールレターで渡します。</p>
+          <a class="btn btn-sub btn-lg js-sub" href="#" target="_blank" rel="noopener">無料レターで受け取る（特典PDF）</a>
+        </div>
+        <button class="res-again" id="againBtn" type="button">別の生年月日でもう一度</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ③ 数字で何が分かるのか ════════ -->
+<section class="sec-pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">Why Numbers</span>
+      <h2 class="h">数字は、占いじゃない。<br>"動かせない事実"の読み解きです。</h2>
+    </div>
+    <div class="why-pos reveal d1">
+      生年月日は、自分では選べないし、後から変えることもできません。だからこそ、そこには"持って生まれた仕様"がそのまま書かれています。僕がやっているのは、その仕様を読んで、自分の取扱説明書に翻訳すること。当たる・当たらないの話ではなく、自分のOS（取扱説明書）を手に入れる作業です。
+    </div>
+    <div class="three-num">
+      <div class="tn reveal d1"><div class="n">①</div><div class="b"><h3>現在数 ― いまの自分のOS</h3><p>ふだん表に出ている、自分のいちばん基本の動き方。「自分はこういう人間だ」と感じている部分の正体です。</p></div></div>
+      <div class="tn reveal d2"><div class="n">②</div><div class="b"><h3>過去数 ― 持って生まれたクセ</h3><p>無意識に出てしまう反応や、繰り返しハマるパターン。長所にも短所にも見える、自分のクセの出どころです。</p></div></div>
+      <div class="tn reveal d3"><div class="n">③</div><div class="b"><h3>未来数 ― これから向かう方向</h3><p>このまま進むと、自分がいちばん力を出せる場所。迷ったときに戻ってくるための、コンパスになる数字です。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ④ お客様の声 ════════ -->
+<section class="sec-pad sec-white">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">Voice</span>
+      <h2 class="h">"やっと、説明がついた"</h2>
+      <p class="lead">個別鑑定を受けた方から届いた感想を、匿名・要約でご紹介します。</p>
+    </div>
+    <div class="voices">
+      <div class="vc reveal d1">
+        <div class="mark">"</div>
+        <q>ひとりでぐるぐる考えてしまうのも、3つの数字がそうさせていたんだと腑に落ちました。やっと、抜ける方法を知ることができました。</q>
+        <p class="who">鑑定をはじめて受けた方</p>
+      </div>
+      <div class="vc reveal d1">
+        <div class="mark">"</div>
+        <q>漠然としていた思いや焦りを、丁寧に言語化してもらえました。さらに解決の道すじまで論理的に説明してくれて、目の前が少しずつ明るくなりました。</q>
+        <p class="who">自営業の女性</p>
+      </div>
+      <div class="vc reveal d2">
+        <div class="mark">"</div>
+        <q>まるで中身を見られているようでした。当たり前にしてきたことも、努力じゃなく、その数字を持って生まれたんだと。いまはロードマップを見ながら、毎日の習慣から始めています。</q>
+        <p class="who">マスターナンバー11を持つ方</p>
+      </div>
+      <div class="vc reveal d2">
+        <div class="mark">"</div>
+        <q>あんなに詳しく、具体的な内容に驚きました。残りの人生、少し勇気を出して1歩踏み出してみよう。そう思える鑑定でした。</q>
+        <p class="who">人生の後半を考えはじめた方</p>
+      </div>
+      <div class="vc reveal d3">
+        <div class="mark">"</div>
+        <q>いろいろ試しても腑に落ちなかったことが、"仕様の問題"だと捉えたら、全部納得できました。</q>
+        <p class="who">これまで色々と試してきた方</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ⑤ 温度別の3つの道 ════════ -->
+<section class="sec-pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">Three Paths</span>
+      <h2 class="h">いまの自分に合う、3つの入口。</h2>
+      <p class="lead">どこから始めても大丈夫。まずは、いちばん軽いところから。</p>
+    </div>
+    <div class="paths">
+      <div class="path reveal d1">
+        <div class="step">STEP 01</div>
+        <h3>まず、知りたい</h3>
+        <p class="for">自分のことを、いちど整理したい人へ</p>
+        <p>上の診断で自分の3つの数字を出して、無料のメールレターに登録。登録した人には、12数字ぜんぶの取扱説明書（PDF・20ページ）をすぐにお渡しします。<span class="price">（無料）</span></p>
+        <a class="btn btn-sub js-sub" href="#" target="_blank" rel="noopener">無料レターに登録する</a>
+      </div>
+      <div class="path reveal d2">
+        <div class="step">STEP 02</div>
+        <h3>深く、知りたい</h3>
+        <p class="for">自分の数字を、もっと使いこなしたい人へ</p>
+        <p>数字ごとの完全ガイド<span class="price">（980円〜）</span>と、才能の活かし方をまとめた適職設計図<span class="price">（2,980円）</span>。読んで、自分で設計できるようになる教材です。</p>
+        <a class="btn btn-ghost js-note-guide" href="#" target="_blank" rel="noopener">noteで読む</a>
+      </div>
+      <div class="path reveal d3">
+        <div class="step">STEP 03</div>
+        <h3>本気で、設計したい</h3>
+        <p class="for">自分専用の地図を、手に入れたい人へ</p>
+        <p>3つの数字を掛け合わせて読む、個別数秘鑑定<span class="price">（4,980円）</span>。35ページ以上のPDF鑑定書を、お一人ずつお作りします。</p>
+        <a class="btn btn-ink js-note-kantei" href="#" target="_blank" rel="noopener">個別鑑定の詳細を見る</a>
+        <span class="seat">毎月20名 限定</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ⑥ なぎとは ════════ -->
+<section class="sec-pad sec-white">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">About Nagi</span>
+    </div>
+    <div class="about reveal d1">
+      <img class="about-portrait" src="assets/nagi-icon.jpg" alt="数秘デザイナー なぎ" onerror="this.style.display='none'">
+      <div class="name serif">なぎ</div>
+      <div class="role">Numerology Designer</div>
+      <p class="ink">「現実をかえる数秘デザイン」を掲げて、Threadsで数秘×才能・適職の発信を続けています。占い師ではありません。やっているのは、生年月日という動かせない事実から、その人の取扱説明書を読み解くことです。</p>
+      <p>感情論や、ふわっとした解釈には寄りかからない。「なぜ自分はこう動いてしまうのか」を、できるかぎり数字で説明がつくところまで分解する。それが僕のやり方です。フォロワーは8,000人ほど。個別鑑定は毎月20名限定で続けてきました。</p>
+      <p>ちなみに僕自身も<span class="mn11">マスターナンバー11</span>。感じすぎて、うまく言葉にできない。そのしんどさが"数字の仕様"だと分かったとき、ずいぶん楽になりました。同じ場所で立ち止まっている人に渡したいのは、その設計図です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ⑦ 最終CTA（濃紺） ════════ -->
+<section id="final">
+  <div class="wrap">
+    <span class="kicker center">Start Here</span>
+    <h2>まずは、自分の数字を<br>知ることから。</h2>
+    <p class="sub">取扱説明書は、無料のメールレターで渡します。登録した人には、数秘12タイプぜんぶの取扱説明書を、すぐにお届けします。</p>
+    <div class="gift">登録特典 ─ <b>「数秘別・自分の取扱説明書（ミニ版）」</b>（20ページのPDF）を、登録した直後にお渡しします。</div>
+    <a class="btn btn-sub btn-lg js-sub" href="#" target="_blank" rel="noopener">無料レターに登録して受け取る</a>
+  </div>
+</section>
+
+<!-- ════════ ⑧ FAQ ════════ -->
+<section class="sec-pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker center">Q &amp; A</span>
+      <h2 class="h">よくある質問</h2>
+    </div>
+    <div class="faq">
+      <details class="q reveal d1"><summary>占いと、何が違いますか？<span class="pm"></span></summary>
+        <div class="a">占いは「これから何が起きるか」を当てようとします。僕がやるのは逆で、生年月日という"もう動かせない事実"から、自分の取扱説明書を読み解くこと。当たる・当たらないの話ではありません。自分の強み・つまずき・向く場所を先に知って、打ち手を設計するための地図です。</div></details>
+      <details class="q reveal d1"><summary>現在数・過去数・未来数って、それぞれ何が違うんですか？<span class="pm"></span></summary>
+        <div class="a">ざっくり言うと、現在数＝いま表に出ている基本のOS、過去数＝生まれ持った無意識のクセ、未来数＝いちばん力を出せる方向です。1つだけ見ても、分かるのは半分。3つを掛け合わせて初めて「なぜ自分はこう動くのか」が一本につながります。その読み解きが、レターと個別鑑定の中身です。</div></details>
+      <details class="q reveal d1"><summary>マスターナンバー（11・22・33）って何ですか？<span class="pm"></span></summary>
+        <div class="a">計算の途中で11・22・33が出たら、1桁に縮めずそのまま残す特別な数字です。感じる力や理想の大きさが人より一段強く出やすい仕様で、その分しんどさも出やすい。診断でこの数字が出たときは「Master」と表示されます。</div></details>
+      <details class="q reveal d1"><summary>登録すると何が届きますか？しつこく営業されませんか？<span class="pm"></span></summary>
+        <div class="a">登録した直後に、特典PDF「数秘別・自分の取扱説明書（ミニ版・20ページ）」をお渡しします。そのあとは数日かけて、数字別の詰まりポイントと、今日からできる小さな一歩を、メールレターで順番に。基本は読み物です。売り込みは控えめにしているので、合わなければ、いつでも解除できます。</div></details>
+      <details class="q reveal d2"><summary>個別鑑定は、レターやnoteと何が違うんですか？<span class="pm"></span></summary>
+        <div class="a">レターやnoteは「数字ごと」の一般的な取扱説明書です。個別鑑定は、自分の現在数・過去数・未来数を"掛け合わせて"読む、自分だけの1冊。強み・つまずき・向く仕事・人との距離の取り方まで、自分の3つの数字に合わせて書きます。</div></details>
+      <details class="q reveal d2"><summary>個別鑑定の料金・納期・人数を教えてください。<span class="pm"></span></summary>
+        <div class="a">料金は4,980円。毎月20名の限定で受け付けています。お申し込みから2〜3日で、35ページ以上のPDF鑑定書をお届けし、3ヶ月後のフォロー鑑定もついています。詳しい内容と申し込みは、プロフィールのnoteから。</div></details>
+      <details class="q reveal d2"><summary>数字は、どうやって計算していますか？<span class="pm"></span></summary>
+        <div class="a">このページの診断に、生年月日を入れるだけです。現在数＝全部の桁の合計、過去数＝生まれた日、未来数＝月と日の各桁の合計から出します。途中で11・22・33が出たら、そこで止めて1桁に縮めません（マスターナンバー保持）。手計算と同じルールです。</div></details>
+      <details class="q reveal d3"><summary>生年月日のほかに必要なものは？家族の数字も見られますか？<span class="pm"></span></summary>
+        <div class="a">必要なのは生年月日だけ。名前も登録も要りません。家族やパートナーの生年月日を入れれば、その人の3つの数字も同じように出せます。お互いの数字を並べると、すれ違いの理由も"設計の違い"として見えてきます。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="wrap">
+    <div class="f-logo">
+      <div class="en">NAGI</div>
+      <div class="ja">現実をかえる数秘デザイン</div>
+    </div>
+    <nav class="f-links">
+      <a class="js-sub" href="#" target="_blank" rel="noopener">無料メールレター</a>
+      <a class="js-note-top" href="#" target="_blank" rel="noopener">note</a>
+      <a class="js-note-kantei" href="#" target="_blank" rel="noopener">個別数秘鑑定</a>
+      <a href="#numbers">数字を調べる</a>
+    </nav>
+    <p class="f-note">個別鑑定・各ガイドの販売は、すべてnote上で行っています。記載の価格・特典・受付人数は予告なく変わる場合があります。</p>
+    <p class="f-copy">© 2026 NAGI ｜ NUMEROLOGY DESIGN</p>
+  </div>
+</footer>
+
+<!-- ════════ STICKY SUBSCRIBE BAR（4箇所目） ════════ -->
+<div id="stickybar">
+  <div class="sb-inner">
+    <p class="sb-txt"><b>無料</b>で、12数字の取扱説明書（PDF）を受け取る</p>
+    <a class="btn btn-sub js-sub" href="#" target="_blank" rel="noopener">無料登録</a>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   ▼▼ 公開前に、ここだけ差し替える ▼▼
+   ══════════════════════════════════════════════ */
+// Substack（無料メールレター）の登録ページ。なぎのリスト取りの主軸＝ここに集約。
+const SUBSTACK_URL   = "https://naginumerology.substack.com/";
+// note：個別数秘鑑定の販売ページ
+const NOTE_KANTEI    = "https://note.com/nagi_genjitsu/n/nb088483a8491";
+// note：数秘別ガイド／適職設計図（個別商品URLが決まれば差し替え。暫定でnoteトップ）
+const NOTE_GUIDE     = "https://note.com/nagi_genjitsu";
+// note：トップ
+const NOTE_TOP       = "https://note.com/nagi_genjitsu";
+/* ══════════════════════════════════════════════
+   ▲▲ 差し替えはこの4行だけ ▲▲
+   ══════════════════════════════════════════════ */
+
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* ── CTAリンクを一括セット ── */
+$$('.js-sub').forEach(a => a.href = SUBSTACK_URL);
+$$('.js-note-kantei').forEach(a => a.href = NOTE_KANTEI);
+$$('.js-note-guide').forEach(a => a.href = NOTE_GUIDE);
+$$('.js-note-top').forEach(a => a.href = NOTE_TOP);
+
+/* ── 生年月日セレクトを生成 ── */
+(function buildSelects(){
+  const selY = $('#selY'), selM = $('#selM'), selD = $('#selD');
+  const THIS_YEAR = 2026;            // ※環境依存を避け固定。年が変わったらここを更新（任意）
+  const FROM_YEAR = 1940;
+  selY.innerHTML = '<option value="" selected disabled>―</option>';
+  for(let y=THIS_YEAR; y>=FROM_YEAR; y--) selY.add(new Option(y+'年', y));
+  selM.innerHTML = '<option value="" selected disabled>―</option>';
+  for(let m=1; m<=12; m++) selM.add(new Option(m+'月', m));
+  fillDays();
+  selY.addEventListener('change', fillDays);
+  selM.addEventListener('change', fillDays);
+
+  function fillDays(){
+    const prev = selD.value;
+    const y = parseInt(selY.value,10), m = parseInt(selM.value,10);
+    let max = 31;
+    if(m){ max = new Date(y||2024, m, 0).getDate(); } // y未選択時はうるう年想定で29日まで許容
+    if(!y && m===2) max = 29;
+    selD.innerHTML = '<option value="" selected disabled>―</option>';
+    for(let d=1; d<=max; d++) selD.add(new Option(d+'日', d));
+    if(prev && parseInt(prev,10)<=max) selD.value = prev;
+  }
+})();
+
+/* ── 数秘計算（CLAUDE.md §7 準拠：マスター11/22/33は還元しない） ── */
+function digitSum(n){ return String(n).split('').reduce((a,c)=>a+(+c),0); }
+function reduceMaster(n){
+  while(n > 9 && n !== 11 && n !== 22 && n !== 33){ n = digitSum(n); }
+  return n;
+}
+// 現在数：生年月日の全桁を合計 → 還元（マスター保持）
+function lifePath(y,m,d){ return reduceMaster(digitSum(y)+digitSum(m)+digitSum(d)); }
+// 過去数：生まれた「日」→ 還元（マスター保持。例：22日→22／11日→11／29日→11／31日→4）
+function pastNum(d){ return reduceMaster(d); }
+// 未来数：「月の各桁」＋「日の各桁」を合計 → 還元（例 12/6 → 1+2+0+6=9）
+function futureNum(m,d){ return reduceMaster(digitSum(m)+digitSum(d)); }
+
+/* ── 数字の中身（なぎのnote完全ガイドの解釈に準拠。占い・スピ語は使わない） ── */
+const NUM = {
+  1:{tag:'先頭を走る開拓者', reframe:'"わがまま"は、誰も行かない道を切り拓く突破力。',
+    talent:'何もない0から最初の火を起こし、「絶対こっち」と言い切って周りを巻き込む着火力があります。',
+    stumble:'動く前に相談・確認した瞬間にエンジンが冷える"許可待ち"が、最大の詰まりです。',
+    fit:'前例のない仕事を最初に手がけ、自分が先頭で旗を振れる環境。仕上げは得意な人に渡せる場が向きます。'},
+  2:{tag:'調和を生むサポーター', reframe:'"自分がない"は、誰よりも場の調和をつくる才能。',
+    talent:'人の感情を高精度で察し、対立した空気を声やトーンひとつで和らげる、組織の潤滑油です。',
+    stumble:'「自分が我慢すれば丸く収まる」と頼みを断れず、便利に使われて溜め込むのが詰まりです。',
+    fit:'リーダーを裏から支える右腕・参謀・調整役。誰とどんな環境にいるかを自分で選べる場が活きます。'},
+  3:{tag:'風穴を開けるムードメーカー', reframe:'"飽きっぽい"は、世界を高速で切り替える才能。',
+    talent:'停滞した空気に風穴を開け、存在だけで場を明るくする現状打破のムードメーカーです。',
+    stumble:'「飽きた＝学び終わり」なのに「中途半端」と責め、「ちゃんとしなきゃ」で輝きが止まります。',
+    fit:'思いつきを即発信して楽しめる場。発信・企画・人前に立つ仕事など、遊びが価値になる環境が向きます。'},
+  4:{tag:'土台をつくる建設者', reframe:'"融通が利かない"は、現実を形にする才能。',
+    talent:'曖昧なアイデアを「柱は何本・予算・工期」と現実の手順に変換し、最後までやり切る具現化力です。',
+    stumble:'"一発逆転したい"と変化を焦り、近道を取った瞬間につまずきやすいのが詰まりです。',
+    fit:'安定稼働そのものが価値になる場。品質と丁寧なマニュアル化で「困ったら自分に聞け」になれます。'},
+  5:{tag:'変化を運ぶ冒険者', reframe:'"落ち着きがない"は、変化を運ぶ才能。',
+    talent:'誰も見ない景色へ動き、体験で集めたネタを各地へ運ぶ伝達力で、新しい選択肢を見せます。',
+    stumble:'"普通に安定したい"と願った瞬間に詰まり、「やっぱり続かない」と自己嫌悪のループに入ります。',
+    fit:'出張・多拠点・ノマドなど座標を変えられる場。発信・広報・起業・旅にまつわる仕事が活きます。'},
+  6:{tag:'人を育てる愛情家', reframe:'"尽くしすぎて疲れる"は、人を育てる才能。',
+    talent:'荒れた空気を整え、自信のない相手を伸ばす育成力。守り育てて開花させるのが本領です。',
+    stumble:'「これだけしてあげたのに」と見返りを求め、「重い」と離れられてしまうのが詰まりです。',
+    fit:'人を育て、場を整える役。教育・カウンセリング・対人ケア、コミュニティやサロンの中心が向きます。'},
+  7:{tag:'本質を掘る探求者', reframe:'"愛想がない"は、本質を見抜く才能。',
+    talent:'物事の構造や裏側まで見える解像度と、一点に没頭する集中力。嘘や矛盾を瞬時に見抜きます。',
+    stumble:'"普通の人になろう"と周りに合わせた瞬間、本来の知性が曇って消耗するのが最大の詰まりです。',
+    fit:'深さで勝負できる場。研究・技術・分析・執筆・職人など、一人で没頭できる時間を確保できる働き方。'},
+  8:{tag:'現実を動かす統率者', reframe:'"圧が強い"は、現実を動かす才能。',
+    talent:'人もお金もチャンスも集める引力。1を10に広げ、資源を組み合わせて成果を生む統率の力があります。',
+    stumble:'出力が大きく「怖い」と思われがち。恐れて小さく見せると、力が内にこもって消耗します。',
+    fit:'経営・プロデュース・投資など、トップで成果を循環させる立場。人に任せ、仕組みを作る場が向きます。'},
+  9:{tag:'物事を終わらせる賢者', reframe:'"影が薄い"は、すべてを受け入れる才能。',
+    talent:'誰の立場も偏見なく理解し、間をつなぐ通訳役。執着を手放し、次が始まる余白をつくれます。',
+    stumble:'他人の感情や荷物を吸い込みすぎて抱え込み、「本当の自分は何色か」と迷走しがちです。',
+    fit:'人の間を整え、調和に戻す役。対人支援・福祉・コーチングや、いるだけで場が丸くなる立場が向きます。'},
+  11:{tag:'一歩先を読む直感型', reframe:'"生きづらい"は、未来を先取りする才能。',
+    talent:'AからZへ飛ぶ直感で、根拠より先に答えが見える。一言で人の背中を押す言語化も強みです。',
+    stumble:'その直感を「根拠は？」と論理で説明しようとした瞬間、自己否定のループで感度が鈍ります。',
+    fit:'説明より結果で示せる場。表現・企画や、迷う人に方向性を言い切る役。後から論理で補強すると現実に着地します。'},
+  22:{tag:'理想を形にする建設者', reframe:'"理想が高すぎる"は、現実を建設する才能。',
+    talent:'壮大なビジョンを、方法・組織・資金を泥臭く集めて形にする。環境ごと作り変える設計図です。',
+    stumble:'誤字や挨拶など"小さな事"への完璧主義で、有限な力を浪費し頑固になってしまうのが詰まりです。',
+    fit:'許可を待たず自分で試作し、結果で突破する場。実業・社会起業・創業など、大きな仕組みを束ねる立場。'},
+  33:{tag:'無償の愛で動かす人', reframe:'"ブレブレ"は、すべてを抱える才能。',
+    talent:'損得ぬきで人を助ける愛の容量。天然さも含めた純粋さで、応援者が勝手に集まる巻き込み力です。',
+    stumble:'"立派な常識人"を演じると失速。事務や空気読みで本領が死に、自己犠牲が爆発や共依存に変わります。',
+    fit:'細かいルールに縛られない自由な場。対人支援・福祉・コミュニティ運営・表現など、心に寄り添う仕事。'}
+};
+const MASTERS = [11,22,33];
+function renderBig(elNum, val){
+  elNum.innerHTML = val + (MASTERS.includes(val) ? '<span class="mn">Master</span>' : '');
+}
+function renderRead(prefix, val){
+  const d = NUM[val]; if(!d) return;
+  $('#t'+prefix).textContent      = d.tag;
+  $('#r'+prefix+'N').textContent  = val + (MASTERS.includes(val) ? '（マスター）' : '');
+  $('#r'+prefix+'R').textContent  = d.reframe;
+  $('#r'+prefix+'T').textContent  = d.talent;
+  $('#r'+prefix+'S').textContent  = d.stumble;
+  $('#r'+prefix+'F').textContent  = d.fit;
+}
+
+/* ── 計算実行 ── */
+$('#calcBtn').addEventListener('click', () => {
+  const y = parseInt($('#selY').value,10);
+  const m = parseInt($('#selM').value,10);
+  const d = parseInt($('#selD').value,10);
+  const err = $('#diaErr');
+  if(!y || !m || !d){
+    err.textContent = '生まれた年・月・日を、すべて選んでください。';
+    (!y ? $('#selY') : !m ? $('#selM') : $('#selD')).focus();   // 未選択の欄へ誘導
+    return;
+  }
+  err.textContent = '';
+
+  const vNow = lifePath(y,m,d), vPast = pastNum(d), vFut = futureNum(m,d);
+  renderBig($('#nNow'),  vNow);  renderRead('Now',  vNow);
+  renderBig($('#nPast'), vPast); renderRead('Past', vPast);
+  renderBig($('#nFut'),  vFut);  renderRead('Fut',  vFut);
+
+  const res = $('#result');
+  $('#diaForm').style.display = 'none';
+  // 「もう一度」後も毎回ふわっと再生させるため、カードのアニメを一度リセット
+  const cards = $$('#result .num-card');
+  cards.forEach(c => c.style.animation = 'none');
+  void res.offsetWidth;
+  cards.forEach(c => c.style.animation = '');
+  res.classList.add('show');
+  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* ── もう一度 ── */
+$('#againBtn').addEventListener('click', () => {
+  $('#result').classList.remove('show');
+  $('#diaForm').style.display = '';
+  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* ── ヘッダーのスクロール状態 ＆ 追従バー ── */
+const hdr = $('#hdr'), bar = $('#stickybar'), hero = $('#hero'), finalSec = $('#final');
+let finalVisible = false;
+if('IntersectionObserver' in window && finalSec){
+  new IntersectionObserver(es => { finalVisible = es[0].isIntersecting; onScroll(); }, {threshold:.18}).observe(finalSec);
+}
+function onScroll(){
+  const y = window.scrollY || window.pageYOffset;
+  hdr.classList.toggle('scrolled', y > 24);
+  const past = y > (hero.offsetHeight - 120);
+  const nearBottom = (window.innerHeight + y) > (document.body.offsetHeight - 220);
+  // 最終CTA（濃紺）やフッターが見えている間は、同じ登録導線の追従バーを引っ込める
+  bar.classList.toggle('show', past && !nearBottom && !finalVisible);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('resize', onScroll);
+onScroll();
+
+/* ── スクロールで要素をふわっと表示 ── */
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  $$('.reveal').forEach(el => io.observe(el));
+} else {
+  $$('.reveal').forEach(el => el.classList.add('in'));
+}
+</script>
+</body>
+</html>
