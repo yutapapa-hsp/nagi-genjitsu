@@ -166,6 +166,13 @@
   .res-cta .h{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.6;color:#fff}
   .res-cta .p{font-size:13.5px;color:#B7BCD0;margin-top:12px;line-height:1.85}
   .res-cta .btn{margin-top:22px}
+  .res-cta .rc-eyebrow{display:inline-block;font-size:12.5px;letter-spacing:.06em;color:#CDE7F5;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;padding:6px 18px;margin-bottom:16px}
+  .res-cta .rc-eyebrow b{color:#fff;font-weight:700;font-size:16px;margin:0 3px}
+  .res-cta #rcNote{margin-top:24px}
+  .res-cta .rc-sub{font-size:12.5px;color:#B7BCD0;margin-top:16px;line-height:1.7}
+  .res-cta .rc-sub a{color:#fff;text-decoration:underline;text-underline-offset:3px}
   .res-again{display:block;margin:18px auto 0;background:none;border:none;color:var(--sub2);
     font-size:13px;font-family:var(--sans);cursor:pointer;letter-spacing:.04em}
   .res-again:hover{color:var(--ink)}
@@ -400,10 +407,11 @@
         </div>
 
         <div class="res-cta">
-          <p class="h">本当の答えは、3つの"掛け合わせ"にあります。</p>
-          <p class="p">ここまでは、数字ひとつずつの輪郭です。<br>現在数 × 過去数 × 未来数を重ねると、「なぜ自分はこう動くのか」が一本につながります。その読み解きと、12数字ぜんぶの取扱説明書（PDF）を、無料のメールレターで渡します。</p>
-          <a class="btn btn-sub btn-lg js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料レターで受け取る（特典PDF）</a>
-          <p class="p" style="margin-top:12px;font-size:.86em;opacity:.72">もう"掛け合わせ"まで一気に知りたい人は、<a href="https://note.com/nagi_genjitsu/n/nb088483a8491" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px">個別数秘鑑定</a>へ。3つの数字を重ねた、自分だけの設計図をお一人ずつお作りします。</p>
+          <span class="rc-eyebrow serif" id="rcEyebrow">現在数 の完全ガイド</span>
+          <p class="h">ここまでは、自分の"輪郭"です。</p>
+          <p class="p">診断で出たのは、いまの自分のOS＝現在数という"名前"まで。<br>その才能の伸ばし方・つまずきの抜け方・向いている仕事を、現在数ひとつぶんだけ1冊に深く書いたのが、完全ガイドです。</p>
+          <a class="btn btn-sub btn-lg" id="rcNote" href="#" target="_blank" rel="noopener">完全ガイドを読む</a>
+          <p class="rc-sub">読み物でゆっくり知りたい人は、<a class="js-sub" id="rcLetter" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料メールレター（特典PDF）</a>から。</p>
         </div>
         <button class="res-again" id="againBtn" type="button">別の生年月日でもう一度</button>
       </div>
@@ -596,8 +604,23 @@ const NOTE_KANTEI    = "https://note.com/nagi_genjitsu/n/nb088483a8491";
 const NOTE_GUIDE     = "https://note.com/nagi_genjitsu";
 // note：トップ
 const NOTE_TOP       = "https://note.com/nagi_genjitsu";
+// 数秘別・完全ガイド（各980円）＝診断結果の「現在数」から該当ガイドへ直結。差し替えはこの中だけ。
+const NUM_NOTE = {
+  1 :"https://note.com/nagi_genjitsu/n/nc8472893dc81",
+  2 :"https://note.com/nagi_genjitsu/n/n8ac090920fb3",
+  3 :"https://note.com/nagi_genjitsu/n/n84f681d49dcb",
+  4 :"https://note.com/nagi_genjitsu/n/n18fa92e4d657",
+  5 :"https://note.com/nagi_genjitsu/n/n2caa98db8b28",
+  6 :"https://note.com/nagi_genjitsu/n/nedb2af8fbfc0",
+  7 :"https://note.com/nagi_genjitsu/n/neefca32863e4",
+  8 :"https://note.com/nagi_genjitsu/n/nfe74b54e9ee8",
+  9 :"https://note.com/nagi_genjitsu/n/n1781b38b821d",
+  11:"https://note.com/nagi_genjitsu/n/na6f4e7022f3a",
+  22:"https://note.com/nagi_genjitsu/n/n373488d2d8a0",
+  33:"https://note.com/nagi_genjitsu/n/n2b44d034284d",
+};
 /* ══════════════════════════════════════════════
-   ▲▲ 差し替えはこの4行だけ ▲▲
+   ▲▲ 差し替えはこの5項目だけ ▲▲
    ══════════════════════════════════════════════ */
 
 const $  = s => document.querySelector(s);
@@ -729,6 +752,12 @@ $('#calcBtn').addEventListener('click', () => {
   renderBig($('#nNow'),  vNow);  renderRead('Now',  vNow);
   renderBig($('#nPast'), vPast); renderRead('Past', vPast);
   renderBig($('#nFut'),  vFut);  renderRead('Fut',  vFut);
+
+  // 現在数 → 該当する数秘別・完全ガイド（980円）へCTAを結線
+  const rcNote = $('#rcNote');
+  if(NUM_NOTE[vNow]) rcNote.href = NUM_NOTE[vNow];
+  rcNote.textContent = '現在数' + vNow + 'の完全ガイドを読む';
+  $('#rcEyebrow').innerHTML = '現在数 <b>' + vNow + '</b>（' + (NUM[vNow] ? NUM[vNow].tag : '') + '）の完全ガイド';
 
   const res = $('#result');
   $('#diaForm').style.display = 'none';
