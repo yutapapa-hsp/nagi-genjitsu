@@ -20,6 +20,9 @@
 <meta name="twitter:image" content="https://nagi-genjitsu.vercel.app/ogp.png">
 <!-- 本番URL（Vercel） -->
 <link rel="canonical" href="https://nagi-genjitsu.vercel.app/">
+<!-- ファビコン（なぎのアイコン） -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
@@ -111,6 +114,15 @@
 
   /* ── numbers / diagnostic ── */
   #numbers{scroll-margin-top:72px}
+  /* ── 診断タブ ── */
+  .dia-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:22px}
+  .dia-tab{flex:1;max-width:220px;padding:13px 10px;border:1px solid var(--line);
+    background:var(--white);border-radius:999px;font-family:var(--sans);font-weight:700;
+    font-size:14px;color:var(--sub2);cursor:pointer;transition:.2s;line-height:1.4}
+  .dia-tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .dia-pane[hidden]{display:none}
+  .pair-people{display:flex;flex-direction:column;gap:18px;margin-bottom:8px}
+  .pair-person .pp-label{font-family:var(--serif);font-size:14px;color:var(--ink);margin-bottom:10px;text-align:center}
   .dia-card{background:var(--white);border:1px solid var(--line);border-radius:22px;
     padding:40px 32px;box-shadow:0 24px 60px -32px rgba(26,26,46,.22)}
   .dia-lead{text-align:center;color:var(--sub);font-size:14.5px;margin-bottom:26px}
@@ -130,18 +142,19 @@
   .dia-err{text-align:center;color:#B4452F;font-size:13px;margin-top:14px;min-height:1px}
 
   /* result */
-  #result{display:none;margin-top:8px}
-  #result.show{display:block;animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
+  #result,#pairResult,#todayResult{display:none;margin-top:8px}
+  #result.show,#pairResult.show,#todayResult.show{display:block;animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
   .res-head{text-align:center;margin-bottom:30px}
   .res-head .small{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:.08em}
   .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  #pairResult .res-grid{grid-template-columns:repeat(2,1fr);max-width:340px;margin:0 auto}
   .num-card{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:16px;
     padding:26px 12px 22px;text-align:center;overflow:hidden;
     opacity:0;transform:translateY(16px)}
-  #result.show .num-card{animation:numIn .7s cubic-bezier(.2,.7,.2,1) forwards}
-  #result.show .num-card:nth-child(1){animation-delay:.12s}
-  #result.show .num-card:nth-child(2){animation-delay:.34s}
-  #result.show .num-card:nth-child(3){animation-delay:.56s}
+  #result.show .num-card,#pairResult.show .num-card{animation:numIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+  #result.show .num-card:nth-child(1),#pairResult.show .num-card:nth-child(1){animation-delay:.12s}
+  #result.show .num-card:nth-child(2),#pairResult.show .num-card:nth-child(2){animation-delay:.34s}
+  #result.show .num-card:nth-child(3),#pairResult.show .num-card:nth-child(3){animation-delay:.56s}
   .num-role{font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:600;text-transform:uppercase}
   .num-role-ja{font-size:11.5px;color:var(--sub2);margin-top:6px;letter-spacing:.04em}
   .num-big{font-family:var(--serif);font-weight:700;font-size:clamp(48px,15vw,76px);line-height:1;
@@ -173,9 +186,58 @@
   .res-cta #rcNote{margin-top:24px}
   .res-cta .rc-sub{font-size:12.5px;color:#B7BCD0;margin-top:16px;line-height:1.7}
   .res-cta .rc-sub a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+  /* ── 今日の取説 ── */
+  .today-date{text-align:center;font-family:var(--serif);font-size:15px;color:var(--accent);margin-bottom:20px;letter-spacing:.03em}
+  .today-badge{text-align:center;margin:6px 0 4px}
+  .today-badge .tb-num{font-family:var(--serif);font-weight:700;font-size:40px;color:var(--accent);line-height:1;letter-spacing:.02em}
+  .today-badge .tb-num .mn{display:inline-block;vertical-align:middle;margin-left:8px;font-family:var(--en);font-size:9.5px;font-weight:600;letter-spacing:.14em;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:3px 8px;text-transform:uppercase}
+  .today-badge .tb-label{display:block;font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);margin-top:8px}
+  .today-badge .tb-calc{display:block;max-width:400px;margin:12px auto 0;font-size:11.5px;color:var(--sub2);line-height:1.7}
   .res-again{display:block;margin:18px auto 0;background:none;border:none;color:var(--sub2);
     font-size:13px;font-family:var(--sans);cursor:pointer;letter-spacing:.04em}
   .res-again:hover{color:var(--ink)}
+
+  /* ── 拡充版：結果の読み解き（現在数フル／過去・未来 中型） ── */
+  .read-full{margin-top:26px;background:var(--white);border:1px solid var(--line);
+    border-top:3px solid var(--accent);border-radius:16px;padding:26px 26px 8px}
+  .rf-head{margin-bottom:6px}
+  .rf-head .rf-role{display:block;font-family:var(--serif);font-size:12.5px;color:var(--accent);letter-spacing:.08em}
+  .rf-head .rf-role b{font-size:22px;font-weight:700;margin-left:5px;letter-spacing:.02em}
+  .rf-head .rf-tag{display:block;font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);line-height:1.6;margin-top:6px}
+  .rf-head .rf-reframe{display:block;font-size:13px;color:var(--sub);line-height:1.7;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line)}
+  .rm-head .rm-reframe{display:block;font-size:12px;color:var(--sub2);line-height:1.65;margin-top:6px}
+  .read-full .sec{padding:20px 0;border-top:1px solid var(--line-soft)}
+  .read-full .sec:first-of-type{border-top:none}
+  .read-full .sec h3{display:flex;align-items:center;gap:9px;font-family:var(--serif);
+    font-size:14.5px;font-weight:600;color:var(--accent);margin-bottom:9px}
+  .read-full .sec h3 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+  .read-full .sec p{font-size:14px;color:var(--sub);line-height:1.95}
+  .read-mid{margin-top:14px;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--accent2);
+    border-radius:14px;padding:20px 22px}
+  .rm-head{margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+  .rm-head .rm-role{display:block;font-family:var(--serif);font-size:12px;color:var(--accent);letter-spacing:.06em}
+  .rm-head .rm-role b{font-size:19px;font-weight:700;margin-left:4px}
+  .rm-head .rm-tag{display:block;font-family:var(--serif);font-size:14.5px;font-weight:600;color:var(--ink);margin-top:5px}
+  .rm-body{display:grid;gap:11px}
+  .rm-body > div{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:start}
+  .rm-lbl{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--accent);padding-top:3px;white-space:nowrap}
+  .rm-body p{font-size:13px;color:var(--sub);line-height:1.85}
+  .synth{margin-top:18px;background:var(--accent-soft);border-radius:14px;padding:22px 24px}
+  .synth-h{font-family:var(--serif);font-size:13.5px;font-weight:600;color:var(--accent);margin-bottom:9px}
+  .synth p:not(.synth-h){font-size:13.5px;color:var(--ink);line-height:1.95}
+  .res-step{margin-top:18px;background:var(--navy);border-radius:14px;padding:22px 24px}
+  .res-step .sh{font-size:13.5px;font-weight:600;color:#CDE7F5;margin-bottom:8px}
+  .res-step .sh::before{content:"→ ";color:var(--accent2);font-weight:700}
+  .res-step p:not(.sh){font-size:14px;color:#EDEFF6;line-height:1.9}
+  .res-cta .cta-bridge{font-family:var(--serif);font-size:14px;color:#CDE7F5;margin-bottom:18px;letter-spacing:.04em}
+  .res-cta .cta-listhead{font-size:12px;font-weight:700;letter-spacing:.08em;color:#8FA6C7;margin-top:24px;margin-bottom:10px}
+  .res-cta .cta-list{list-style:none;text-align:left;max-width:340px;margin:0 auto;display:grid;gap:9px}
+  .res-cta .cta-list li{position:relative;padding-left:22px;font-size:13px;color:#DDE2F0;line-height:1.7}
+  .res-cta .cta-list li::before{content:"✓";position:absolute;left:0;color:var(--accent2);font-weight:700}
+  .res-cta .cta-meta{font-size:11.5px;color:#8FA6C7;margin-top:14px;letter-spacing:.03em}
+  .share-row{margin-top:6px}
+  .res-disc{margin-top:26px;font-size:11.5px;color:var(--sub2);line-height:1.75;text-align:center}
+  .res-sign{margin-top:10px;font-family:var(--serif);font-size:12px;color:var(--accent);text-align:center;letter-spacing:.06em}
 
   /* ── why numbers ── */
   .why-pos{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--accent);
@@ -260,18 +322,6 @@
   .f-note{font-size:11px;color:var(--sub2);line-height:1.8;max-width:520px;margin:0 auto}
   .f-copy{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;color:var(--sub2);margin-top:18px}
 
-  /* ── sticky 登録バー（4箇所目） ── */
-  #stickybar{position:fixed;left:0;right:0;bottom:0;z-index:45;
-    background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border-top:1px solid var(--line);box-shadow:0 -8px 30px -16px rgba(26,26,46,.25);
-    transform:translateY(120%);transition:transform .35s cubic-bezier(.2,.7,.2,1);
-    padding-bottom:env(safe-area-inset-bottom)}
-  #stickybar.show{transform:none}
-  .sb-inner{max-width:var(--maxw);margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between}
-  .sb-txt{font-size:12.5px;color:var(--ink);line-height:1.5;font-weight:500}
-  .sb-txt b{color:var(--accent)}
-  #stickybar .btn{flex:none;padding:11px 22px;font-size:13px;box-shadow:none}
-
   /* ── reveal on scroll ── */
   .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
   .js .reveal.in{opacity:1;transform:none}
@@ -290,8 +340,6 @@
     .tn{gap:14px;padding:20px}
     .tn .n{width:38px;font-size:30px}
     .about{padding:30px 22px}
-    .sb-txt{font-size:11.5px}
-    #stickybar .btn{padding:10px 16px;font-size:12px}
   }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -313,7 +361,7 @@
       </span>
     </a>
     <div class="hcta">
-      <a class="btn btn-sub js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener" aria-label="無料メールレターに登録して取扱説明書を受け取る">レターを受け取る</a>
+      <a class="btn btn-ink" href="#numbers">数字を調べる</a>
     </div>
   </div>
 </header>
@@ -328,9 +376,9 @@
     <h1 class="hero-h">すべての悩みは、<br><span class="em">数字</span>で説明がつく。</h1>
     <p class="hero-sub">自分の"取扱説明書"は、生年月日に書かれています。<br>占いではなく、動かせない事実から読み解く設計図です。</p>
     <div class="hero-cta">
-      <a class="btn btn-ink btn-lg" href="#numbers">自分の数字を調べる（無料・10秒）</a>
+      <a class="btn btn-ink btn-lg" href="#numbers">無料で鑑定する（10秒・登録不要）</a>
     </div>
-    <p class="hero-note">生年月日を入れるだけ。登録も入力も、これ以外は要りません。</p>
+    <p class="hero-note">生年月日を入れるだけ。自分ひとりでも、気になる人との相性でも。</p>
   </div>
 </section>
 
@@ -344,6 +392,13 @@
     </div>
 
     <div class="dia-card reveal d1">
+      <div class="dia-tabs" role="tablist">
+        <button class="dia-tab" id="tabSelf"  role="tab" aria-selected="true"  aria-controls="paneSelf"  type="button">自分を調べる</button>
+        <button class="dia-tab" id="tabPair"  role="tab" aria-selected="false" aria-controls="panePair"  type="button">相性を調べる</button>
+        <button class="dia-tab" id="tabToday" role="tab" aria-selected="false" aria-controls="paneToday" type="button">今日の取説</button>
+      </div>
+
+      <div class="dia-pane" id="paneSelf" role="tabpanel">
       <!-- 入力 -->
       <div id="diaForm">
         <p class="dia-lead">生まれた年・月・日を選んでください。</p>
@@ -356,7 +411,7 @@
           <button class="btn btn-ink btn-lg" id="calcBtn" type="button">3つの数字を出す</button>
         </div>
         <p class="dia-err" id="diaErr" role="alert"></p>
-        <noscript><p class="dia-lead" style="margin-top:14px">※この診断は計算にJavaScriptを使います。オンにすると、自分の数字が出せます。</p></noscript>
+        <noscript><p class="dia-lead" style="margin-top:14px">※この鑑定は計算にJavaScriptを使います。オンにすると、自分の数字が出せます。</p></noscript>
       </div>
 
       <!-- 結果 -->
@@ -379,45 +434,125 @@
           </div>
         </div>
 
-        <div class="res-reads">
-          <article class="read">
-            <div class="read-head"><span class="role">現在数<b id="rNowN"></b> ─ いまの自分のOS</span><span class="reframe" id="rNowR"></span></div>
-            <dl class="read-body">
-              <div><dt class="t">才能</dt><dd id="rNowT"></dd></div>
-              <div><dt class="s">つまずき</dt><dd id="rNowS"></dd></div>
-              <div><dt class="f">向く環境</dt><dd id="rNowF"></dd></div>
-            </dl>
-          </article>
-          <article class="read">
-            <div class="read-head"><span class="role">過去数<b id="rPastN"></b> ─ 持って生まれたクセ</span><span class="reframe" id="rPastR"></span></div>
-            <dl class="read-body">
-              <div><dt class="t">才能</dt><dd id="rPastT"></dd></div>
-              <div><dt class="s">つまずき</dt><dd id="rPastS"></dd></div>
-              <div><dt class="f">向く環境</dt><dd id="rPastF"></dd></div>
-            </dl>
-          </article>
-          <article class="read">
-            <div class="read-head"><span class="role">未来数<b id="rFutN"></b> ─ これから向かう方向</span><span class="reframe" id="rFutR"></span></div>
-            <dl class="read-body">
-              <div><dt class="t">才能</dt><dd id="rFutT"></dd></div>
-              <div><dt class="s">つまずき</dt><dd id="rFutS"></dd></div>
-              <div><dt class="f">向く環境</dt><dd id="rFutF"></dd></div>
-            </dl>
-          </article>
+        <!-- 現在数：フル解説 -->
+        <div class="read-full">
+          <div class="rf-head"><span class="rf-role">現在数 <b id="fNowN"></b> ─ いまの自分のOS</span><span class="rf-tag" id="fNowTag"></span><span class="rf-reframe" id="fNowReframe"></span></div>
+          <div class="sec"><h3><span class="dot"></span>この数字の核</h3><p id="fCore"></p></div>
+          <div class="sec"><h3><span class="dot"></span>自分の才能</h3><p id="fTalent"></p></div>
+          <div class="sec"><h3><span class="dot"></span>つまずくとき</h3><p id="fStumble"></p></div>
+          <div class="sec"><h3><span class="dot"></span>才能の活かし方・立て直し</h3><p id="fTorisetsu"></p></div>
+          <div class="sec"><h3><span class="dot"></span>向いている場所</h3><p id="fFit"></p></div>
         </div>
 
-        <div class="res-cta">
-          <span class="rc-eyebrow serif" id="rcEyebrow">現在数 の完全ガイド</span>
-          <p class="h">ここまでは、自分の"輪郭"です。</p>
-          <p class="p">診断で出たのは、いまの自分のOS＝現在数という"名前"まで。<br>その才能の伸ばし方・つまずきの抜け方・向いている仕事を、現在数ひとつぶんだけ1冊に深く書いたのが、完全ガイドです。</p>
-          <a class="btn btn-sub btn-lg" id="rcNote" href="#" target="_blank" rel="noopener">完全ガイドを読む</a>
-          <p class="rc-sub">読み物でゆっくり知りたい人は、<a class="js-sub" id="rcLetter" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料メールレター（特典PDF）</a>から。</p>
+        <!-- 過去数：中型 -->
+        <div class="read-mid">
+          <div class="rm-head"><span class="rm-role">過去数 <b id="mPastN"></b> ─ 持って生まれたクセ</span><span class="rm-tag" id="mPastTag"></span><span class="rm-reframe" id="mPastReframe"></span></div>
+          <div class="rm-body">
+            <div><span class="rm-lbl">才能</span><p id="mPastT"></p></div>
+            <div><span class="rm-lbl">つまずき</span><p id="mPastS"></p></div>
+            <div><span class="rm-lbl">活かし方</span><p id="mPastTori"></p></div>
+          </div>
         </div>
-        <button class="res-again" id="againBtn" type="button">別の生年月日でもう一度</button>
+
+        <!-- 未来数：中型 -->
+        <div class="read-mid">
+          <div class="rm-head"><span class="rm-role">未来数 <b id="mFutN"></b> ─ これから向かう方向</span><span class="rm-tag" id="mFutTag"></span><span class="rm-reframe" id="mFutReframe"></span></div>
+          <div class="rm-body">
+            <div><span class="rm-lbl">活かし方</span><p id="mFutT"></p></div>
+            <div><span class="rm-lbl">つまずき</span><p id="mFutS"></p></div>
+            <div><span class="rm-lbl">向く場所</span><p id="mFutF"></p></div>
+          </div>
+        </div>
+
+        <!-- 3つの掛け合わせ -->
+        <div class="synth">
+          <p class="synth-h serif">3つの数字の、掛け合わせ</p>
+          <p id="synthBody"></p>
+        </div>
+
+        <!-- 今日の一歩 -->
+        <div class="res-step">
+          <p class="sh serif">今日、踏み出せる一歩</p>
+          <p id="fStep"></p>
+        </div>
+
+        <!-- CTA：完全ガイド -->
+        <div class="res-cta">
+          <p class="cta-bridge serif">ここからが、本編です。</p>
+          <span class="rc-eyebrow serif" id="rcEyebrow">現在数 の完全ガイド</span>
+          <p class="h">"名前"の先にある、<br>その数字の"活かし方"の全部。</p>
+          <p class="p">この鑑定でわかったのは、いまの自分のOS＝現在数という"輪郭"まで。<br>その才能の伸ばし方・つまずきの抜け方・向いてる仕事を、現在数ひとつぶんだけ1冊に深く書いたのが、完全ガイドです。</p>
+          <p class="cta-listhead">完全ガイドで渡すもの</p>
+          <ul class="cta-list">
+            <li><span id="rcListName">この数字</span>の才能の、具体的な伸ばし方</li>
+            <li>つまずきの正体と、そこから抜ける手順</li>
+            <li>向いてる仕事・環境と、避けたほうがいい場所</li>
+            <li>人との距離の取り方・パートナーとの噛み合わせ</li>
+          </ul>
+          <a class="btn btn-sub btn-lg" id="rcNote" href="#" target="_blank" rel="noopener">完全ガイドを読む</a>
+          <p class="cta-meta">note ／ 買い切り・追記でずっと更新中</p>
+        </div>
+
+        <div class="share-row">
+          <button class="res-again" id="againBtn" type="button">別の生年月日でもう一度</button>
+        </div>
+
+        <p class="res-disc">この鑑定は、生年月日から3つの数字を計算し、その数字の傾向を読み解くものです。運勢や吉凶を占うものではなく、自分の取扱説明書を作るための"ものの見方のひとつ"です。</p>
+        <p class="res-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>
       </div>
+      </div><!-- /#paneSelf -->
+
+      <div class="dia-pane" id="panePair" role="tabpanel" hidden>
+        <div id="pairForm">
+          <p class="dia-lead">自分と、気になる人（パートナー・家族・仕事相手など）の生年月日を入れてください。</p>
+          <div class="pair-people">
+            <div class="pair-person">
+              <div class="pp-label">自分</div>
+              <div class="dia-form">
+                <div class="field"><label for="pSelY">Year</label><div class="sel y"><select id="pSelY" aria-label="自分の生まれた年"></select></div></div>
+                <div class="field"><label for="pSelM">Month</label><div class="sel m"><select id="pSelM" aria-label="自分の生まれた月"></select></div></div>
+                <div class="field"><label for="pSelD">Day</label><div class="sel d"><select id="pSelD" aria-label="自分の生まれた日"></select></div></div>
+              </div>
+            </div>
+            <div class="pair-person">
+              <div class="pp-label">お相手</div>
+              <div class="dia-form">
+                <div class="field"><label for="qSelY">Year</label><div class="sel y"><select id="qSelY" aria-label="お相手の生まれた年"></select></div></div>
+                <div class="field"><label for="qSelM">Month</label><div class="sel m"><select id="qSelM" aria-label="お相手の生まれた月"></select></div></div>
+                <div class="field"><label for="qSelD">Day</label><div class="sel d"><select id="qSelD" aria-label="お相手の生まれた日"></select></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="dia-go">
+            <button class="btn btn-ink btn-lg" id="pairBtn" type="button">2人の相性を出す</button>
+          </div>
+          <p class="dia-err" id="pairErr" role="alert"></p>
+        </div>
+        <div id="pairResult" role="status" aria-live="polite" tabindex="-1"></div>
+      </div><!-- /#panePair -->
+
+      <div class="dia-pane" id="paneToday" role="tabpanel" hidden>
+        <div id="todayForm">
+          <p class="today-date serif" id="todayDate">―</p>
+          <p class="dia-lead">生年月日を入れると、その人の"今日の取説"が出ます。日付が変わると、内容も変わります。</p>
+          <div class="dia-form">
+            <div class="field"><label for="tSelY">Year</label><div class="sel y"><select id="tSelY" aria-label="生まれた年"></select></div></div>
+            <div class="field"><label for="tSelM">Month</label><div class="sel m"><select id="tSelM" aria-label="生まれた月"></select></div></div>
+            <div class="field"><label for="tSelD">Day</label><div class="sel d"><select id="tSelD" aria-label="生まれた日"></select></div></div>
+          </div>
+          <div class="dia-go">
+            <button class="btn btn-ink btn-lg" id="todayBtn" type="button">今日の取説を見る</button>
+          </div>
+          <p class="dia-err" id="todayErr" role="alert"></p>
+        </div>
+        <div id="todayResult" role="status" aria-live="polite" tabindex="-1"></div>
+      </div><!-- /#paneToday -->
     </div>
   </div>
 </section>
+
+<!-- ════════ 鑑定の結果が出てから表示される深掘りコンテンツ（Why Numbers 以下） ════════ -->
+<div id="postReveal" hidden>
 
 <!-- ════════ ③ 数字で何が分かるのか ════════ -->
 <section class="sec-pad">
@@ -475,41 +610,6 @@
   </div>
 </section>
 
-<!-- ════════ ⑤ 温度別の3つの道 ════════ -->
-<section class="sec-pad">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker center">Three Paths</span>
-      <h2 class="h">いまの自分に合う、3つの入口。</h2>
-      <p class="lead">どこから始めても大丈夫。まずは、いちばん軽いところから。</p>
-    </div>
-    <div class="paths">
-      <div class="path reveal d1">
-        <div class="step">STEP 01</div>
-        <h3>まず、知りたい</h3>
-        <p class="for">自分のことを、いちど整理したい人へ</p>
-        <p>上の診断で自分の3つの数字を出して、無料のメールレターに登録。登録した人には、12数字ぜんぶの取扱説明書（PDF・20ページ）をすぐにお渡しします。<span class="price">（無料）</span></p>
-        <a class="btn btn-sub js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料レターに登録する</a>
-      </div>
-      <div class="path reveal d2">
-        <div class="step">STEP 02</div>
-        <h3>深く、知りたい</h3>
-        <p class="for">自分の数字を、もっと使いこなしたい人へ</p>
-        <p>数字ごとの完全ガイド<span class="price">（980円〜）</span>と、才能の活かし方をまとめた適職設計図<span class="price">（2,980円）</span>。読んで、自分で設計できるようになる教材です。</p>
-        <a class="btn btn-ghost js-note-guide" href="https://note.com/nagi_genjitsu" target="_blank" rel="noopener">noteで読む</a>
-      </div>
-      <div class="path reveal d3">
-        <div class="step">STEP 03</div>
-        <h3>本気で、設計したい</h3>
-        <p class="for">自分専用の地図を、手に入れたい人へ</p>
-        <p>3つの数字を掛け合わせて読む、個別数秘鑑定<span class="price">（4,980円）</span>。35ページ以上のPDF鑑定書を、お一人ずつお作りします。</p>
-        <a class="btn btn-ink js-note-kantei" href="https://note.com/nagi_genjitsu/n/nb088483a8491" target="_blank" rel="noopener">個別鑑定の詳細を見る</a>
-        <span class="seat">毎月20名 限定</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ════════ ⑥ なぎとは ════════ -->
 <section class="sec-pad sec-white">
   <div class="wrap">
@@ -527,17 +627,6 @@
   </div>
 </section>
 
-<!-- ════════ ⑦ 最終CTA（濃紺） ════════ -->
-<section id="final">
-  <div class="wrap">
-    <span class="kicker center">Start Here</span>
-    <h2>まずは、自分の数字を<br>知ることから。</h2>
-    <p class="sub">取扱説明書は、無料のメールレターで渡します。登録した人には、数秘12タイプぜんぶの取扱説明書を、すぐにお届けします。</p>
-    <div class="gift">登録特典 ─ <b>「数秘別・自分の取扱説明書（ミニ版）」</b>（20ページのPDF）を、登録した直後にお渡しします。</div>
-    <a class="btn btn-sub btn-lg js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料レターに登録して受け取る</a>
-  </div>
-</section>
-
 <!-- ════════ ⑧ FAQ ════════ -->
 <section class="sec-pad">
   <div class="wrap">
@@ -549,22 +638,24 @@
       <details class="q reveal d1"><summary>占いと、何が違いますか？<span class="pm"></span></summary>
         <div class="a">占いは「これから何が起きるか」を当てようとします。僕がやるのは逆で、生年月日という"もう動かせない事実"から、自分の取扱説明書を読み解くこと。当たる・当たらないの話ではありません。自分の強み・つまずき・向く場所を先に知って、打ち手を設計するための地図です。</div></details>
       <details class="q reveal d1"><summary>現在数・過去数・未来数って、それぞれ何が違うんですか？<span class="pm"></span></summary>
-        <div class="a">ざっくり言うと、現在数＝いま表に出ている基本のOS、過去数＝生まれ持った無意識のクセ、未来数＝いちばん力を出せる方向です。1つだけ見ても、分かるのは半分。3つを掛け合わせて初めて「なぜ自分はこう動くのか」が一本につながります。その読み解きが、レターと個別鑑定の中身です。</div></details>
+        <div class="a">ざっくり言うと、現在数＝いま表に出ている基本のOS、過去数＝生まれ持った無意識のクセ、未来数＝いちばん力を出せる方向です。1つだけ見ても、分かるのは半分。3つを掛け合わせて初めて「なぜ自分はこう動くのか」が一本につながります。その読み解きが、個別鑑定の中身です。</div></details>
       <details class="q reveal d1"><summary>マスターナンバー（11・22・33）って何ですか？<span class="pm"></span></summary>
-        <div class="a">計算の途中で11・22・33が出たら、1桁に縮めずそのまま残す特別な数字です。感じる力や理想の大きさが人より一段強く出やすい仕様で、その分しんどさも出やすい。診断でこの数字が出たときは「Master」と表示されます。</div></details>
-      <details class="q reveal d1"><summary>登録すると何が届きますか？しつこく営業されませんか？<span class="pm"></span></summary>
-        <div class="a">登録した直後に、特典PDF「数秘別・自分の取扱説明書（ミニ版・20ページ）」をお渡しします。そのあとは数日かけて、数字別の詰まりポイントと、今日からできる小さな一歩を、メールレターで順番に。基本は読み物です。売り込みは控えめにしているので、合わなければ、いつでも解除できます。</div></details>
-      <details class="q reveal d2"><summary>個別鑑定は、レターやnoteと何が違うんですか？<span class="pm"></span></summary>
-        <div class="a">レターやnoteは「数字ごと」の一般的な取扱説明書です。個別鑑定は、自分の現在数・過去数・未来数を"掛け合わせて"読む、自分だけの1冊。強み・つまずき・向く仕事・人との距離の取り方まで、自分の3つの数字に合わせて書きます。</div></details>
+        <div class="a">計算の途中で11・22・33が出たら、1桁に縮めずそのまま残す特別な数字です。感じる力や理想の大きさが人より一段強く出やすい仕様で、その分しんどさも出やすい。鑑定でこの数字が出たときは「Master」と表示されます。</div></details>
+      <details class="q reveal d1"><summary>相性鑑定では、何が分かりますか？<span class="pm"></span></summary>
+        <div class="a">自分と、気になる人（パートナー・家族・仕事相手など）の生年月日を入れると、お互いの現在数と、関係の中でのクセ、2人の"設計の違い"が出ます。噛み合わないのは相性が悪いからじゃなく、"止まる場所"の設計が違うだけ。3つの数字すべての掛け合わせは、個別鑑定で読み解いています。</div></details>
+      <details class="q reveal d2"><summary>個別鑑定は、noteのガイドと何が違うんですか？<span class="pm"></span></summary>
+        <div class="a">noteのガイドは「数字ごと」の一般的な取扱説明書です。個別鑑定は、自分の現在数・過去数・未来数を"掛け合わせて"読む、自分だけの1冊。強み・つまずき・向く仕事・人との距離の取り方まで、自分の3つの数字に合わせて書きます。</div></details>
       <details class="q reveal d2"><summary>個別鑑定の料金・納期・人数を教えてください。<span class="pm"></span></summary>
         <div class="a">料金は4,980円。毎月20名の限定で受け付けています。お申し込みから2〜3日で、35ページ以上のPDF鑑定書をお届けし、3ヶ月後のフォロー鑑定もついています。詳しい内容と申し込みは、プロフィールのnoteから。</div></details>
       <details class="q reveal d2"><summary>数字は、どうやって計算していますか？<span class="pm"></span></summary>
-        <div class="a">このページの診断に、生年月日を入れるだけです。現在数＝全部の桁の合計、過去数＝生まれた日、未来数＝月と日の各桁の合計から出します。途中で11・22・33が出たら、そこで止めて1桁に縮めません（マスターナンバー保持）。手計算と同じルールです。</div></details>
+        <div class="a">このページの鑑定に、生年月日を入れるだけです。現在数＝全部の桁の合計、過去数＝生まれた日、未来数＝月と日の各桁の合計から出します。途中で11・22・33が出たら、そこで止めて1桁に縮めません（マスターナンバー保持）。手計算と同じルールです。</div></details>
       <details class="q reveal d3"><summary>生年月日のほかに必要なものは？家族の数字も見られますか？<span class="pm"></span></summary>
         <div class="a">必要なのは生年月日だけ。名前も登録も要りません。家族やパートナーの生年月日を入れれば、その人の3つの数字も同じように出せます。お互いの数字を並べると、すれ違いの理由も"設計の違い"として見えてきます。</div></details>
     </div>
   </div>
 </section>
+
+</div><!-- /#postReveal -->
 
 <!-- ════════ FOOTER ════════ -->
 <footer>
@@ -574,7 +665,6 @@
       <div class="ja">現実をかえる数秘デザイン</div>
     </div>
     <nav class="f-links">
-      <a class="js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料メールレター</a>
       <a class="js-note-top" href="https://note.com/nagi_genjitsu" target="_blank" rel="noopener">note</a>
       <a class="js-note-kantei" href="https://note.com/nagi_genjitsu/n/nb088483a8491" target="_blank" rel="noopener">個別数秘鑑定</a>
       <a href="#numbers">数字を調べる</a>
@@ -584,20 +674,10 @@
   </div>
 </footer>
 
-<!-- ════════ STICKY SUBSCRIBE BAR（4箇所目） ════════ -->
-<div id="stickybar">
-  <div class="sb-inner">
-    <p class="sb-txt"><b>無料</b>で、12数字の取扱説明書（PDF）を受け取る</p>
-    <a class="btn btn-sub js-sub" href="https://naginumerology.substack.com/" target="_blank" rel="noopener">無料登録</a>
-  </div>
-</div>
-
 <script>
 /* ══════════════════════════════════════════════
    ▼▼ 公開前に、ここだけ差し替える ▼▼
    ══════════════════════════════════════════════ */
-// Substack（無料メールレター）の登録ページ。なぎのリスト取りの主軸＝ここに集約。
-const SUBSTACK_URL   = "https://naginumerology.substack.com/";
 // note：個別数秘鑑定の販売ページ
 const NOTE_KANTEI    = "https://note.com/nagi_genjitsu/n/nb088483a8491";
 // note：数秘別ガイド／適職設計図（個別商品URLが決まれば差し替え。暫定でnoteトップ）
@@ -627,14 +707,13 @@ const $  = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 
 /* ── CTAリンクを一括セット ── */
-$$('.js-sub').forEach(a => a.href = SUBSTACK_URL);
 $$('.js-note-kantei').forEach(a => a.href = NOTE_KANTEI);
 $$('.js-note-guide').forEach(a => a.href = NOTE_GUIDE);
 $$('.js-note-top').forEach(a => a.href = NOTE_TOP);
 
 /* ── 生年月日セレクトを生成 ── */
-(function buildSelects(){
-  const selY = $('#selY'), selM = $('#selM'), selD = $('#selD');
+function buildSelects(yId, mId, dId){
+  const selY = $(yId), selM = $(mId), selD = $(dId);
   const THIS_YEAR = 2026;            // ※環境依存を避け固定。年が変わったらここを更新（任意）
   const FROM_YEAR = 1940;
   selY.innerHTML = '<option value="" selected disabled>―</option>';
@@ -655,7 +734,11 @@ $$('.js-note-top').forEach(a => a.href = NOTE_TOP);
     for(let d=1; d<=max; d++) selD.add(new Option(d+'日', d));
     if(prev && parseInt(prev,10)<=max) selD.value = prev;
   }
-})();
+}
+buildSelects('#selY', '#selM', '#selD');
+buildSelects('#pSelY', '#pSelM', '#pSelD');
+buildSelects('#qSelY', '#qSelM', '#qSelD');
+buildSelects('#tSelY', '#tSelM', '#tSelD');
 
 /* ── 数秘計算（CLAUDE.md §7 準拠：マスター11/22/33は還元しない） ── */
 function digitSum(n){ return String(n).split('').reduce((a,c)=>a+(+c),0); }
@@ -673,66 +756,338 @@ function futureNum(m,d){ return reduceMaster(digitSum(m)+digitSum(d)); }
 /* ── 数字の中身（なぎのnote完全ガイドの解釈に準拠。占い・スピ語は使わない） ── */
 const NUM = {
   1:{tag:'先頭を走る開拓者', reframe:'"わがまま"は、誰も行かない道を切り拓く突破力。',
-    talent:'何もない0から最初の火を起こし、「絶対こっち」と言い切って周りを巻き込む着火力があります。',
-    stumble:'動く前に相談・確認した瞬間にエンジンが冷える"許可待ち"が、最大の詰まりです。',
-    fit:'前例のない仕事を最初に手がけ、自分が先頭で旗を振れる環境。仕上げは得意な人に渡せる場が向きます。'},
+    core:'数秘1は、何もないところに最初の一歩をしるす"開拓者"の数字です。「自分がこうしたい」という衝動が人より強く出るのは、わがままだからではなく、誰も行かない道をいちばん最初に歩くための燃料が積まれているから。まわりに足並みをそろえるより、先頭で旗を振っているときに、自分はいちばん自分らしくいられます。',
+    talent:'何もない0から最初の火を起こす着火力が、数秘1の最大の武器です。「絶対こっちがいい」と言い切って、迷っている人たちを巻き込んで動かす。誰かが敷いたレールを走るより、自分でレールの起点を決めるほうが、圧倒的に力が出ます。前例がない・正解がない場所ほど、この突破力は価値になります。',
+    stumble:'動く前に「これでいいかな」と誰かに相談・確認した瞬間に、エンジンが急に冷えるのが数秘1の詰まりです。許可を待つ・多数決に合わせる・後ろに並ぶ——どれも、先頭を走るための燃料と相性が悪い。まわりに気をつかって一歩を飲み込むほど、自分でも理由の分からないモヤモヤが溜まっていきます。',
+    torisetsu:'まず、「自分がどうしたいか」を人に聞く前に決めてしまうこと。決めてから周りに相談する順番にするだけで、エンジンは冷えません。そして、立ち上げ（0→1）は自分がやり、育てて仕上げる工程（1→10）は得意な人に気持ちよく渡す。全部を一人で抱えないほど、次の火を起こしにいけます。',
+    fit:'前例のない仕事を最初に手がけ、自分が先頭で旗を振れる場所。新規事業の立ち上げ・企画のゼロ番目・一人で切り込む営業や開業など、"最初の一歩"そのものが価値になる環境で活きます。ルーティンの維持や、細かい仕上げを延々と続ける役回りは、別の人に気持ちよく渡していい。',
+    step:'今日、誰かの許可を待っていた小さな一件を、一つだけ「自分で決めて」動かしてみる。数秘1のエンジンは、決めた瞬間に温まります。'},
   2:{tag:'調和を生むサポーター', reframe:'"自分がない"は、誰よりも場の調和をつくる才能。',
-    talent:'人の感情を高精度で察し、対立した空気を声やトーンひとつで和らげる、組織の潤滑油です。',
-    stumble:'「自分が我慢すれば丸く収まる」と頼みを断れず、便利に使われて溜め込むのが詰まりです。',
-    fit:'リーダーを裏から支える右腕・参謀・調整役。誰とどんな環境にいるかを自分で選べる場が活きます。'},
+    core:'数秘2は、二つのものの間に立って橋をかける"調停者"の数字です。「自分の意見がない」と感じやすいのは、意志が弱いからではなく、その場に流れる複数の気持ちを同時に受け取れる高精度のセンサーが積まれているから。誰かと誰かの間で、空気をなめらかに整えているとき、自分はいちばん自分らしくいられます。',
+    talent:'人の感情や場の温度を、言葉にされる前に察知する感度が、数秘2の最大の武器です。対立してピリついた空気を、声のトーンや一言で和らげ、組織の潤滑油になれる。目立つ主役より、主役を裏から支える参謀や右腕として置かれたとき、静かに全体を動かします。「この人がいると場がまとまる」——それが数秘2の存在価値です。',
+    stumble:'「自分が我慢すれば丸く収まる」と、頼まれごとを断れずに抱え込んだ瞬間が、数秘2の詰まりです。相手の気持ちが見えすぎるぶん、ノーと言うと相手を傷つける気がして、便利に使われて溜め込んでいく。気づけば全員のケアをして、自分のことだけ後回しになっている。その優しさが、じわじわと自分をすり減らします。',
+    torisetsu:'まず、「察してあげる」前に「自分はどうしたいか」を、心の中で先に一度つぶやくこと。相手の気持ちと自分の気持ちを、切り離して並べるだけで、抱え込みが減ります。そして、誰と組むか・どんな空気の場にいるかを、自分から選ぶこと。数秘2の感度は、心地よい相手の隣でこそ、最大限に活きます。',
+    fit:'リーダーを裏から支える右腕・参謀・調整役や、人と人をつなぐ窓口・秘書・コーディネーターの役割で活きます。誰とどんな環境にいるかを自分で選べる場、丁寧な気配りがそのまま価値になる場が向いています。一人で先頭を切って突き進む役回りは、別の人に気持ちよく任せていい。',
+    step:'今日、気が進まない小さな頼みごとを一つだけ、「今回は難しいです」と穏やかに断ってみる。数秘2の優しさは、線を引いても消えません。'},
   3:{tag:'風穴を開けるムードメーカー', reframe:'"飽きっぽい"は、世界を高速で切り替える才能。',
-    talent:'停滞した空気に風穴を開け、存在だけで場を明るくする現状打破のムードメーカーです。',
-    stumble:'「飽きた＝学び終わり」なのに「中途半端」と責め、「ちゃんとしなきゃ」で輝きが止まります。',
-    fit:'思いつきを即発信して楽しめる場。発信・企画・人前に立つ仕事など、遊びが価値になる環境が向きます。'},
+    core:'数秘3は、停滞した空気に風穴を開け、まわりを明るくする"表現者"の数字です。「飽きっぽい」のは根性がないからではなく、一つの景色に留まらず、次々に新しいものへ興味が移る高速の切り替え力が積まれているから。思いついたことを口にして、その場をぱっと明るくしているとき、自分はいちばん自分らしくいられます。',
+    talent:'どんよりした場の空気を、存在ひとつで軽くしてしまう明るさが、数秘3の最大の武器です。思いつきを即座に形にして発信し、まわりを楽しい方へ巻き込んでいく。堅苦しい正論より、遊び心のある一言のほうが人を動かせる。「あの人がいると場が回る」——その現状打破のムードメーカーぶりが、数秘3の価値です。',
+    stumble:'「飽きた＝もう学び終わったサイン」なのに、それを「中途半端でダメだ」と自分で責めた瞬間に、輝きが止まります。「ちゃんと最後までやらなきゃ」と一つに縛りつけようとするほど、本来の軽やかさが消えていく。まわりの「継続は力」という声に合わせて、無理に一つを続けようとすると、いちばんの持ち味が死んでしまいます。',
+    torisetsu:'まず、「飽きた」を失敗ではなく「次へ進む合図」として扱うこと。一つを極めるより、複数を軽やかに渡り歩く前提で、自分の予定を組んでいい。そして、細く長く続ける地道な作業は、得意な人に任せて、自分は「新しく始める・盛り上げる」役に集中する。数秘3のエンジンは、変化と刺激で温まります。',
+    fit:'思いついたことを即発信して楽しめる場や、人前に立って場を盛り上げる役割で活きます。発信・企画・イベント・接客・クリエイティブなど、遊び心そのものが価値になる環境が向いています。同じ作業を延々と繰り返す役回りは、別の人に気持ちよく渡していい。',
+    step:'今日、頭に浮かんだ面白いことを一つだけ、その場で誰かに話すか発信してみる。数秘3の魅力は、出した瞬間に伝わります。'},
   4:{tag:'土台をつくる建設者', reframe:'"融通が利かない"は、現実を形にする才能。',
-    talent:'曖昧なアイデアを「柱は何本・予算・工期」と現実の手順に変換し、最後までやり切る具現化力です。',
-    stumble:'"一発逆転したい"と変化を焦り、近道を取った瞬間につまずきやすいのが詰まりです。',
-    fit:'安定稼働そのものが価値になる場。品質と丁寧なマニュアル化で「困ったら自分に聞け」になれます。'},
+    core:'数秘4は、曖昧なものを一つひとつ積み上げて、崩れない土台にする"建設者"の数字です。「融通が利かない」と言われるのは頑固だからではなく、手順やルールをきちんと守ることで、確実に形を残す力が積まれているから。地に足をつけて、決めたことを最後までやり切っているとき、自分はいちばん自分らしくいられます。',
+    talent:'ふわっとしたアイデアを、「柱は何本・予算はいくら・工期はどれくらい」と、現実の手順に翻訳する具現化力が、数秘4の最大の武器です。派手さはなくても、任されたことをコツコツ最後まで仕上げる。その丁寧さと安定感が、まわりの信頼を静かに積み上げていく。「この人に任せれば大丈夫」——それが数秘4の価値です。',
+    stumble:'「一発逆転したい」「早く結果がほしい」と変化を焦り、いつもの手順を飛ばして近道を取った瞬間に、数秘4はつまずきます。地道な積み上げこそが強みなのに、それを「遅い・つまらない」と否定してしまうと、本来の安定感が崩れる。まわりの派手な成功と自分を比べて、着実さを軽く見た時が、いちばん危ういときです。',
+    torisetsu:'まず、「派手さ」ではなく「積み上げた総量」で自分を評価すること。近道が魅力的に見えたときこそ、いつもの手順に戻るのが数秘4の勝ち筋です。そして、自分のやり方を丁寧にマニュアル化して残しておくこと。仕組みを言葉にして共有できると、「困ったら自分に聞け」という頼られる立場が自然にできあがります。',
+    fit:'安定して回り続けることそのものが価値になる場で活きます。品質管理・経理・事務・技術職・仕組みづくりなど、正確さと継続が信頼になる環境が向いています。次々と方針が変わる場や、その場の勢いで動く役回りは、別の人に気持ちよく渡していい。',
+    step:'今日、後回しにしていた面倒な作業を一つだけ、最後まできっちり片づけてみる。数秘4の信頼は、その一つの積み重ねでできています。'},
   5:{tag:'変化を運ぶ冒険者', reframe:'"落ち着きがない"は、変化を運ぶ才能。',
-    talent:'誰も見ない景色へ動き、体験で集めたネタを各地へ運ぶ伝達力で、新しい選択肢を見せます。',
-    stumble:'"普通に安定したい"と願った瞬間に詰まり、「やっぱり続かない」と自己嫌悪のループに入ります。',
-    fit:'出張・多拠点・ノマドなど座標を変えられる場。発信・広報・起業・旅にまつわる仕事が活きます。'},
+    core:'数秘5は、一か所に留まらず、新しい景色を見に動き続ける"冒険者"の数字です。「落ち着きがない」と言われるのはだらしないからではなく、変化や刺激を燃料に、誰も見ていない場所へ最初に踏み込む力が積まれているから。座標を変えながら、新しい体験を集めているとき、自分はいちばん自分らしくいられます。',
+    talent:'誰も足を運ばない景色まで動いていき、そこで集めたネタや情報を、各地へ運んでいく伝達力が、数秘5の最大の武器です。フットワークが軽く、初めての環境にもすっと馴染む。「そんな選択肢があったんだ」と、まわりに新しい可能性を見せられる。変化を怖がらず、むしろ楽しめる——その機動力が、数秘5の価値です。',
+    stumble:'「そろそろ普通に安定したい」「一か所に腰を据えなきゃ」と願った瞬間に、数秘5は詰まります。動くことが力なのに、自分を型にはめようとすると窮屈になる。そして「やっぱり続かなかった」と自己嫌悪に入り、落ち着けない自分を責めるループにはまる。まわりの「腰を据えろ」という声に縛られた時が、いちばん苦しいときです。',
+    torisetsu:'まず、「一つに定住する」前提を、一度手放してみること。動きながら成果を出す働き方を、最初から選んでいい。飽きや変化を「失敗」ではなく「持ち味」として設計に組み込むと、罪悪感が消えます。そして、細部を安定して回す作業は、得意な人に任せて、自分は「切り拓く・運ぶ」役に集中する。数秘5は、動けるほど元気になります。',
+    fit:'出張・多拠点・在宅など、場所を自由に変えられる働き方で活きます。発信・広報・営業・企画・旅や地域にまつわる仕事など、動くことと新しさが価値になる環境が向いています。同じ場所で同じことを続ける役回りは、別の人に気持ちよく渡していい。',
+    step:'今日、いつもと違う道を通るか、行ったことのない場所へ一つ足を運んでみる。数秘5のエンジンは、動いた瞬間に温まります。'},
   6:{tag:'人を育てる愛情家', reframe:'"尽くしすぎて疲れる"は、人を育てる才能。',
-    talent:'荒れた空気を整え、自信のない相手を伸ばす育成力。守り育てて開花させるのが本領です。',
-    stumble:'「これだけしてあげたのに」と見返りを求め、「重い」と離れられてしまうのが詰まりです。',
-    fit:'人を育て、場を整える役。教育・カウンセリング・対人ケア、コミュニティやサロンの中心が向きます。'},
+    core:'数秘6は、まわりの人を守り、育て、開花させる"愛情家"の数字です。「尽くしすぎて疲れる」のはお人好しだからではなく、相手の足りないところに気づき、そこを補って伸ばそうとする面倒見の力が積まれているから。誰かの成長を見守り、荒れた空気を整えているとき、自分はいちばん自分らしくいられます。',
+    talent:'ギスギスした空気を整え、自信のない相手にそっと寄り添って伸ばす育成力が、数秘6の最大の武器です。相手の良いところを見つけて信じ、根気よく手をかけて花を咲かせる。守り育てて、じっくり開花させるのが本領。「この人がいてくれたから頑張れた」——そう言われる存在になれるのが、数秘6の価値です。',
+    stumble:'「これだけしてあげたのに」と、注いだぶんの見返りを相手に求めた瞬間に、数秘6は詰まります。愛情が深いぶん、相手の領域まで踏み込んでしまい、「重い」と受け取られて離れられてしまう。良かれと思ったお世話が、相手の自立を奪ってしまうこともある。尽くすことが自分の存在証明になった時が、いちばん危ういときです。',
+    torisetsu:'まず、「してあげる」前に、相手が本当にそれを望んでいるかを一度確かめること。求められていない手助けは、そっと引っ込めていい。そして、他人を満たすのと同じ丁寧さで、自分のこともケアすること。自分が満たされているほど、見返りを求めずに与えられます。全部を背負わず、育てた相手に任せて手を離すのも、数秘6の優しさです。',
+    fit:'人を育て、場を整える役割で活きます。教育・カウンセリング・介護や対人ケア、コミュニティやサロンの中心など、人の成長と居心地に関わる仕事が向いています。誰とも関わらず一人で黙々と進める役回りは、別の人に気持ちよく渡していい。',
+    step:'今日、誰かに向けている気づかいの半分を、自分自身に向けてみる。数秘6の愛情は、自分を満たすほど深くなります。'},
   7:{tag:'本質を掘る探求者', reframe:'"愛想がない"は、本質を見抜く才能。',
-    talent:'物事の構造や裏側まで見える解像度と、一点に没頭する集中力。嘘や矛盾を瞬時に見抜きます。',
-    stumble:'"普通の人になろう"と周りに合わせた瞬間、本来の知性が曇って消耗するのが最大の詰まりです。',
-    fit:'深さで勝負できる場。研究・技術・分析・執筆・職人など、一人で没頭できる時間を確保できる働き方。'},
+    core:'数秘7は、表面のにぎやかさに流されず、物事の奥にある構造や本質まで一人で掘り下げていく"探求者"の数字です。「愛想がない」と言われがちなのは、冷たいからではなく、上っ面のやりとりよりも中身の質を優先する仕様が積まれているから。だれとでも群れるより、一つのテーマにじっくり潜っているときに、自分はいちばん研ぎ澄まされます。',
+    talent:'物事の裏側や構造まで見通す、解像度の高さが数秘7の武器です。一点に深く没頭できる集中力があり、周りが表面で満足しているところを、さらに一段深く掘り続けられます。嘘や矛盾、取りつくろった話を瞬時に見抜くセンサーも人一倍。「なんとなく変だ」という違和感を言語化できたとき、その知性はいちばん力になります。',
+    stumble:'「もっと愛想よく」「普通の人みたいに合わせよう」と、周りの空気に自分を寄せた瞬間に、本来の知性が曇って消耗するのが数秘7の詰まりです。浅い雑談や、中身のない付き合いを無理に増やすほど、エネルギーが静かに削れていきます。一人で考える時間を削って予定を詰め込むと、思考が浅くなって自分らしさを見失いがち。孤独を"欠点"だと責めるほど、本来の強みが裏目に出ます。',
+    torisetsu:'まず、一人で深く考える時間を"予定"として先に確保してしまうこと。人と会う時間と、潜って考える時間を分けるだけで、消耗の速度が変わります。そして、無理に愛想を足そうとせず、「中身で信頼される自分」を前提に振る舞っていい。浅く広くではなく、少数の相手と深くつながる形にすると、対人の疲れもぐっと減ります。',
+    fit:'深さそのものが価値になる場所が、数秘7には合います。研究・技術開発・データ分析・執筆・専門職・職人仕事など、一人で没頭できる時間をきちんと確保できる働き方で活きます。逆に、常に大人数と表面的にやりとりし続ける役回りは、別の人に気持ちよく渡していい領域です。',
+    step:'今日、一人で静かに考える時間を15分だけ、先にカレンダーへ入れてみる。数秘7の頭は、潜れる時間があるほど冴えていきます。'},
   8:{tag:'現実を動かす統率者', reframe:'"圧が強い"は、現実を動かす才能。',
-    talent:'人もお金もチャンスも集める引力。1を10に広げ、資源を組み合わせて成果を生む統率の力があります。',
-    stumble:'出力が大きく「怖い」と思われがち。恐れて小さく見せると、力が内にこもって消耗します。',
-    fit:'経営・プロデュース・投資など、トップで成果を循環させる立場。人に任せ、仕組みを作る場が向きます。'},
+    core:'数秘8は、人・お金・チャンスを実際に動かして、現実に大きな成果を残していく"統率者"の数字です。「圧が強い」と言われるのは、威圧したいからではなく、物事を大きく動かすためのエンジンが人より一段大きく積まれているから。小さくまとまって様子を見るより、責任を背負って現実を回しているときに、自分はいちばん生き生きします。',
+    talent:'人もお金もチャンスも集める、強い引力が数秘8の武器です。1を10に広げるスケール感と、バラバラの資源を組み合わせて成果に変える構想力があります。決めるべき場面で腹をくくって決断できるので、周りは安心してついてこられます。数字や結果で勝負する場面ほど、この統率力は現実を動かします。',
+    stumble:'出力がもともと大きいぶん、「怖い」「強すぎる」と受け取られやすいのが数秘8のつまずきポイントです。それを気にして、自分の力をわざと小さく見せた瞬間に、エネルギーが内側にこもって消耗します。遠慮して主導権を手放すほど、モヤモヤと不完全燃焼感が溜まっていきがち。「嫌われないように」と縮こまるほど、本来の推進力が空回りします。',
+    torisetsu:'まず、力を小さく見せることをやめて、「大きさ」を前提に立ち回ること。そのうえで、圧が伝わらないように"言い方"だけをやわらかく整えれば、影響力はそのまま活きます。全部を自分の手で握らず、人に任せて仕組みで回す形にすると、力が正しい方向へ流れていく。責任ある立場を引き受けるほど、自分は本来の姿に戻れます。',
+    fit:'大きな成果を回し続けられる立場が、数秘8には合います。経営・事業責任者・プロデュース・投資・チームの統括など、トップで人と資源を循環させる役回りで活きます。細かい作業をコツコツ一人で積む役よりも、人に任せて全体の仕組みを設計する場のほうが、力が素直に出ます。',
+    step:'今日、抱え込んでいた仕事を一つだけ、信頼できる人に任せてみる。数秘8の力は、手放して回した先で大きくなります。'},
   9:{tag:'物事を終わらせる賢者', reframe:'"影が薄い"は、すべてを受け入れる才能。',
-    talent:'誰の立場も偏見なく理解し、間をつなぐ通訳役。執着を手放し、次が始まる余白をつくれます。',
-    stumble:'他人の感情や荷物を吸い込みすぎて抱え込み、「本当の自分は何色か」と迷走しがちです。',
-    fit:'人の間を整え、調和に戻す役。対人支援・福祉・コーチングや、いるだけで場が丸くなる立場が向きます。'},
+    core:'数秘9は、対立や偏りをやわらげ、物事を静かに整えて次へつないでいく"賢者"の数字です。「影が薄い」と言われがちなのは、存在感がないからではなく、自分を強く押し出すより全体を受けとめる側に回る仕様だから。前に出て主張するより、間に立って場をまとめているときに、自分はいちばん役割を果たせます。',
+    talent:'だれの立場も偏見なく理解できる、懐の深さが数秘9の武器です。対立する両者の言い分を翻訳してつなぐ、通訳のような役回りが自然にできます。過去や執着を手放して、次が始まるための余白をつくる力もあります。感情が張りつめた場に一人いるだけで、空気がやわらかくほどけていくのも強みです。',
+    stumble:'他人の感情や事情を吸い込みすぎて、いつのまにか抱え込んでしまうのが数秘9のつまずきです。人に合わせすぎて、「本当の自分は何をしたいのか」が分からなくなり、迷走しがち。頼まれると断れず、全員の荷物を背負って動けなくなることもあります。自分の輪郭を後回しにするほど、静かに消耗が溜まっていきます。',
+    torisetsu:'まず、人の感情と自分の感情のあいだに、意識して線を引くこと。「これは相手の荷物」と切り分けるだけで、抱え込みはかなり軽くなります。そして、全員に合わせるのをやめて、自分がどうしたいかを一日一回は言葉にする。何もしない余白の時間をとって、吸い込んだものを手放す習慣をつくると、本来の落ち着きが戻ります。',
+    fit:'人と人のあいだを整え、調和に戻す役回りが数秘9には合います。対人支援・福祉・カウンセリング・コーチング・調整役・まとめ役など、争いを和らげる立場で活きます。ぐいぐい競争して勝ちに行く場よりも、いるだけで場が丸くなる環境のほうが、自分らしくいられます。',
+    step:'今日、頼まれごとを一つだけ、罪悪感なしに「今回は難しいです」と手放してみる。数秘9は、少し軽くなるほど深く整えられます。'},
   11:{tag:'一歩先を読む直感型', reframe:'"生きづらい"は、未来を先取りする才能。',
-    talent:'AからZへ飛ぶ直感で、根拠より先に答えが見える。一言で人の背中を押す言語化も強みです。',
-    stumble:'その直感を「根拠は？」と論理で説明しようとした瞬間、自己否定のループで感度が鈍ります。',
-    fit:'説明より結果で示せる場。表現・企画や、迷う人に方向性を言い切る役。後から論理で補強すると現実に着地します。'},
+    core:'数秘11はマスターナンバーで、感じる力や直感が人より一段強く出やすい仕様の数字です。「生きづらい」と感じやすいのは、心が弱いからではなく、まだ言葉になっていない空気や流れを、人より早く受信してしまうから。周りに歩幅を合わせようとするより、先に感じ取ったものを信じて動くときに、自分はいちばん自分らしくいられます。',
+    talent:'AからZへ一気に飛ぶ、鋭い直感が数秘11の武器です。理屈で順番に積み上げる前に、答えのほうが先に見えていることがよくあります。感じ取ったことを一言で言語化して、迷っている人の背中をぽんと押す力もあります。場の空気や相手の本音を素早く察知できるので、人が言葉にできない部分を代わりに形にできます。',
+    stumble:'その直感を、「根拠は？」「なぜそう言えるの?」と自分で論理に問い詰めた瞬間に、感度が鈍るのが数秘11のつまずきです。周りと同じでないことを「自分がおかしいのかも」と否定し始めると、自己否定のループに入って消耗します。刺激の多い環境に長くいすぎて、受信しすぎて疲れ切ることも。感じた第一感を疑うほど、本来のアンテナが曇っていきます。',
+    torisetsu:'まず、「なんとなくこう感じる」を、証明できなくても一度そのまま採用してみること。直感で決めて、あとから論理でそっと補強する——この順番にすると、現実にもちゃんと着地します。そして、受信しすぎたと感じた日は、刺激を減らして一人で静かに整える時間をとる。第一感を信じるほど、数秘11のアンテナは冴えていきます。',
+    fit:'説明より結果で示せる場所が、数秘11には合います。表現・企画・クリエイティブや、方向に迷う人へ進む道を言い切って示す役回りで活きます。細かい理屈を延々と詰められる環境より、感じたものを形にして、あとから論理で補強できる働き方のほうが力が出ます。',
+    step:'今日、小さな選択を一つだけ、理由を説明せず「なんとなくこっち」で決めてみる。数秘11の直感は、信じた回数だけ精度が上がります。'},
   22:{tag:'理想を形にする建設者', reframe:'"理想が高すぎる"は、現実を建設する才能。',
-    talent:'壮大なビジョンを、方法・組織・資金を泥臭く集めて形にする。環境ごと作り変える設計図です。',
-    stumble:'誤字や挨拶など"小さな事"への完璧主義で、有限な力を浪費し頑固になってしまうのが詰まりです。',
-    fit:'許可を待たず自分で試作し、結果で突破する場。実業・社会起業・創業など、大きな仕組みを束ねる立場。'},
+    core:'数秘22はマスターナンバーで、理想の大きさとそれを形にする実行力が、人より一段強く出やすい仕様の数字です。「理想が高すぎる」と言われるのは、夢見がちだからではなく、頭の中の壮大な設計図を現実に建てられる力がセットで積まれているから。小さくまとまるより、環境そのものを作り変えるような大きな仕事に取り組むときに、自分はいちばん力を発揮します。',
+    talent:'壮大なビジョンを、ただの夢で終わらせず現実に建てていくのが数秘22の武器です。方法・組織・資金・人を、泥臭く一つずつ集めて組み上げていける実行力があります。理想と現実、その両方を同時に見られるので、大きな仕組みを地に足つけて設計できます。「そんなの無理」と言われる規模のことを、本気で形にできる建設力が強みです。',
+    stumble:'誤字や挨拶、小さな段取りといった細部への完璧主義で、有限な力を浪費してしまうのが数秘22のつまずきです。全部を完璧にしようとするほど動きが止まり、頑固になって周りとぶつかりがち。理想が大きいぶん、現実とのギャップに落ち込んで、着手そのものが遅れることもあります。「まだ足りない」と自分を追い込むほど、肝心の大きな一手が後回しになります。',
+    torisetsu:'まず、力を注ぐべき"大きな幹"と、任せていい"細かい枝"を最初に切り分けること。細部は得意な人に渡し、自分は全体の設計と推進に集中すると、力が正しく使われます。そして、完璧に整うのを待たず、まず試作して結果で確かめる。許可を待たずに小さく建て始めるほど、数秘22の設計図は現実になっていきます。',
+    fit:'大きな仕組みを束ねて形にする立場が、数秘22には合います。実業・社会起業・創業・大きなプロジェクトの統括など、自分で試作し結果で突破していける場で活きます。細部だけをひたすら整える役よりも、環境ごと作り変えるスケールの仕事のほうが、力が素直に出ます。',
+    step:'今日、頭の中にある大きな構想を、まず一行だけメモに書き出してみる。数秘22は、書いて動き出した瞬間から現実が動きます。'},
   33:{tag:'無償の愛で動かす人', reframe:'"ブレブレ"は、すべてを抱える才能。',
-    talent:'損得ぬきで人を助ける愛の容量。天然さも含めた純粋さで、応援者が勝手に集まる巻き込み力です。',
-    stumble:'"立派な常識人"を演じると失速。事務や空気読みで本領が死に、自己犠牲が爆発や共依存に変わります。',
-    fit:'細かいルールに縛られない自由な場。対人支援・福祉・コミュニティ運営・表現など、心に寄り添う仕事。'}
+    core:'数秘33はマスターナンバーで、人を思う気持ちの容量が、人より一段大きく出やすい仕様の数字です。「ブレブレ」と言われがちなのは、芯がないからではなく、目の前の相手ごとに全力で心を寄せられるから。きっちり一貫した"立派な常識人"を演じるより、損得ぬきで人を助けているときに、自分はいちばん自分らしくいられます。',
+    talent:'損得を超えて人を助けられる、愛の容量の大きさが数秘33の武器です。天然さや抜けているところも含めた純粋さが、まわりの警戒を自然にほどきます。「この人のためなら」と応援者が勝手に集まってくる、巻き込み力も強み。理屈より先に心で動けるので、しんどい人の隣にいるだけで、その場が温まります。',
+    stumble:'「ちゃんとした常識人でいなきゃ」と自分を型にはめた瞬間に、本領が死んで失速するのが数秘33のつまずきです。細かい事務や、空気を読んで自分を抑える働き方が続くと、持ち味が消えていきます。人に尽くしすぎて、自己犠牲が限界を超えると、突然の爆発や共依存に形を変えることも。「自分さえ我慢すれば」を重ねるほど、静かにすり減っていきます。',
+    torisetsu:'まず、自分の心が本当に動く相手や場に、力を集中して注ぐこと。全員を救おうとせず、注ぐ先を絞るだけで、消耗はぐっと減ります。そして、細かいルールで縛られる役回りは、無理に自分でやらず得意な人に渡していい。人に尽くすのと同じ熱量で、自分自身をいたわる時間をとると、愛の容量は枯れずに回り続けます。',
+    fit:'細かいルールに縛られない、自由な場所が数秘33には合います。対人支援・福祉・コミュニティ運営・表現・教える仕事など、心に寄り添うことがそのまま価値になる環境で活きます。マニュアルどおりに淡々とこなす役よりも、目の前の人に全力で向き合える働き方のほうが、力が素直に出ます。',
+    step:'今日、人に向けている優しさを、一つだけ自分自身にも向けてみる。数秘33の愛は、自分が満ちているほど遠くまで届きます。'},
 };
+
+/* ── 関係の中での各数字のクセ（habit）＋対比用の短句（friction）。相性診断用 ── */
+const REL = {
+  1 :{habit:'自分で決めて、先に動く。合わせるより、引っ張る側にまわりがちです。相手のペースを待つより、「こうしよう」と方向を先に出すほうが自然です。',
+      friction:'先に決めて動く', gives:'はっきりした方向性と、決断のスピード', needs:'自分のやり方を、任せて尊重されること',
+      care:'こまかく指示するより、方向を決める役をまかせると動きます。頭ごなしに止められると、一気に熱が冷めます。'},
+  2 :{habit:'相手を立てて一歩引く。言いたいことを飲み込んで、場を穏やかに保とうとします。自分の希望より、相手や全体の空気を先に考えます。',
+      friction:'言えずに飲み込む', gives:'こまやかな気づかいと、場をなごませる安心感', needs:'自分の我慢や気づかいに、気づいてもらえること',
+      care:'「察してくれて当たり前」にせず、こまめに感謝を言葉にすると力が出ます。放っておかれると、静かに溜め込みます。'},
+  3 :{habit:'明るく茶化して距離を縮める。重い話や込み入った話は、つい避けてしまいます。深刻になるより、笑いに変えて場をほぐそうとします。',
+      friction:'深刻な話を避ける', gives:'その場を明るくする軽やかさと、楽しい空気', needs:'重くならず、自由に楽しめること',
+      care:'こまかい正しさで詰めるより、面白がって一緒に乗ると輝きます。真顔で長く説教されると、一気にしぼみます。'},
+  4 :{habit:'約束と段取りで関係を守る。当たり前が崩れると、途端に不安になります。その場のノリより、決めたことをきちんと守るほうが安心します。',
+      friction:'型どおりを求める', gives:'約束を守る安定感と、きちんとした段取り', needs:'ルールや約束が、コロコロ変わらないこと',
+      care:'先の見通しと約束を大事にすると、安心して動きます。行き当たりばったりや急な変更が続くと、不安で固まります。'},
+  5 :{habit:'束縛より自由。同じ距離感が続くと飽きて、新しい刺激を欲しがります。ずっと同じを求められると、少しずつ息苦しくなります。',
+      friction:'縛られたくない', gives:'新しい風と、変化を楽しむ軽さ', needs:'縛られず、自由に動ける余白があること',
+      care:'細かく管理するより、任せて泳がせると活きます。同じ場所に縛りつけると、息苦しくなって離れていきます。'},
+  6 :{habit:'よかれと思って世話を焼く。相手のために動きすぎて、見返りを期待してしまいます。放っておけず、つい先回りして手を出します。',
+      friction:'尽くして見返りを待つ', gives:'あたたかい世話と、人を育てる愛情', needs:'尽くした分を、ちゃんと受け取ってもらえること',
+      care:'世話を当然と思わず「ありがとう」を返すと満たされます。見返りゼロが続くと、愛情が重さに変わってしまいます。'},
+  7 :{habit:'一人の時間で充電する。感情より理屈で話し、ベタベタした距離を苦手とします。近すぎる距離より、少し余白のある関係が落ち着きます。',
+      friction:'距離を取りたがる', gives:'物事の本質を見抜く視点と、静かな信頼', needs:'一人になれる時間と、深く話せる相手',
+      care:'ベタベタ踏み込まず、一人の時間を尊重すると心を開きます。感情でせかされると、貝のように閉じてしまいます。'},
+  8 :{habit:'関係も自分がリードしたい。対等に言い返されると、つい圧が出てしまいます。頼られると燃えますが、コントロールされるのは苦手です。',
+      friction:'主導権を握りたい', gives:'現実を動かす力と、頼れる決断', needs:'力を認められ、任せてもらえること',
+      care:'小さく見せろと抑えつけず、責任ある役をまかせると活きます。頭ごなしに否定されると、圧が強く出てしまいます。'},
+  9 :{habit:'相手に合わせて角を立てない。本音を後回しにして、自分を見失いがちです。もめるくらいなら、自分が引いて丸くおさめようとします。',
+      friction:'本音を後回しにする', gives:'どんな立場もフラットに受け止める包容力', needs:'安心して、素の自分でいられること',
+      care:'白黒つけて詰めるより、ゆるやかに受け止めると落ち着きます。急かされたり対立を煽られると、疲れて引いていきます。'},
+  11:{habit:'言葉より先に、察してほしい。理由を聞かれると、うまく説明できず黙り込みます。理屈で詰められるより、感覚を分かってもらえると安心します。',
+      friction:'察してほしい', gives:'鋭い直感と、迷う人の背中を押す言葉', needs:'理由を問い詰められず、感覚を信じてもらえること',
+      care:'「根拠は？」と詰めるより、まず受け取ると冴えます。理屈で追い込むと、自信をなくして黙り込みます。'},
+  22:{habit:'関係にも理想の形を描く。細部のズレが気になって、完璧を求めすぎます。ふんわりした関係より、目指す形がはっきりしているほうが動けます。',
+      friction:'理想を求めすぎる', gives:'大きな理想と、それを形にする実行力', needs:'細部より、目指す全体像を分かってもらえること',
+      care:'小さなミスを責めるより、大きな方向を一緒に見ると動きます。細部の完璧さばかり求められると、頑なになります。'},
+  33:{habit:'気づけば全部抱え込む。相手のためにと動いて、自分の軸がブレて疲れます。目の前の人に全力で寄り添うぶん、自分を後回しにしがちです。',
+      friction:'抱え込みすぎる', gives:'損得ぬきの愛情と、まるごと受け止める器', needs:'自分自身も、いたわってもらえること',
+      care:'尽くすのを当然にせず、自分もケアされる番を作ると枯れません。抱え込ませすぎると、突然ぷつんと切れてしまいます。'}
+};
+
+const DAY = {
+  1:{label:'始まりの日',
+    theme:'今日は"1"の日。物事が新しく動き出す、スタートの空気が出やすい一日です。迷って足踏みするより、小さくても最初の一歩を踏み出すほうが、今日の流れには乗れます。',
+    tailwind:'自分から動く・先に声をかける・新しいことを一つ始める。今日は"様子見"より"着手"のほうが、すっと通りやすい日です。',
+    ease:'全部を完璧に整えてから動くこと。今日は精度より、まず動き出すことのほうが大事。細かい仕上げは、別の日にまわしていい。',
+    favor:'自分から動き出すこと',
+    bridge:'相性のいい追い風です。いつものやり方を、一歩だけ前倒しで出してみるとハマります。ピンとこなければ、今日中に始めなくても大丈夫。',
+    step:'今日、ずっと後回しにしていたことを、一つだけ"始めるだけ"始めてみる。終わらせなくていい、始めれば今日は十分です。'},
+  2:{label:'寄りそう日',
+    theme:'今日は"2"の日。人と歩調を合わせる、協調の空気が出やすい一日です。自分ひとりで押し進めるより、相手の様子を受け止めながら進めるほうが、今日の流れにはなじみます。',
+    tailwind:'人の話を聞く・間を取り持つ・裏方にまわる。今日は"引っぱる"より"合わせる"ほうが、すっと通りやすい日です。',
+    ease:'ひとりで全部を抱えて決めること。今日は自分だけで結論を出さず、相手の反応を見ながらでいい。強く前に出るのは、別の日にまわして大丈夫。',
+    favor:'人と歩調を合わせること',
+    bridge:'相性のいい追い風です。少しペースを落として、相手に合わせる側にまわってみるとハマります。ピンとこなければ、今日は聞き役に徹するだけでも十分です。',
+    step:'今日、気になっている人に一言だけ声をかけて、相手の話を最後まで聞いてみる。うまく返せなくていい、受け止めれば今日は十分です。'},
+  3:{label:'表現する日',
+    theme:'今日は"3"の日。気持ちを表に出す、軽やかで明るい空気が出やすい一日です。ため込んで黙っているより、思ったことを言葉にしたり形にしたりするほうが、今日の流れには乗れます。',
+    tailwind:'思ったことを口に出す・人と雑談する・楽しそうなほうを選ぶ。今日は"きちんと"より"軽やかに"のほうが、すっと通りやすい日です。',
+    ease:'完璧に伝わる言い方を考え込むこと。今日は整った表現より、まず出してみることのほうが大事。細かい言い回しは、後で直していい。',
+    favor:'楽しんで表に出すこと',
+    bridge:'相性のいい追い風です。かしこまらず、思いついたことを軽い調子で出してみるとハマります。ピンとこなければ、今日は好きなものに触れるだけでも十分です。',
+    step:'今日、感じたことを一つだけ、短くていいので誰かに話すか書き留めてみる。まとまってなくていい、出せれば今日は十分です。'},
+  4:{label:'積み上げる日',
+    theme:'今日は"4"の日。土台をつくる、地に足のついた空気が出やすい一日です。一気に片づけようとするより、目の前のことを一つずつ積み上げるほうが、今日の流れにはなじみます。',
+    tailwind:'手順を決める・地味な作業を進める・散らかったものを整える。今日は"派手な動き"より"コツコツ"のほうが、すっと通りやすい日です。',
+    ease:'先の全体像まで完璧に組み立てること。今日は大きな設計より、今日ぶんを一つ進めることのほうが大事。大きな判断は、別の日にまわして大丈夫。',
+    favor:'コツコツ積み上げること',
+    bridge:'相性のいい追い風です。小さな作業を一つずつ片づけていくと、今日はいちばんハマります。ピンとこなければ、机まわりを整えるだけでも十分です。',
+    step:'今日、後回しにしていた地味な作業を一つだけ選んで、最後まで片づけてみる。小さくていい、一つ終われば今日は十分です。'},
+  5:{label:'動き回る日',
+    theme:'今日は"5"の日。変化や刺激を取り入れる、フットワークの軽い空気が出やすい一日です。同じ場所にとどまるより、いつもと違う動きを一つ入れるほうが、今日の流れには乗れます。',
+    tailwind:'予定を動かす・行ったことのない場所に寄る・新しいやり方を試す。今日は"じっくり"より"軽く動く"ほうが、すっと通りやすい日です。',
+    ease:'一つのことにきっちり集中し続けること。今日は腰を据えるより、あちこち手を出してみるくらいでいい。落ち着いて詰めるのは、別の日にまわして大丈夫。',
+    favor:'変化を取り入れて動くこと',
+    bridge:'相性のいい追い風です。いつもの流れに、小さな寄り道や新しい試みを足してみるとハマります。ピンとこなければ、今日は無理に動き回らなくても大丈夫。',
+    step:'今日、いつもと少しだけ違うルートや方法を一つ試してみる。うまくいかなくていい、動いてみれば今日は十分です。'},
+  6:{label:'いたわる日',
+    theme:'今日は"6"の日。人や場を気づかう、あたたかい空気が出やすい一日です。自分のことだけを進めるより、まわりを整えたり誰かの面倒を見たりするほうが、今日の流れにはなじみます。',
+    tailwind:'人を気づかう・場を整える・困っている人に手を貸す。今日は"自分優先"より"まわりを見る"ほうが、すっと通りやすい日です。',
+    ease:'相手のために何もかも背負い込むこと。今日は全部を引き受けず、できる範囲で手を貸すだけでいい。無理な世話焼きは、控えめにして大丈夫。',
+    favor:'人をいたわり整えること',
+    bridge:'相性のいい追い風です。身近な人や場所を、少しだけ気にかけて整えてみるとハマります。ピンとこなければ、今日は自分をいたわる側にまわっても大丈夫。',
+    step:'今日、身近な誰かに小さな気づかいを一つだけ向けてみる。大きなことじゃなくていい、一つ届けば今日は十分です。'},
+  7:{label:'掘り下げる日',
+    theme:'今日は"7"の日。にぎやかに動くより、一人で静かに掘り下げる空気が出やすい一日です。人と距離をとって、気になっていたことをじっくり考えるほうが、今日の流れには合っています。',
+    tailwind:'一人の時間をとる・調べる・考えを深める・答えを急がず観察する。今日は"みんなでワイワイ"より"静かに集中"のほうが、すっと通りやすい日です。',
+    ease:'無理に人に合わせて明るく振る舞うこと。今日は誘いを断って一人になっても大丈夫。テンションを上げなきゃ、と頑張らなくていい日です。',
+    favor:'一人で掘り下げること',
+    bridge:'今日と相性のいい追い風です。気になっていたテーマを、一つだけ静かに深掘りしてみると、すっと腑に落ちます。人と会う予定は、少し軽めにしておくとラクです。',
+    step:'今日、ずっと気になっていたことを一つだけ、一人でじっくり調べたり考えたりしてみる。結論が出なくていい、掘り下げれば今日は十分です。'},
+  8:{label:'力を出す日',
+    theme:'今日は"8"の日。物事を現実的に動かす、力が出やすい一日です。遠慮して小さくまとまるより、決めて前に進めるほうが、今日の流れには乗れます。',
+    tailwind:'決断する・数字やお金と向き合う・人を引っ張る・大きめの一手を打つ。今日は"様子を見る"より"決めて動かす"ほうが、すっと通りやすい日です。',
+    ease:'誰にも迷惑をかけないよう、遠慮して力を抑えること。今日は前に出て大丈夫。控えめにしなきゃ、と自分にブレーキをかけなくていい日です。',
+    favor:'決めて動かすこと',
+    bridge:'今日と相性のいい追い風です。ずっと保留にしていた決めごとを、一つだけ今日ハッキリさせてみるとハマります。気が乗らなければ、力を出す先は一点に絞って大丈夫。',
+    step:'今日、決めきれずにいたことを一つだけ、思いきって決めてしまう。完璧な決断じゃなくていい、前に進めれば今日は十分です。'},
+  9:{label:'手放す日',
+    theme:'今日は"9"の日。何かを締めくくって、区切りをつける空気が出やすい一日です。全部を抱え込むより、いらないものを一つ手放すほうが、今日の流れには合っています。',
+    tailwind:'整理する・区切りをつける・人に譲る・終わったことを終わりにする。今日は"新しく増やす"より"いったん手放す"ほうが、すっと通りやすい日です。',
+    ease:'まだ頑張れると自分に言い聞かせて、抱え続けること。今日は途中でやめても大丈夫。全部を背負い込まなきゃ、と気を張らなくていい日です。',
+    favor:'手放して区切りをつけること',
+    bridge:'今日と相性のいい追い風です。ずっと引きずっていたことを、一つだけ今日そっと手放してみると、肩が軽くなります。全部いっぺんに片づけなくても大丈夫。',
+    step:'今日、なんとなく続けていたことを一つだけ、思いきってやめてみる。惜しくてもいい、区切りをつければ今日は十分です。'},
+  11:{label:'直感がさえる日',
+    theme:'今日は"11"の日。感じる力が一段大きく出やすい、直感がさえる一日です。理屈で固めるより、ふっと浮かんだひらめきを拾っておくほうが、今日の流れには合っています。',
+    tailwind:'第一印象を大事にする・浮かんだ言葉をメモする・感じたことを信じて動く。今日は"根拠を探す"より"直感で選ぶ"ほうが、すっと通りやすい日です。',
+    ease:'なんでも理由をつけて説明しようとすること。今日は言葉にできない感覚のままで大丈夫。ちゃんと理屈で固めなきゃ、と力まなくていい日です。',
+    favor:'直感を信じること',
+    bridge:'今日と相性のいい追い風です。ふっと浮かんだ感覚を、一つだけ信じて動いてみるとハマります。刺激が多くて疲れやすい日でもあるので、静かな時間も少し残しておくとラクです。',
+    step:'今日、ふと心に浮かんだことを一つだけ、そのままメモに書き留めてみる。まとまっていなくていい、拾っておけば今日は十分です。'},
+  22:{label:'大きく動かす日',
+    theme:'今日は"22"の日。構想や仕組みが一段大きく動きやすい、スケールの出やすい一日です。目先だけで考えるより、少し先の全体像まで見渡すほうが、今日の流れには乗れます。',
+    tailwind:'大きな計画を立てる・仕組みや土台を整える・長く使えるものを作り始める。今日は"その場しのぎ"より"先を見て組み立てる"ほうが、すっと通りやすい日です。',
+    ease:'今日中に全部を形にしようと詰め込むこと。大きな流れは、一日では終わりません。今日は設計図を描くところまでで、十分に前進です。',
+    favor:'大きな仕組みを動かすこと',
+    bridge:'今日と相性のいい追い風です。前から温めていた構想を、一つだけ今日ざっくり形にしてみるとハマります。壮大すぎて動けないときは、最初の一枠だけ決めれば大丈夫。',
+    step:'今日、いつか作りたいと思っていた仕組みを一つだけ、ざっくり書き出してみる。細部は要らない、全体像が見えれば今日は十分です。'},
+  33:{label:'与える日',
+    theme:'今日は"33"の日。人を包み込んで大きくケアする、与える空気が一段強く出やすい一日です。損得で線を引くより、目の前の人にそっと手を貸すほうが、今日の流れには合っています。',
+    tailwind:'人の話を聴く・見返りを求めず手を差し出す・場をあたためる。今日は"自分の取り分を守る"より"惜しみなく渡す"ほうが、すっと通りやすい日です。',
+    ease:'全員をもれなく助けなきゃ、と抱え込むこと。今日は届く範囲だけで大丈夫。自分を後回しにしてまで頑張らなくていい日です。',
+    favor:'損得ぬきで与えること',
+    bridge:'今日と相性のいい追い風です。目の前の一人に、一つだけ見返りなしで手を貸してみると、すっと流れに乗れます。与えすぎて疲れたら、自分をケアする時間も忘れずに。',
+    step:'今日、身近な誰かのために小さなことを一つだけ、見返りを考えずにやってみる。大げさじゃなくていい、渡せれば今日は十分です。'},
+};
+
+/* ── 現在数ごとの"今日の持ち味"（今日の取説の掛け合わせ用・短句） ── */
+const CUR_EDGE = {
+  1:'迷わず先頭で動く突破力',
+  2:'場をなごませる気づかい',
+  3:'空気を明るくする表現力',
+  4:'最後までやり切る安定感',
+  5:'変化を楽しむフットワーク',
+  6:'人を育てるあたたかさ',
+  7:'本質を見抜く深い視点',
+  8:'現実を動かす決断力',
+  9:'どんな相手も受け止める包容力',
+  11:'一歩先を読む直感',
+  22:'大きな構想を形にする実行力',
+  33:'損得ぬきで人を思う気持ちの大きさ'
+};
+
+function renderPair(a, b){
+  const na = NUM[a], nb = NUM[b], ra = REL[a], rb = REL[b];
+  const same = (a === b);
+  const diff = same
+    ? `2人とも数秘${a}で、似た者どうし。似ているぶん、お互いに「${ra.friction}」という同じクセが同時に出やすく、そこがぶつかりやすいポイントです。合わないんじゃなく、同じ"止まり方"をする組み合わせだと知っておくと、先回りできます。`
+    : `自分は「${ra.friction}」、お相手は「${rb.friction}」。この2つが、いちばんすれ違いやすい入口です。噛み合わないのは相性が悪いからじゃなく、"止まる場所"の設計がもともと違うだけ。どっちが正しいかではなく、「設計が違う」と分かるだけで、責め合いはぐっと減ります。`;
+  const mesh = same
+    ? `似た者どうしだから、「${ra.gives}」を2人とも自然に出せます。ただ、お互いが同じ「${ra.needs}」を求めるぶん、そこは意識して満たし合わないと、待ち合いになりがち。どちらかが我慢役に固定されないよう、順番に受け取り合うのがコツです。`
+    : `自分が自然に出せる「${ra.gives}」は、お相手が関係に求めている「${rb.needs}」に効きます。逆に、お相手が差し出す「${rb.gives}」は、自分が満たされたい「${ra.needs}」を支えてくれる。この2つが噛み合ったとき、2人はいちばんラクに回ります。`;
+  const handle = same
+    ? `2人とも数秘${a}。${ra.care}　同じ扱い方が効くぶん、片方だけがケアする側にならないよう、お互いに同じ気づかいを返し合うと安定します。`
+    : `お相手（数秘${b}・${nb.tag}）は、${rb.care}　自分（数秘${a}・${na.tag}）は、${ra.care}　お互いの"扱い方"が、もともと違うだけ。それが分かれば、すれ違いはぐっと減ります。`;
+  const verdict = same
+    ? `似た者どうし、分かり合いやすい組み合わせ。`
+    : `違うからこそ、補い合える組み合わせ。`;
+  const offer = same
+    ? `2人とも「${ra.gives}」を差し出せる関係です。似たものを出し合えるぶん、それを"当たり前"にせず、ちゃんと受け取り合うのがこの2人の鍵になります。`
+    : `自分は「${ra.gives}」を、お相手は「${rb.gives}」を、自然に差し出せます。無いものねだりをするより、この2つをお互いに認め合うところから始めると、関係はぐっとラクになります。`;
+  const step = `今日、お相手の「${rb.friction}」を、"欠点"ではなく"そういう設計"として一度だけ受け取ってみる。直そうとするより、違いとして眺めるほうが、関係の温度は上がります。`;
+  return `
+    <div class="res-head"><span class="small serif">2人の数字が出ました。</span></div>
+    <div class="res-grid">
+      <div class="num-card">
+        <div class="num-role">You</div><div class="num-role-ja">自分</div>
+        <div class="num-big">${a}${MASTERS.includes(a)?'<span class="mn">Master</span>':''}</div>
+        <div class="num-tag">${na.tag}</div>
+      </div>
+      <div class="num-card">
+        <div class="num-role">Partner</div><div class="num-role-ja">お相手</div>
+        <div class="num-big">${b}${MASTERS.includes(b)?'<span class="mn">Master</span>':''}</div>
+        <div class="num-tag">${nb.tag}</div>
+      </div>
+    </div>
+
+    <div class="read-full">
+      <div class="rf-head"><span class="rf-role">2人の関係を、構造で読む</span><span class="rf-tag">数秘${a} × 数秘${b}</span><span class="rf-reframe">${verdict}</span></div>
+      <div class="sec"><h3><span class="dot"></span>自分の、関係の中でのクセ</h3><p>${ra.habit}</p></div>
+      <div class="sec"><h3><span class="dot"></span>お相手の、関係の中でのクセ</h3><p>${rb.habit}</p></div>
+      <div class="sec"><h3><span class="dot"></span>すれ違いの入口</h3><p>${diff}</p></div>
+      <div class="sec"><h3><span class="dot"></span>お互いが、関係に差し出せるもの</h3><p>${offer}</p></div>
+      <div class="sec"><h3><span class="dot"></span>2人が噛み合うとき</h3><p>${mesh}</p></div>
+      <div class="sec"><h3><span class="dot"></span>すれ違ったときの、接し方</h3><p>${handle}</p></div>
+    </div>
+
+    <div class="res-step">
+      <p class="sh serif">今日、関係にできる一歩</p>
+      <p>${step}</p>
+    </div>
+
+    <div class="res-cta">
+      <p class="cta-bridge serif">ここからが、本編です。</p>
+      <span class="rc-eyebrow serif">個別数秘鑑定</span>
+      <p class="h">2人の"3つの数字"を、<br>掛け合わせて読む。</p>
+      <p class="p">この鑑定でわかったのは、お互いの現在数という"入口"まで。過去数・未来数まで含めた6つの数字が、すれ違いの理由と噛み合う使い方をどう作っているか——そこを2人ぶん、1件ずつ読み解いているのが、個別鑑定です。</p>
+      <p class="cta-listhead">個別鑑定で読み解くもの</p>
+      <ul class="cta-list">
+        <li>2人の6つの数字の、具体的な掛け合わせ</li>
+        <li>すれ違いの"根っこ"と、翻訳のしかた</li>
+        <li>相手に伝わる言い方・距離の取り方</li>
+        <li>この関係で、お互いがいちばん活きる形</li>
+      </ul>
+      <a class="btn btn-sub btn-lg" href="${NOTE_KANTEI}" target="_blank" rel="noopener">個別数秘鑑定を見る</a>
+      <p class="cta-meta">note ／ お一人ずつ手書きの鑑定書</p>
+    </div>
+
+    <div class="share-row">
+      <button class="res-again" id="pairAgainBtn" type="button">別の2人でもう一度</button>
+    </div>
+
+    <p class="res-disc">この鑑定は、2人の生年月日から現在数を計算し、その組み合わせの傾向を読み解くものです。運勢や吉凶を占うものではなく、関係の"設計の違い"を知るための見方のひとつです。</p>
+    <p class="res-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>`;
+}
+
 const MASTERS = [11,22,33];
 function renderBig(elNum, val){
   elNum.innerHTML = val + (MASTERS.includes(val) ? '<span class="mn">Master</span>' : '');
 }
-function renderRead(prefix, val){
+// 現在数：フル解説（核／才能／つまずき／活かし方・立て直し／向く場所）
+function renderNowFull(val){
   const d = NUM[val]; if(!d) return;
-  $('#t'+prefix).textContent      = d.tag;
-  $('#r'+prefix+'N').textContent  = val + (MASTERS.includes(val) ? '（マスター）' : '');
-  $('#r'+prefix+'R').textContent  = d.reframe;
-  $('#r'+prefix+'T').textContent  = d.talent;
-  $('#r'+prefix+'S').textContent  = d.stumble;
-  $('#r'+prefix+'F').textContent  = d.fit;
+  $('#fNowN').textContent       = val + (MASTERS.includes(val) ? '（マスター）' : '');
+  $('#fNowTag').textContent     = d.tag;
+  $('#fNowReframe').textContent = d.reframe;
+  $('#fCore').textContent       = d.core;
+  $('#fTalent').textContent     = d.talent;
+  $('#fStumble').textContent    = d.stumble;
+  $('#fTorisetsu').textContent  = d.torisetsu;
+  $('#fFit').textContent        = d.fit;
+}
+// 過去数・未来数：中型（3項目）
+function renderMid(role, val){
+  const d = NUM[val]; if(!d) return;
+  $('#m'+role+'N').textContent       = val + (MASTERS.includes(val) ? '（マスター）' : '');
+  $('#m'+role+'Tag').textContent     = d.tag;
+  $('#m'+role+'Reframe').textContent = d.reframe;
+  if(role === 'Past'){
+    $('#mPastT').textContent    = d.talent;    // 才能
+    $('#mPastS').textContent    = d.stumble;   // つまずき
+    $('#mPastTori').textContent = d.torisetsu; // 活かし方
+  } else {
+    $('#mFutT').textContent = d.talent;   // 活かし方
+    $('#mFutS').textContent = d.stumble;  // つまずき
+    $('#mFutF').textContent = d.fit;      // 向く場所
+  }
 }
 
 /* ── 計算実行 ── */
@@ -749,15 +1104,25 @@ $('#calcBtn').addEventListener('click', () => {
   err.textContent = '';
 
   const vNow = lifePath(y,m,d), vPast = pastNum(d), vFut = futureNum(m,d);
-  renderBig($('#nNow'),  vNow);  renderRead('Now',  vNow);
-  renderBig($('#nPast'), vPast); renderRead('Past', vPast);
-  renderBig($('#nFut'),  vFut);  renderRead('Fut',  vFut);
+  // 上部の3数字グリッド
+  renderBig($('#nNow'),  vNow);  $('#tNow').textContent  = NUM[vNow] ? NUM[vNow].tag : '';
+  renderBig($('#nPast'), vPast); $('#tPast').textContent = NUM[vPast] ? NUM[vPast].tag : '';
+  renderBig($('#nFut'),  vFut);  $('#tFut').textContent  = NUM[vFut] ? NUM[vFut].tag : '';
+  // 現在数フル ＋ 過去/未来 中型
+  renderNowFull(vNow);
+  renderMid('Past', vPast);
+  renderMid('Fut',  vFut);
+  // 3つの掛け合わせ
+  $('#synthBody').textContent = 'いまの自分（現在数' + vNow + '・' + NUM[vNow].tag + '）は、生まれ持った過去数' + vPast + '（' + NUM[vPast].tag + '）のクセを土台にしながら、未来数' + vFut + '（' + NUM[vFut].tag + '）の方向へ動くとき、いちばん力が出ます。3つはバラバラじゃなく、1本の線でつながっています。';
+  // 今日の一歩
+  $('#fStep').textContent = NUM[vNow].step;
 
   // 現在数 → 該当する数秘別・完全ガイド（980円）へCTAを結線
   const rcNote = $('#rcNote');
   if(NUM_NOTE[vNow]) rcNote.href = NUM_NOTE[vNow];
   rcNote.textContent = '現在数' + vNow + 'の完全ガイドを読む';
   $('#rcEyebrow').innerHTML = '現在数 <b>' + vNow + '</b>（' + (NUM[vNow] ? NUM[vNow].tag : '') + '）の完全ガイド';
+  $('#rcListName').textContent = '現在数' + vNow;
 
   const res = $('#result');
   $('#diaForm').style.display = 'none';
@@ -767,6 +1132,32 @@ $('#calcBtn').addEventListener('click', () => {
   void res.offsetWidth;
   cards.forEach(c => c.style.animation = '');
   res.classList.add('show');
+  $('#postReveal').hidden = false;   // 鑑定の結果が出たら、深掘りコンテンツ（Why Numbers 以下）を表示
+  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* ── 相性：計算実行 ── */
+$('#pairBtn').addEventListener('click', () => {
+  const py = parseInt($('#pSelY').value,10), pm = parseInt($('#pSelM').value,10), pd = parseInt($('#pSelD').value,10);
+  const qy = parseInt($('#qSelY').value,10), qm = parseInt($('#qSelM').value,10), qd = parseInt($('#qSelD').value,10);
+  const err = $('#pairErr');
+  if(!py||!pm||!pd||!qy||!qm||!qd){
+    err.textContent = '自分とお相手、両方の生年月日をすべて選んでください。';
+    return;
+  }
+  err.textContent = '';
+  const a = lifePath(py,pm,pd), b = lifePath(qy,qm,qd);
+  const box = $('#pairResult');
+  box.innerHTML = renderPair(a, b);
+  box.classList.add('show');
+  $('#postReveal').hidden = false;   // 鑑定の結果が出たら、深掘りコンテンツ（Why Numbers 以下）を表示
+  $('#pairForm').style.display = 'none';
+  $('#pairAgainBtn').addEventListener('click', () => {
+    box.classList.remove('show');
+    box.innerHTML = '';
+    $('#pairForm').style.display = '';
+    $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  });
   $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
@@ -777,19 +1168,98 @@ $('#againBtn').addEventListener('click', () => {
   $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
-/* ── ヘッダーのスクロール状態 ＆ 追従バー ── */
-const hdr = $('#hdr'), bar = $('#stickybar'), hero = $('#hero'), finalSec = $('#final');
-let finalVisible = false;
-if('IntersectionObserver' in window && finalSec){
-  new IntersectionObserver(es => { finalVisible = es[0].isIntersecting; onScroll(); }, {threshold:.18}).observe(finalSec);
+/* ══════════ 今日の取説（パーソナルデー数） ══════════ */
+const WD = ['日','月','火','水','木','金','土'];
+function todayObj(){ const d = new Date(); return {y:d.getFullYear(), mo:d.getMonth()+1, da:d.getDate(), wd:WD[d.getDay()]}; }
+function fmtToday(t){ return t.y + '年' + t.mo + '月' + t.da + '日（' + t.wd + '）'; }
+// パーソナルデー数：生まれた月日 ＋ 今日の年月日を数秘のルールで足す（マスター11/22/33は保持）
+function personalDay(bm, bd, ty, tmo, td){
+  const py = reduceMaster(digitSum(bm) + digitSum(bd) + digitSum(ty)); // パーソナルイヤー
+  const pm = reduceMaster(py + digitSum(tmo));                          // パーソナルマンス
+  return reduceMaster(pm + digitSum(td));                               // パーソナルデー
 }
+// 今日の取説を描画（cur=現在数, pd=パーソナルデー数, dateStr=表示用日付）
+function renderToday(cur, pd, dateStr){
+  const d = DAY[pd]; if(!d) return '';
+  const curTag = NUM[cur] ? NUM[cur].tag : '';
+  const same = (cur === pd);
+  const personal = same
+    ? `今日は、自分の数字「${cur}」と重なる"ホームな日"。「${curTag}」の持ち味（${CUR_EDGE[cur]}）が、そのまま今日の追い風になります。いつも以上に、自分の感覚を信じて動いてOKです。`
+    : `「${curTag}」の自分の持ち味は、${CUR_EDGE[cur]}。今日の"${d.favor}"とは、${d.bridge}`;
+  const noteHref = NUM_NOTE[cur] || NOTE_TOP;
+  return `
+    <div class="res-head"><span class="small serif">${dateStr}の取説</span></div>
+    <div class="today-badge">
+      <span class="tb-num">${pd}${MASTERS.includes(pd)?'<span class="mn">Master</span>':''}</span>
+      <span class="tb-label">${d.label}</span>
+      <span class="tb-calc">生まれた月日と今日の日付を、数秘のルールで足した「今日のパーソナルデー数」です。占いではなく、今日という日の"数字"から読み解いています。</span>
+    </div>
+    <div class="read-full">
+      <div class="rf-head"><span class="rf-role">今日のモード</span><span class="rf-tag">"${pd}"の日 ─ ${d.label}</span></div>
+      <div class="sec"><h3><span class="dot"></span>今日のテーマ</h3><p>${d.theme}</p></div>
+      <div class="sec"><h3><span class="dot"></span>今日、追い風になること</h3><p>${d.tailwind}</p></div>
+      <div class="sec"><h3><span class="dot"></span>今日、ムリしなくていいこと</h3><p>${d.ease}</p></div>
+      <div class="sec"><h3><span class="dot"></span>現在数${cur}の自分に、ひとこと</h3><p>${personal}</p></div>
+    </div>
+    <div class="res-step">
+      <p class="sh serif">今日の一歩</p>
+      <p>${d.step}</p>
+    </div>
+    <div class="res-cta">
+      <p class="cta-bridge serif">また明日、のぞいてみてください。</p>
+      <span class="rc-eyebrow serif">現在数 <b>${cur}</b>（${curTag}）の完全ガイド</span>
+      <p class="h">今日の使い方の、その先へ。</p>
+      <p class="p">今日の取説は、日替わりの"モード"まで。自分の数字そのもの——才能の伸ばし方・つまずきの抜け方・向いてる仕事を、現在数ひとつぶんだけ深く書いたのが、完全ガイドです。</p>
+      <a class="btn btn-sub btn-lg" href="${noteHref}" target="_blank" rel="noopener">現在数${cur}の完全ガイドを読む</a>
+      <p class="cta-meta">note ／ 買い切り・追記でずっと更新中</p>
+    </div>
+    <div class="share-row">
+      <button class="res-again" id="todayAgainBtn" type="button">別の生年月日で見る</button>
+    </div>
+    <p class="res-disc">この取説は、生年月日と今日の日付から「パーソナルデー数」を計算し、今日出やすいモードを読み解くものです。運勢や吉凶を占うものではなく、今日の自分の使い方を知るための見方のひとつです。</p>
+    <p class="res-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>`;
+}
+// フォーム上部に今日の日付を表示（呼ぶたびに取り直す）
+function refreshTodayDate(){ $('#todayDate').textContent = fmtToday(todayObj()) + ' の取説'; }
+refreshTodayDate();
+// 今日の取説を計算して表示（doScroll=false ならスクロールしない）
+function runToday(doScroll){
+  const y = parseInt($('#tSelY').value,10), m = parseInt($('#tSelM').value,10), d = parseInt($('#tSelD').value,10);
+  const err = $('#todayErr');
+  if(!y || !m || !d){
+    err.textContent = '生まれた年・月・日を、すべて選んでください。';
+    return;
+  }
+  err.textContent = '';
+  const cur = lifePath(y,m,d);
+  const t = todayObj();
+  const pd = personalDay(m, d, t.y, t.mo, t.da);
+  const box = $('#todayResult');
+  box.innerHTML = renderToday(cur, pd, fmtToday(t));
+  box.classList.add('show');
+  $('#todayForm').style.display = 'none';
+  $('#postReveal').hidden = false;
+  $('#todayAgainBtn').addEventListener('click', () => {
+    box.classList.remove('show');
+    box.innerHTML = '';
+    $('#todayForm').style.display = '';
+    $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  if(doScroll) $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+}
+$('#todayBtn').addEventListener('click', () => runToday(true));
+// 「今日の取説」タブを開いた時：日付を取り直し、結果が出ていれば今日ぶんで計算し直す
+// （ページを開きっぱなしで日付をまたいでも、タブに戻れば最新の日付・内容になる）
+function refreshTodayTab(){
+  refreshTodayDate();
+  if($('#todayResult').classList.contains('show')) runToday(false);
+}
+
+/* ── ヘッダーのスクロール状態 ── */
+const hdr = $('#hdr');
 function onScroll(){
   const y = window.scrollY || window.pageYOffset;
   hdr.classList.toggle('scrolled', y > 24);
-  const past = y > (hero.offsetHeight - 120);
-  const nearBottom = (window.innerHeight + y) > (document.body.offsetHeight - 220);
-  // 最終CTA（濃紺）やフッターが見えている間は、同じ登録導線の追従バーを引っ込める
-  bar.classList.toggle('show', past && !nearBottom && !finalVisible);
 }
 window.addEventListener('scroll', onScroll, {passive:true});
 window.addEventListener('resize', onScroll);
@@ -804,6 +1274,24 @@ if('IntersectionObserver' in window){
 } else {
   $$('.reveal').forEach(el => el.classList.add('in'));
 }
+
+/* ── 診断タブ切替（自分／相性／今日の取説） ── */
+(function(){
+  const tabs = {
+    self:  {btn: $('#tabSelf'),  pane: $('#paneSelf')},
+    pair:  {btn: $('#tabPair'),  pane: $('#panePair')},
+    today: {btn: $('#tabToday'), pane: $('#paneToday')}
+  };
+  function select(which){
+    for(const k in tabs){
+      const on = (k === which);
+      tabs[k].btn.setAttribute('aria-selected', on);
+      tabs[k].pane.hidden = !on;
+    }
+    if(which === 'today') refreshTodayTab();   // 日付を取り直し、表示中なら再計算
+  }
+  for(const k in tabs){ tabs[k].btn.addEventListener('click', () => select(k)); }
+})();
 </script>
 </body>
 </html>
