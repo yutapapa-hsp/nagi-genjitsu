@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>なぎ｜現実をかえる数秘デザイン</title>
-<meta name="description" content="すべての悩みは、数字で説明がつく。占いではなく、生年月日という動かせない事実から読み解く「自分の取扱説明書」。まずは無料で、自分の3つの数字を調べてみてください。">
+<title>今日の、自分の取扱説明書。｜なぎ 現実をかえる数秘デザイン</title>
+<meta name="description" content="生年月日を入れるだけ。今日という日を、自分の数字でどう使うか。占いではなく、数字から読み解く「今日の取扱説明書」。毎日、内容が変わります。">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="なぎ｜現実をかえる数秘デザイン">
-<meta property="og:description" content="すべての悩みは、数字で説明がつく。生年月日から読み解く「自分の取扱説明書」。まずは無料で、自分の3つの数字を調べてみてください。">
-<!-- 本番URL（Vercel）／OGP画像は同階層の /ogp.png -->
+<meta property="og:title" content="今日の、自分の取扱説明書。｜なぎ 現実をかえる数秘デザイン">
+<meta property="og:description" content="生年月日を入れるだけ。占いではなく、数字から読み解く「今日の設計図」。毎日、やるべきこと・気をつけることが変わります。">
+<!-- 本番URL（Vercel）／OGP画像は同階層の /ogp.png（毎日の取説・夜×金デザイン） -->
 <meta property="og:url" content="https://nagi-genjitsu.vercel.app/">
-<meta property="og:image" content="https://nagi-genjitsu.vercel.app/ogp.png">
+<meta property="og:image" content="https://nagi-genjitsu.vercel.app/ogp.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="なぎ｜現実をかえる数秘デザイン">
-<meta name="twitter:description" content="すべての悩みは、数字で説明がつく。生年月日から読み解く「自分の取扱説明書」。">
-<meta name="twitter:image" content="https://nagi-genjitsu.vercel.app/ogp.png">
+<meta name="twitter:title" content="今日の、自分の取扱説明書。｜なぎ">
+<meta name="twitter:description" content="生年月日を入れるだけ。占いではなく、数字から読み解く「今日の設計図」。毎日、内容が変わります。">
+<meta name="twitter:image" content="https://nagi-genjitsu.vercel.app/ogp.png?v=2">
 <!-- 本番URL（Vercel） -->
 <link rel="canonical" href="https://nagi-genjitsu.vercel.app/">
 <!-- ファビコン（なぎのアイコン） -->
@@ -108,6 +108,7 @@
   h1.hero-h{font-family:var(--serif);font-weight:700;font-size:clamp(30px,8.4vw,50px);
     line-height:1.42;letter-spacing:.02em;color:var(--ink)}
   h1.hero-h .em{color:var(--accent)}
+  .hero-today-date{font-size:15px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px}
   .hero-sub{margin-top:26px;color:var(--sub);font-size:clamp(15px,3.9vw,17px);line-height:1.95}
   .hero-cta{margin-top:40px}
   .hero-note{margin-top:18px;font-size:12.5px;color:var(--sub2);letter-spacing:.02em}
@@ -142,8 +143,10 @@
   .dia-err{text-align:center;color:#B4452F;font-size:13px;margin-top:14px;min-height:1px}
 
   /* result */
-  #result,#pairResult,#todayResult{display:none;margin-top:8px}
-  #result.show,#pairResult.show,#todayResult.show{display:block;animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
+  #result,#pairResult{display:none;margin-top:8px}
+  #result.show,#pairResult.show{display:block;animation:fadeUp .6s cubic-bezier(.2,.7,.2,1) both}
+  #todayResult{margin-top:8px}
+  #todayResult[hidden]{display:none}
   .res-head{text-align:center;margin-bottom:30px}
   .res-head .small{font-family:var(--serif);font-size:14px;color:var(--accent);letter-spacing:.08em}
   .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -330,7 +333,121 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
   @keyframes numIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
 
+  /* ══════════ 今日の取説：夜のカード ══════════ */
+  #today{padding:30px 0 78px;scroll-margin-top:72px}
+  .night{position:relative;border-radius:26px;overflow:hidden;color:#EDE7D6;
+    background:radial-gradient(135% 105% at 50% -12%, var(--n-a,#1a2452) 0%, var(--n-b,#0e1230) 72%);
+    box-shadow:0 44px 96px -46px rgba(6,8,26,.75), inset 0 0 0 1px rgba(203,164,85,.14);
+    padding:40px 30px 34px}
+  .night-glyph{position:absolute;z-index:0;top:48%;left:50%;width:min(80%,460px);
+    transform:translate(-50%,-50%);opacity:.14;pointer-events:none}
+  .night-glyph svg{width:100%;height:auto;display:block}
+  .night-inner{position:relative;z-index:1}
+  .star{position:absolute;border-radius:50%;background:#F3EAD0;
+    animation:twinkle 4.5s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.10}50%{opacity:.55}}
+  .n-ink{animation:inkbleed 1.5s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes inkbleed{from{opacity:0;filter:blur(11px);transform:translateY(7px)}to{opacity:1;filter:blur(0);transform:none}}
+  /* 華やか：金の額縁＋製図の角飾り */
+  .night::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(78% 52% at 50% 6%, var(--season-glow, transparent) 0%, transparent 62%)}
+  .night-frame{position:absolute;inset:13px;border-radius:18px;pointer-events:none;z-index:1;
+    border:1px solid rgba(216,180,94,.28);box-shadow:inset 0 0 0 3px rgba(216,180,94,.05)}
+  .n-corner{position:absolute;width:17px;height:17px;z-index:2;pointer-events:none}
+  .n-corner::before,.n-corner::after{content:"";position:absolute;background:linear-gradient(90deg,#EBD087,#B98F3F);opacity:.8}
+  .n-corner::before{width:100%;height:1.4px}
+  .n-corner::after{width:1.4px;height:100%}
+  .n-corner.tl{top:8px;left:8px}
+  .n-corner.tr{top:8px;right:8px}.n-corner.tr::before{right:0}.n-corner.tr::after{right:0}
+  .n-corner.bl{bottom:8px;left:8px}.n-corner.bl::before{bottom:0}.n-corner.bl::after{bottom:0}
+  .n-corner.br{bottom:8px;right:8px}.n-corner.br::before{right:0;bottom:0}.n-corner.br::after{right:0;bottom:0}
+  /* 季節の光の粒 */
+  .mote{position:absolute;border-radius:50%;opacity:0;animation:drift linear infinite}
+  @keyframes drift{0%{opacity:0;transform:translateY(0)}12%{opacity:.7}88%{opacity:.5}100%{opacity:0;transform:translateY(-190px)}}
+  .season-spring .mote{background:#F1CBD0;box-shadow:0 0 7px #EBB9C0}
+  .season-summer .mote{background:#CFE6F3;box-shadow:0 0 7px #AAD2E8}
+  .season-autumn .mote{background:#E9C583;box-shadow:0 0 7px #DBAB57}
+  .season-winter .mote{background:#DDEBF6;box-shadow:0 0 8px #BBD3E9}
+  /* 季節チップ */
+  .n-season{display:inline-block;margin-left:9px;font-size:10.5px;letter-spacing:.16em;
+    color:var(--season-accent,#D8B45E);border:1px solid currentColor;border-radius:999px;
+    padding:2px 11px;vertical-align:middle;opacity:.9}
+  .night .n-date{text-align:center;font-family:var(--serif);font-size:14px;letter-spacing:.12em;color:#C8BFA6}
+  .night .n-hero{text-align:center;margin:6px 0 2px}
+  .night .n-day{font-family:var(--serif);font-weight:700;font-size:clamp(58px,21vw,100px);line-height:1;
+    letter-spacing:.02em;
+    background:linear-gradient(100deg,#EFE3C0 0%,#F7ECC8 32%,#FDF5DC 46%,#D8B45E 54%,#F2E4BC 68%,#EDE1BC 100%);
+    background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    -webkit-text-stroke:.5px rgba(216,180,94,.5);
+    filter:drop-shadow(0 3px 20px rgba(216,180,94,.3));
+    animation:sheen 6.5s ease-in-out infinite}
+  @keyframes sheen{0%{background-position:125% 0}100%{background-position:-25% 0}}
+  .night .n-mnbadge{display:inline-block;font-family:var(--en);font-size:10px;font-weight:600;letter-spacing:.2em;
+    color:#1a1630;margin-top:12px;border:1px solid rgba(216,180,94,.6);border-radius:999px;padding:3px 14px;text-transform:uppercase;
+    background:linear-gradient(180deg,#E7C877,#C39B45);box-shadow:0 6px 18px -8px rgba(216,180,94,.6)}
+  .night .n-label{display:block;font-family:var(--serif);font-size:19px;font-weight:600;color:#EEE4CB;margin-top:14px;letter-spacing:.04em}
+  .night .n-calc{display:block;max-width:410px;margin:14px auto 0;font-size:11.5px;color:#A9A38C;line-height:1.7}
+  .n-block{margin-top:20px;border-top:1px solid rgba(216,180,94,.14);padding-top:19px}
+  .n-block h3{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-size:14px;font-weight:600;color:#D8B45E;margin-bottom:8px}
+  .n-block h3 .d{width:6px;height:6px;border-radius:50%;background:#D8B45E;flex:none;opacity:.85}
+  .n-block p{font-size:14px;color:#DCD5C1;line-height:1.95}
+  .n-me{margin-top:19px;background:rgba(216,180,94,.07);border:1px solid rgba(216,180,94,.2);border-radius:16px;padding:20px 22px}
+  .n-me .lbl{font-family:var(--serif);font-size:12.5px;color:#D8B45E;margin-bottom:6px}
+  .n-me p{font-size:14px;color:#F0E9D6;line-height:1.9}
+  .n-do{margin-top:14px;display:grid;gap:11px}
+  .n-do .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:17px 19px}
+  .n-do .card .h{font-size:12px;font-weight:700;letter-spacing:.05em;color:#C8BFA6;margin-bottom:6px}
+  .n-do .card.step .h::before{content:"→ ";color:#D8B45E}
+  .n-do .card.care .h::before{content:"！ ";color:#E0A15A}
+  .n-do .card p{font-size:13.5px;color:#E6DFCB;line-height:1.85}
+  .n-month{margin-top:16px;text-align:center;font-size:12.5px;color:#A9A38C;line-height:1.75}
+  .n-tomo{margin-top:20px;text-align:center;font-family:var(--serif);font-size:13.5px;color:#C8BFA6;letter-spacing:.03em}
+  .n-tomo .dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin:0 5px 2px;box-shadow:0 0 9px currentColor}
+  .n-disc{margin-top:22px;font-size:11px;color:#8E886F;line-height:1.7;text-align:center}
+  .n-sign{margin-top:8px;text-align:center;font-family:var(--serif);font-size:12px;color:#D8B45E;letter-spacing:.06em}
+  .n-again{display:block;margin:16px auto 0;background:none;border:none;color:#A9A38C;font-size:12.5px;font-family:var(--sans);cursor:pointer;letter-spacing:.04em}
+  .n-again:hover{color:#EDE3C9}
+  /* 夜カードのフォーム */
+  .night .dia-lead{color:#C8BFA6}
+  .night .today-date{color:#D8B45E}
+  .night select{background:rgba(255,255,255,.06);border-color:rgba(216,180,94,.3);color:#F1E7CF}
+  .night select:focus{border-color:#D8B45E;box-shadow:0 0 0 3px rgba(216,180,94,.18)}
+  .night .field label{color:#A9A38C}
+  .night .sel::after{border-color:#C8BFA6}
+  .night .dia-err{color:#E8A98A}
+  .btn-gold{background:linear-gradient(180deg,#D8B45E,#C39B45);color:#191426;box-shadow:0 14px 32px -12px rgba(216,180,94,.55)}
+  .btn-gold:hover{background:linear-gradient(180deg,#E0BE6A,#CBA34D);transform:translateY(-2px)}
+  .n-memory{margin-top:15px;text-align:center;font-size:12px;color:#A9A38C}
+  .n-memory a{color:#D8B45E;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .n-privacy{margin-top:9px;text-align:center;font-size:11px;color:#8E886F;line-height:1.6}
+
+  /* ── 松竹梅（結果内の3段CTA） ── */
+  .mtu{margin-top:24px}
+  .mtu-bridge{font-family:var(--serif);font-size:14px;color:#C8BFA6;text-align:center;line-height:1.85;margin-bottom:18px}
+  .mtu-grid{display:grid;gap:12px}
+  .mtu-card{position:relative;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+    border-radius:16px;padding:22px 22px 20px;text-align:center;transition:transform .2s,border-color .2s}
+  .mtu-card:hover{transform:translateY(-2px);border-color:rgba(216,180,94,.4)}
+  .mtu-card.reco{background:rgba(216,180,94,.1);border-color:rgba(216,180,94,.5);box-shadow:0 22px 46px -28px rgba(216,180,94,.45)}
+  .mtu-card .tier{font-family:var(--en);font-size:10px;letter-spacing:.2em;color:#A9A38C;text-transform:uppercase}
+  .mtu-card .flag{display:inline-block;font-size:10.5px;letter-spacing:.04em;color:#191426;background:#D8B45E;
+    border-radius:999px;padding:2px 13px;margin-bottom:9px;font-weight:700}
+  .mtu-card h4{font-family:var(--serif);font-size:16.5px;font-weight:600;color:#F1E7CF;margin:5px 0 7px;line-height:1.5}
+  .mtu-card p{font-size:12.5px;color:#BDB6A0;line-height:1.78;margin-bottom:16px}
+  .mtu-card .btn{width:100%;font-size:14px;padding:13px 20px;box-shadow:none}
+  .mtu-card .btn-line{background:transparent;border:1px solid rgba(216,180,94,.5);color:#EDE3C9}
+  .mtu-card .btn-line:hover{background:rgba(216,180,94,.12)}
+  .mtu-card .btn-gold2{background:linear-gradient(180deg,#D8B45E,#C39B45);color:#191426;font-weight:700}
+  .mtu-card .btn-gold2:hover{background:linear-gradient(180deg,#E0BE6A,#CBA34D);transform:translateY(-1px)}
+
+  /* ── 末尾：白い診断セクション（自分の設計図・相性） ── */
+  .mini{scroll-margin-top:72px}
+  .mini-eyebrow{display:block;text-align:center;font-family:var(--en);font-size:10.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+
   @media(max-width:560px){
+    .night{padding:32px 20px 28px}
+    .mtu-card{padding:20px 18px 18px}
     .sec-pad{padding:64px 0}
     .wrap{padding:0 20px}
     .dia-card{padding:30px 18px}
@@ -347,6 +464,9 @@
     .js .reveal{opacity:1;transform:none}
   }
 </style>
+<!-- ▼ 計測：Vercel Web Analytics（本番ドメインで自動有効・ローカルでは無害） -->
+<script>window.va = window.va || function(){(window.vaq = window.vaq || []).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -361,7 +481,7 @@
       </span>
     </a>
     <div class="hcta">
-      <a class="btn btn-ink" href="#numbers">数字を調べる</a>
+      <a class="btn btn-ink" href="#today">今日の取説</a>
     </div>
   </div>
 </header>
@@ -373,32 +493,63 @@
   </div>
   <div class="wrap hero-inner">
     <span class="kicker center">Numerology Design</span>
-    <h1 class="hero-h">すべての悩みは、<br><span class="em">数字</span>で説明がつく。</h1>
-    <p class="hero-sub">自分の"取扱説明書"は、生年月日に書かれています。<br>占いではなく、動かせない事実から読み解く設計図です。</p>
+    <p class="hero-today-date serif" id="heroDate">―</p>
+    <h1 class="hero-h">今日の、<span class="em">自分の取扱説明書</span>。</h1>
+    <p class="hero-sub">生年月日を入れるだけ。今日という日を、自分の数字でどう使うか。<br>占いではなく、数字から読み解く"今日の設計図"です。</p>
     <div class="hero-cta">
-      <a class="btn btn-ink btn-lg" href="#numbers">無料で鑑定する（10秒・登録不要）</a>
+      <a class="btn btn-ink btn-lg" href="#today">今日の取説を見る（登録不要）</a>
     </div>
-    <p class="hero-note">生年月日を入れるだけ。自分ひとりでも、気になる人との相性でも。</p>
+    <p class="hero-note">一度入れた生年月日は、この端末に記憶。明日から入力なしで開けます。</p>
   </div>
 </section>
 
-<!-- ════════ ② 数秘診断（埋め込み）★最重要 ════════ -->
-<section id="numbers" class="sec-pad sec-white">
+<!-- ════════ ② 今日の取説（主役・夜のカード）★最重要 ════════ -->
+<section id="today">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker center">Your Numbers</span>
-      <h2 class="h">まず、自分の3つの数字を出してみる。</h2>
-      <p class="lead">生年月日から、いまの自分・持って生まれたクセ・向かう方向が出ます。</p>
+    <div class="night" id="todayCard">
+      <span class="night-glyph" id="nightGlyph" aria-hidden="true"></span>
+      <span aria-hidden="true" id="nightStars"></span>
+      <span class="night-frame" aria-hidden="true"></span>
+      <span class="n-corner tl" aria-hidden="true"></span>
+      <span class="n-corner tr" aria-hidden="true"></span>
+      <span class="n-corner bl" aria-hidden="true"></span>
+      <span class="n-corner br" aria-hidden="true"></span>
+      <div class="night-inner">
+        <!-- 入力（記憶があれば自動でスキップ） -->
+        <div id="todayForm">
+          <p class="today-date serif" id="todayDate">―</p>
+          <p class="dia-lead">生年月日を入れると、今日の"自分の取説"が出ます。日付が変わると、内容も変わります。</p>
+          <div class="dia-form">
+            <div class="field"><label for="tSelY">Year</label><div class="sel y"><select id="tSelY" aria-label="生まれた年"></select></div></div>
+            <div class="field"><label for="tSelM">Month</label><div class="sel m"><select id="tSelM" aria-label="生まれた月"></select></div></div>
+            <div class="field"><label for="tSelD">Day</label><div class="sel d"><select id="tSelD" aria-label="生まれた日"></select></div></div>
+          </div>
+          <div class="dia-go">
+            <button class="btn btn-gold btn-lg" id="todayBtn" type="button">今日の取説を見る</button>
+          </div>
+          <p class="dia-err" id="todayErr" role="alert"></p>
+          <p class="n-privacy">入れた生年月日は、この端末の中にだけ保存されます（サーバーには送信されません）。次からは、入力なしで開けます。</p>
+        </div>
+        <p class="n-memory" id="todayMemory" hidden></p>
+        <div id="todayResult" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 深掘りコンテンツ（Why Numbers 以下・常時表示） ════════ -->
+<div id="postReveal">
+
+<!-- ════════ 自分の設計図（末尾・自分診断） ════════ -->
+<section id="self" class="sec-pad sec-white mini">
+  <div class="wrap">
+    <div class="sec-head mini-head reveal">
+      <span class="mini-eyebrow">Your Design</span>
+      <h2 class="h">もっと深く、自分の設計図を。</h2>
+      <p class="lead">生年月日から、いまの自分・持って生まれたクセ・向かう方向の3つが出ます。</p>
     </div>
 
     <div class="dia-card reveal d1">
-      <div class="dia-tabs" role="tablist">
-        <button class="dia-tab" id="tabSelf"  role="tab" aria-selected="true"  aria-controls="paneSelf"  type="button">自分を調べる</button>
-        <button class="dia-tab" id="tabPair"  role="tab" aria-selected="false" aria-controls="panePair"  type="button">相性を調べる</button>
-        <button class="dia-tab" id="tabToday" role="tab" aria-selected="false" aria-controls="paneToday" type="button">今日の取説</button>
-      </div>
-
-      <div class="dia-pane" id="paneSelf" role="tabpanel">
       <!-- 入力 -->
       <div id="diaForm">
         <p class="dia-lead">生まれた年・月・日を選んでください。</p>
@@ -500,59 +651,48 @@
         <p class="res-disc">この鑑定は、生年月日から3つの数字を計算し、その数字の傾向を読み解くものです。運勢や吉凶を占うものではなく、自分の取扱説明書を作るための"ものの見方のひとつ"です。</p>
         <p class="res-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>
       </div>
-      </div><!-- /#paneSelf -->
-
-      <div class="dia-pane" id="panePair" role="tabpanel" hidden>
-        <div id="pairForm">
-          <p class="dia-lead">自分と、気になる人（パートナー・家族・仕事相手など）の生年月日を入れてください。</p>
-          <div class="pair-people">
-            <div class="pair-person">
-              <div class="pp-label">自分</div>
-              <div class="dia-form">
-                <div class="field"><label for="pSelY">Year</label><div class="sel y"><select id="pSelY" aria-label="自分の生まれた年"></select></div></div>
-                <div class="field"><label for="pSelM">Month</label><div class="sel m"><select id="pSelM" aria-label="自分の生まれた月"></select></div></div>
-                <div class="field"><label for="pSelD">Day</label><div class="sel d"><select id="pSelD" aria-label="自分の生まれた日"></select></div></div>
-              </div>
-            </div>
-            <div class="pair-person">
-              <div class="pp-label">お相手</div>
-              <div class="dia-form">
-                <div class="field"><label for="qSelY">Year</label><div class="sel y"><select id="qSelY" aria-label="お相手の生まれた年"></select></div></div>
-                <div class="field"><label for="qSelM">Month</label><div class="sel m"><select id="qSelM" aria-label="お相手の生まれた月"></select></div></div>
-                <div class="field"><label for="qSelD">Day</label><div class="sel d"><select id="qSelD" aria-label="お相手の生まれた日"></select></div></div>
-              </div>
-            </div>
-          </div>
-          <div class="dia-go">
-            <button class="btn btn-ink btn-lg" id="pairBtn" type="button">2人の相性を出す</button>
-          </div>
-          <p class="dia-err" id="pairErr" role="alert"></p>
-        </div>
-        <div id="pairResult" role="status" aria-live="polite" tabindex="-1"></div>
-      </div><!-- /#panePair -->
-
-      <div class="dia-pane" id="paneToday" role="tabpanel" hidden>
-        <div id="todayForm">
-          <p class="today-date serif" id="todayDate">―</p>
-          <p class="dia-lead">生年月日を入れると、その人の"今日の取説"が出ます。日付が変わると、内容も変わります。</p>
-          <div class="dia-form">
-            <div class="field"><label for="tSelY">Year</label><div class="sel y"><select id="tSelY" aria-label="生まれた年"></select></div></div>
-            <div class="field"><label for="tSelM">Month</label><div class="sel m"><select id="tSelM" aria-label="生まれた月"></select></div></div>
-            <div class="field"><label for="tSelD">Day</label><div class="sel d"><select id="tSelD" aria-label="生まれた日"></select></div></div>
-          </div>
-          <div class="dia-go">
-            <button class="btn btn-ink btn-lg" id="todayBtn" type="button">今日の取説を見る</button>
-          </div>
-          <p class="dia-err" id="todayErr" role="alert"></p>
-        </div>
-        <div id="todayResult" role="status" aria-live="polite" tabindex="-1"></div>
-      </div><!-- /#paneToday -->
-    </div>
+    </div><!-- /.dia-card -->
   </div>
 </section>
 
-<!-- ════════ 鑑定の結果が出てから表示される深掘りコンテンツ（Why Numbers 以下） ════════ -->
-<div id="postReveal" hidden>
+<!-- ════════ 相性を調べる（末尾） ════════ -->
+<section id="pair" class="sec-pad mini">
+  <div class="wrap">
+    <div class="sec-head mini-head reveal">
+      <span class="mini-eyebrow">Compatibility</span>
+      <h2 class="h">気になる人との、相性を読む。</h2>
+      <p class="lead">2人の生年月日から、関係の"設計の違い"が見えてきます。</p>
+    </div>
+    <div class="dia-card reveal d1">
+      <div id="pairForm">
+        <p class="dia-lead">自分と、気になる人（パートナー・家族・仕事相手など）の生年月日を入れてください。</p>
+        <div class="pair-people">
+          <div class="pair-person">
+            <div class="pp-label">自分</div>
+            <div class="dia-form">
+              <div class="field"><label for="pSelY">Year</label><div class="sel y"><select id="pSelY" aria-label="自分の生まれた年"></select></div></div>
+              <div class="field"><label for="pSelM">Month</label><div class="sel m"><select id="pSelM" aria-label="自分の生まれた月"></select></div></div>
+              <div class="field"><label for="pSelD">Day</label><div class="sel d"><select id="pSelD" aria-label="自分の生まれた日"></select></div></div>
+            </div>
+          </div>
+          <div class="pair-person">
+            <div class="pp-label">お相手</div>
+            <div class="dia-form">
+              <div class="field"><label for="qSelY">Year</label><div class="sel y"><select id="qSelY" aria-label="お相手の生まれた年"></select></div></div>
+              <div class="field"><label for="qSelM">Month</label><div class="sel m"><select id="qSelM" aria-label="お相手の生まれた月"></select></div></div>
+              <div class="field"><label for="qSelD">Day</label><div class="sel d"><select id="qSelD" aria-label="お相手の生まれた日"></select></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="dia-go">
+          <button class="btn btn-ink btn-lg" id="pairBtn" type="button">2人の相性を出す</button>
+        </div>
+        <p class="dia-err" id="pairErr" role="alert"></p>
+      </div>
+      <div id="pairResult" role="status" aria-live="polite" tabindex="-1"></div>
+    </div>
+  </div>
+</section>
 
 <!-- ════════ ③ 数字で何が分かるのか ════════ -->
 <section class="sec-pad">
@@ -667,7 +807,9 @@
     <nav class="f-links">
       <a class="js-note-top" href="https://note.com/nagi_genjitsu" target="_blank" rel="noopener">note</a>
       <a class="js-note-kantei" href="https://note.com/nagi_genjitsu/n/nb088483a8491" target="_blank" rel="noopener">個別数秘鑑定</a>
-      <a href="#numbers">数字を調べる</a>
+      <a href="#today">今日の取説</a>
+      <a href="#self">自分の設計図</a>
+      <a href="#pair">相性</a>
     </nav>
     <p class="f-note">個別鑑定・各ガイドの販売は、すべてnote上で行っています。記載の価格・特典・受付人数は予告なく変わる場合があります。</p>
     <p class="f-copy">© 2026 NAGI ｜ NUMEROLOGY DESIGN</p>
@@ -682,6 +824,8 @@
 const NOTE_KANTEI    = "https://note.com/nagi_genjitsu/n/nb088483a8491";
 // note：数秘別ガイド／適職設計図（個別商品URLが決まれば差し替え。暫定でnoteトップ）
 const NOTE_GUIDE     = "https://note.com/nagi_genjitsu";
+// note：適職設計図（完全ガイド）＝松竹梅の「竹」
+const NOTE_TEKISHOKU = "https://note.com/nagi_genjitsu/n/n54c40c695201";
 // note：トップ
 const NOTE_TOP       = "https://note.com/nagi_genjitsu";
 // 数秘別・完全ガイド（各980円）＝診断結果の「現在数」から該当ガイドへ直結。差し替えはこの中だけ。
@@ -984,6 +1128,269 @@ const CUR_EDGE = {
   33:'損得ぬきで人を思う気持ちの大きさ'
 };
 
+/* ── 現在数(cur) × 今日の数(pd) の専用ひとこと（144通り）。毎日ちがう組み合わせが出る ── */
+const COMBO = {
+  1:{1:'今日は自分の突破力と、始まりの空気が同じ方を向く日。迷う前に、いちばん最初の一歩を自分で決めてしまうと、そのまま乗れます。',
+     2:'先頭を走る自分には、今日は少し歩幅を落とす日。引っぱる前に相手の様子を一度受け取ると、突破力が空回りしません。',
+     3:'決めて動く力を、今日は言葉に乗せる日。「こうしよう」を明るく声に出すと、まわりが自然についてきます。',
+     4:'0→1が得意な自分には、今日は地道が続く日。大きく動かすより、始めたことを一つ形にして残すと、今日は噛みます。',
+     5:'突破力とフットワークが重なる日。ためらわず新しい場所へ一歩踏み込むと、今日はいちばん自分らしく動けます。',
+     6:'前に出る力を、今日は誰かのために使う日。引っぱるより、後ろの人に一声かけて支えると、力が温かく回ります。',
+     7:'動きたい自分には、今日は止まって考える日。すぐ動く前に、その一歩の狙いを一つ言葉にすると、明日が速くなります。',
+     8:'突破力と決断の空気が重なる日。保留にしていた決めごとを、今日は自分で決めきってしまうと、流れに乗れます。',
+     9:'走り続けてきた自分には、今日は一つ降ろす日。抱えた案件を一つ手放すと、次の一歩を起こす余白ができます。',
+     11:'決める力に、今日は直感が乗る日。理由が説明できなくても、「こっち」と感じたほうを先に選ぶと、あとで筋が通ります。',
+     22:'突破力が、今日は大きな構想とつながる日。目先の一歩でなく、少し先まで見て最初の一枠を決めると、遠くまで進めます。',
+     33:'先頭に立つ力を、今日は分け与える日。自分が決めた道を、迷っている人に一つ差し出すと、突破力が誰かの一歩になります。'},
+  2:{1:'なごませる自分には、今日は先に動く空気。合わせる前に、自分から小さく一歩を出すと、今日はいい風に乗れます。',
+     2:'気づかいと寄りそう流れが重なる日。相手の話を最後まで受け取る役に徹すると、今日はいちばん自分が活きます。',
+     3:'場をなごませる力を、今日は言葉にする日。飲み込んでいた一言を、軽く声に出してみると、空気がもっとほどけます。',
+     4:'気づかいの自分には、今日は段取りの日。人に合わせる前に、自分の手順を一つ片づけると、後がラクになります。',
+     5:'なごませ役の自分には、今日は動く空気。いつもの相手から少し離れて新しい場に顔を出すと、気持ちが軽くなります。',
+     6:'気づかいといたわりが重なる日。まわりを整えるのが自然にハマる日ですが、半分は自分をいたわる側にも回してください。',
+     7:'人に合わせる自分には、今日は一人の日。気をつかう相手から離れて静かに過ごすと、消耗がすっと抜けます。',
+     8:'なごませ役の自分には、今日は前に出る空気。遠慮して引くより、自分の希望を一つだけ口にすると、今日は通ります。',
+     9:'抱えがちな自分には、今日は降ろす日。「自分が我慢すれば」で持っていた荷物を一つ手放すと、軽くなれます。',
+     11:'気づかいに、今日は直感が乗る日。相手のために動く前に、「自分はどうしたいか」の第一感を先に拾ってください。',
+     22:'なごませる力を、今日は大きな場に。個人の気づかいを、仕組みや場づくりに広げると、遠くまで効きます。',
+     33:'気づかいと与える空気が重なる日。見返りを考えず一人に寄りそうとハマりますが、自分のケアも忘れずに。'},
+  3:{1:'表現力と始まりの空気が重なる日。温めていたアイデアを、今日いちばん最初に声に出すと、そのまま動き出します。',
+     2:'明るい自分には、今日は聞く日。話して盛り上げるより、相手の話にうなずく側に回ると、今日はいい関係が育ちます。',
+     3:'表現力と表現する流れが重なる日。思いついたことを、かたちを気にせず出すほど、今日はまわりに伝わります。',
+     4:'軽やかな自分には、今日は地道な日。次々広げるより、一つを最後まで仕上げると、その表現がちゃんと残ります。',
+     5:'表現力とフットワークが重なる日。新しい場所で見つけたものを、その場で誰かに話すと、今日は連鎖して広がります。',
+     6:'明るい自分には、今日は寄りそう日。場を盛り上げるより、元気のない人の隣で一緒にいると、その明るさが効きます。',
+     7:'出すのが得意な自分には、今日は溜める日。発信を少し休んで、面白いと感じたものを静かに掘ると、次のネタになります。',
+     8:'表現力を、今日は結果につなげる日。楽しいだけで終わらせず、その一言を「決める」ところまで運ぶと、前に進みます。',
+     9:'広げてきた自分には、今日は畳む日。手を出しすぎた企画を一つ手放すと、本当に楽しいものに力が戻ります。',
+     11:'表現力に、今日は直感が乗る日。ロジックより、「これ面白い」の第一感を信じて出すと、今日はいちばん響きます。',
+     22:'明るさを、今日は大きな形に。単発の面白さを、続く仕組みや企画に広げると、遠くまで届きます。',
+     33:'表現力と与える空気が重なる日。自分の楽しさを、しんどい人に一つ分けると、その場がふっと温まります。'},
+  4:{1:'積み上げの自分には、今日は始める空気。完璧に整えるより、まず一歩"始めるだけ"始めると、今日はうまく乗れます。',
+     2:'やり切る自分には、今日は合わせる日。自分の手順を通す前に、相手のペースを一度受け取ると、噛み合います。',
+     3:'堅実な自分には、今日は表に出す日。黙って進めるより、やっていることを一言伝えると、信頼が積み上がります。',
+     4:'安定感と積み上げの空気が重なる日。地味な作業を一つずつ片づけるほど、今日はいちばん自分の強みが活きます。',
+     5:'コツコツの自分には、今日は動く空気。いつもの手順に、小さな新しいやり方を一つ足すと、固さがほぐれます。',
+     6:'やり切る自分には、今日は人を気づかう日。作業を進める手を少し止めて、まわりを整えると、場が安定します。',
+     7:'安定感と掘り下げが重なる日。手を動かす前に、その作業の仕組みを一度整理すると、あとがぐっと速くなります。',
+     8:'積み上げてきた自分には、今日は決める日。ためた土台を背に、保留の判断を一つ決めきると、前に出られます。',
+     9:'抱え込む自分には、今日は整理の日。終わった手順や資料を一つ捨てると、机も頭もすっきりします。',
+     11:'手順の自分には、今日は直感の日。マニュアル通りより、「なんか違う」の違和感を一つ拾うと、ミスを先回りできます。',
+     22:'安定感を、今日は大きな設計に。目先の作業でなく、長く使える仕組みの土台を組むと、あとがずっとラクになります。',
+     33:'やり切る力を、今日は人のために。自分の段取りを、困っている人に一つ渡すと、その丁寧さが誰かを助けます。'},
+  5:{1:'フットワークと始まりが重なる日。迷う前に、いちばん気になる新しいことへ一歩踏み込むと、今日はそのまま動けます。',
+     2:'動きたい自分には、今日は合わせる日。あちこち動く前に、一人の相手にじっくり付き合うと、関係が深まります。',
+     3:'フットワークと表現が重なる日。動いて見つけたものを、その場で言葉にすると、今日はまわりを巻き込めます。',
+     4:'変化の自分には、今日は腰を据える日。次へ行く前に、始めたことを一つだけ形にして残すと、後で効いてきます。',
+     5:'フットワークと動き回る空気が重なる日。いつもと違うルートや場所を選ぶほど、今日はいちばん元気が出ます。',
+     6:'動きたい自分には、今日は整える日。外へ出る足を少し止めて、身近な人や場所を気づかうと、足元が安定します。',
+     7:'変化の自分には、今日は止まる日。動き回るより、一つのテーマに静かに潜ると、集めてきたものが一本につながります。',
+     8:'フットワークを、今日は結果に。動くだけで終わらせず、その先で一つ決めきると、今日は現実が前に動きます。',
+     9:'手を広げてきた自分には、今日は畳む日。続かなかったことを一つ手放すと、罪悪感が消えて身軽になれます。',
+     11:'フットワークに、今日は直感が乗る日。理由より、「行ってみたい」の第一感で動くと、今日はいい場所にたどり着けます。',
+     22:'変化の力を、今日は大きな流れに。単発の動きを、続く仕組みや拠点づくりに変えると、遠くまで運べます。',
+     33:'動く力を、今日は人のために。自分が見つけた新しい景色を、誰かに一つ運ぶと、その軽さが場を明るくします。'},
+  6:{1:'育てる自分には、今日は自分から動く日。人の世話より先に、自分のやりたい一歩を始めると、今日はいい流れに乗れます。',
+     2:'あたたかさと寄りそう空気が重なる日。相手の話を最後まで受け止める役に回ると、今日はいちばん自分が活きます。',
+     3:'育てる自分には、今日は表に出す日。裏で支えるだけでなく、感じたことを明るく言葉にすると、場がほどけます。',
+     4:'あたたかさの自分には、今日は段取りの日。人を気づかう前に、自分の作業を一つ片づけると、余裕をもって世話ができます。',
+     5:'育てる自分には、今日は動く空気。いつもの人から少し離れて新しい場に出ると、気持ちがリフレッシュします。',
+     6:'あたたかさといたわる流れが重なる日。まわりを整えるのがハマりますが、半分は自分をいたわる側に回してください。',
+     7:'世話を焼く自分には、今日は一人の日。人から離れて静かに過ごすと、注ぎすぎたぶんのエネルギーが戻ります。',
+     8:'あたたかさを、今日は前に出す日。支える側から一歩出て、自分の希望を一つ通すと、今日は流れが動きます。',
+     9:'抱え込む自分には、今日は手を離す日。育てた相手のことを一つ信じて任せると、お互いに軽くなれます。',
+     11:'育てる力に、今日は直感が乗る日。相手のために動く前に、「本当に望まれているか」の第一感を確かめてください。',
+     22:'あたたかさを、今日は大きな場に。個人への世話を、人が育つ仕組みや場づくりに広げると、遠くまで効きます。',
+     33:'あたたかさと与える空気が重なる日。見返りを考えず一人に寄りそうと深くハマりますが、自分のケアも忘れずに。'},
+  7:{1:'掘り下げる自分には、今日は動く日。考えをまとめきる前に、いちばん確かめたい一歩を実際に始めると、前に進みます。',
+     2:'一人が得意な自分には、今日は合わせる日。距離を置くより、一人の相手に静かに付き合うと、関係が深まります。',
+     3:'深い視点の自分には、今日は出す日。溜めた考えを、かたちを気にせず一言出すと、まわりに伝わり始めます。',
+     4:'本質を掘る自分には、今日は形にする日。考えるだけで終わらせず、一つ手順に落として片づけると、今日は残ります。',
+     5:'掘り下げる自分には、今日は動く空気。机で考えるより、現場を一つ見に行くと、探していた答えの糸口が見つかります。',
+     6:'一人が得意な自分には、今日は人を気づかう日。潜る手を少し止めて、身近な人に一声かけると、場が温まります。',
+     7:'深い視点と掘り下げる流れが重なる日。気になっていたテーマに静かに潜るほど、今日はいちばん頭が冴えます。',
+     8:'見抜く力を、今日は決断に。分析で終わらせず、その先の判断を一つ下すと、今日は現実が動き出します。',
+     9:'考え込む自分には、今日は手放す日。答えの出ない問いを一つ横に置くと、頭に余白ができて軽くなれます。',
+     11:'深い視点に、今日は直感が重なる日。理屈で詰める前に、「なんか変だ」の違和感を一つ言葉にすると、核心に届きます。',
+     22:'本質を掘る力を、今日は大きな設計に。細部より、全体の仕組みを一段深く見直すと、遠くまで効く一手になります。',
+     33:'見抜く力を、今日は人のために。相手の隠れた良さを一つ言葉にして渡すと、その深さが誰かの支えになります。'},
+  8:{1:'決断力と始まりが重なる日。迷う前に、いちばん動かしたいことを自分で決めて始めると、今日はそのまま前に進みます。',
+     2:'動かす自分には、今日は合わせる日。引っぱる前に相手の様子を一度受け取ると、圧が空回りせず伝わります。',
+     3:'決断力を、今日は言葉に乗せる日。決めたことを、堅くせず明るく伝えると、まわりが気持ちよく動いてくれます。',
+     4:'動かす自分には、今日は地道な日。大きく動かすより、足元の作業を一つ片づけると、次の決断の土台になります。',
+     5:'決断力とフットワークが重なる日。決めたことを、今日は現場で一つ動かすと、そのまま結果につながります。',
+     6:'動かす自分には、今日は気づかう日。前に出る力を少し抑えて、まわりを支えると、人がついてきやすくなります。',
+     7:'決める自分には、今日は考える日。すぐ動かす前に、その判断の狙いを一つ整理すると、決断の精度が上がります。',
+     8:'決断力と力を出す空気が重なる日。保留にしていた決めごとを、今日は迷わず決めきると、いちばん自分らしく動けます。',
+     9:'抱える自分には、今日は任せる日。全部を握らず、仕事を一つ人に渡すと、力が正しい方向へ流れます。',
+     11:'決断力に、今日は直感が乗る日。データを待つより、「こっち」と感じた第一感で決めると、今日は速く前に進めます。',
+     22:'決断力と大きく動かす空気が重なる日。目先でなく、長く効く一手を選んで決めると、今日は遠くまで動かせます。',
+     33:'動かす力を、今日は人のために。自分の決断力を、迷っている人の背中を押すことに使うと、その力が生きます。'},
+  9:{1:'受け止める自分には、今日は自分から動く日。合わせる前に、自分のやりたい一歩を先に出すと、今日はいい流れに乗れます。',
+     2:'包容力と寄りそう空気が重なる日。相手の話を丸ごと受け止める役に回ると、今日はいちばん自分が活きます。',
+     3:'受け止める自分には、今日は出す日。飲み込んでいた本音を、軽く一言口にすると、関係の風通しがよくなります。',
+     4:'包容力の自分には、今日は段取りの日。人に合わせる前に、自分の作業を一つ片づけると、後がラクになります。',
+     5:'受け止める自分には、今日は動く空気。いつもの相手から少し離れて新しい場に出ると、気持ちがリセットされます。',
+     6:'包容力といたわる流れが重なる日。まわりを整えるのがハマりますが、半分は自分をいたわる側に回してください。',
+     7:'受け止める自分には、今日は一人の日。人と距離を置いて静かに過ごすと、吸い込んだ感情がすっと抜けます。',
+     8:'包容力を、今日は前に出す日。受け止めるだけでなく、自分がどうしたいかを一つ言葉にすると、今日は流れが動きます。',
+     9:'包容力と手放す空気が重なる日。抱え込んだ人の荷物を一つ「これは相手のもの」と切り分けると、軽くなれます。',
+     11:'受け止める力に、今日は直感が乗る日。人に合わせる前に、「自分はどうしたいか」の第一感を先に拾ってください。',
+     22:'包容力を、今日は大きな場に。個人を受け止める力を、人がまとまる仕組みや調整役に広げると、遠くまで効きます。',
+     33:'包容力と与える空気が重なる日。見返りを考えず一人を受け止めるとハマりますが、自分のケアも忘れずに。'},
+  11:{1:'直感と始まりが重なる日。ふっと浮かんだ「これ」を、今日いちばん最初に一歩動かすと、そのまま流れに乗れます。',
+     2:'感じすぎる自分には、今日は合わせる日。受信を少し抑えて、一人の相手にゆっくり付き合うと、気持ちが落ち着きます。',
+     3:'直感を、今日は言葉にする日。感じたことを、証明できなくても一言出すと、迷っている人の背中を押せます。',
+     4:'直感の自分には、今日は形にする日。ひらめきで終わらせず、一つメモや手順に落とすと、今日はちゃんと現実に着地します。',
+     5:'直感とフットワークが重なる日。「行ってみたい」の第一感で動くと、今日はいい場所や人に出会えます。',
+     6:'感じすぎる自分には、今日は整える日。人の感情を受けすぎたら、身近な人を気づかいつつ、自分も休ませてください。',
+     7:'直感と掘り下げが重なる日。浮かんだ感覚を、一人で静かに掘るほど、今日は言葉にならなかったものが形になります。',
+     8:'直感を、今日は決断に。根拠を探す前に、感じたほうを先に決めて、あとから理屈で補強すると、今日は速く進めます。',
+     9:'受信しすぎる自分には、今日は手放す日。刺激を一つ減らして静かに過ごすと、曇っていたアンテナが戻ります。',
+     11:'第一感がいつも以上に冴える日。浮かんだことを疑わず、そのまま拾っておくと、今日は当たりが増えます。',
+     22:'直感を、今日は大きな構想に。ふと見えた全体像を、一枠だけ形にし始めると、遠くまで届く一手になります。',
+     33:'直感を、今日は人のために。相手の隠れた気持ちを一つ言葉にして渡すと、その鋭さが誰かの救いになります。'},
+  22:{1:'実行力と始まりが重なる日。温めていた構想を、今日いちばん最初の一枠だけ動かすと、そのまま形になり始めます。',
+     2:'大きく動かす自分には、今日は合わせる日。一人で設計を進める前に、まわりの声を一度受け取ると、無理なく進みます。',
+     3:'実行力を、今日は言葉にする日。頭の中の設計図を、かたちを気にせず一言共有すると、協力者が集まり始めます。',
+     4:'構想を形にする自分には、今日は土台の日。大きく広げるより、仕組みの一枠を丁寧に組むと、後がずっと安定します。',
+     5:'実行力とフットワークが重なる日。構想を、今日は現場で一つ試すと、机上では見えなかった手応えがつかめます。',
+     6:'大きく動かす自分には、今日は気づかう日。全体を押し進める手を止めて、まわりを整えると、人がついてきやすくなります。',
+     7:'実行力と掘り下げが重なる日。手を広げる前に、構想の要を一段深く見直すと、今日は設計の精度が上がります。',
+     8:'実行力を、今日は決断に。細部を待たず、大きな幹を一つ決めきると、今日は仕組みが前に動き出します。',
+     9:'抱え込む自分には、今日は任せる日。細かい枝を得意な人に渡すと、自分は大きな設計に集中できます。',
+     11:'実行力に、今日は直感が乗る日。完璧を待つより、「これでいける」の第一感で試作すると、今日は現実が動きます。',
+     22:'実行力と大きく動かす空気が重なる日。長く使える仕組みの土台を組むほど、今日はいちばん自分の力が活きます。',
+     33:'実行力を、今日は人のために。自分の設計力を、誰かの夢を形にすることに使うと、その力が大きく生きます。'},
+  33:{1:'与える自分には、今日は自分から動く日。人のために動く前に、自分のやりたい一歩を始めると、今日はいい流れに乗れます。',
+     2:'思いの大きい自分には、今日は聞く日。全力で寄りそう前に、相手の話を最後まで受け取ると、ちょうどいい距離になります。',
+     3:'与える力を、今日は言葉にする日。心にあるものを明るく一言出すと、その温かさがまわりにまっすぐ伝わります。',
+     4:'与える自分には、今日は段取りの日。人に尽くす前に、自分の作業を一つ片づけると、余裕をもって渡せます。',
+     5:'与える自分には、今日は動く空気。いつもの相手から少し離れて新しい場に出ると、抱えた重さがふっと軽くなります。',
+     6:'与えるといたわる流れが重なる日。人に寄りそうのが自然にハマりますが、半分は自分をいたわる側に回してください。',
+     7:'尽くしがちな自分には、今日は一人の日。人から離れて静かに過ごすと、注ぎすぎたぶんの力が戻ってきます。',
+     8:'与える力を、今日は前に出す日。尽くすだけでなく、自分の希望を一つ通すと、今日は流れが自分にも向きます。',
+     9:'抱え込む自分には、今日は手を離す日。全員を救おうとする気持ちを一つ降ろすと、本当に大事な相手に力を注げます。',
+     11:'与える力に、今日は直感が乗る日。動く前に、「本当に力を注ぐべき相手か」の第一感を確かめてください。',
+     22:'与える力を、今日は大きな場に。一人への思いを、人を支える仕組みや場づくりに広げると、遠くまで届きます。',
+     33:'損得ぬきで一人に寄りそうと、今日はいちばん深くハマります。ただし与えすぎたら、自分をケアする時間も必ず取ってください。'}
+};
+
+/* ── 現在数ごとの「今日の一歩」3種・「気をつけること」3種（日付シードでローテ） ── */
+const STEP_VAR = {
+  1:['今日、誰かの許可を待っていた一件を、自分で決めて動かす。','今日、やりたいと思っていたことを一つ、先に着手してしまう。','今日、場で最初に口火を切る役を、一度だけ引き受けてみる。'],
+  2:['今日、気が進まない小さな頼みを一つ、穏やかに断ってみる。','今日、「自分はどうしたいか」を、一度だけ言葉にしてみる。','今日、飲み込んでいた一言を、相手に静かに伝えてみる。'],
+  3:['今日、面白いと思ったことを一つ、その場で誰かに話す。','今日、飽きた一つを「次へ進む合図」として手放してみる。','今日、頭に浮かんだことを、短くていいので一つ発信する。'],
+  4:['今日、後回しにしていた地味な作業を一つ、最後まで片づける。','今日、自分のやり方を一つ、メモにして残しておく。','今日、散らかっていた場所を、一つだけ整える。'],
+  5:['今日、いつもと違うルートや方法を、一つ試してみる。','今日、行ったことのない場所へ、一つ足を運んでみる。','今日、気になっていた新しいことを、一つだけ始める。'],
+  6:['今日、身近な誰かに、小さな気づかいを一つ向ける。','今日、まわりへの気づかいの半分を、自分に向けてみる。','今日、育てた相手のことを一つ、信じて任せてみる。'],
+  7:['今日、一人で静かに考える時間を15分、先に確保する。','今日、気になっていたテーマを一つだけ、深く調べる。','今日、感じた違和感を一つ、言葉にして書き留める。'],
+  8:['今日、決めきれずにいたことを一つ、思いきって決める。','今日、抱えていた仕事を一つ、信頼できる人に任せる。','今日、保留にしていた一手を一つ、前に進める。'],
+  9:['今日、頼まれごとを一つ、罪悪感なしに手放してみる。','今日、「自分はどうしたいか」を、一度だけ言葉にする。','今日、何もしない余白の時間を、少しだけ取ってみる。'],
+  11:['今日、浮かんだことを一つ、そのままメモに書き留める。','今日、小さな選択を一つ、理由なしで直感で決める。','今日、感じた第一感を、証明できなくても採用してみる。'],
+  22:['今日、頭の中の構想を、まず一行だけ書き出してみる。','今日、任せていい細部を一つ、得意な人に渡してみる。','今日、完璧を待たず、小さく試作を一つ始めてみる。'],
+  33:['今日、人に向けている優しさを、一つ自分にも向ける。','今日、心が本当に動く相手一人に、力を集中して注ぐ。','今日、見返りを考えず、身近な誰かに小さく手を貸す。']
+};
+const CARE_VAR = {
+  1:['動く前に人へ相談して、熱が冷めること。決めてから相談に回すと保てます。','先頭を嫌われると思って、一歩を飲み込むこと。前に出て大丈夫です。','全部を一人で抱えること。育てる工程は、得意な人に渡していい。'],
+  2:['察してあげすぎて、自分を後回しにすること。自分の希望も並べて。','断れずに抱え込むこと。線を引いても、優しさは消えません。','心地よくない相手に、無理に合わせ続けること。'],
+  3:['「飽きた」を失敗だと責めること。次への合図として扱って。','無理に一つを続けて、本来の軽やかさを殺すこと。','完璧な言い回しを考え込んで、出せなくなること。'],
+  4:['近道に惹かれて、いつもの手順を飛ばすこと。','派手な成功と比べて、自分の着実さを軽く見ること。','先の全体像まで完璧に組もうとして、動けなくなること。'],
+  5:['「腰を据えなきゃ」と、自分を型にはめること。','続かなかった自分を責める、自己嫌悪のループに入ること。','細部を延々と回す役を、一人で抱え込むこと。'],
+  6:['「してあげたのに」と、見返りを求めること。','望まれていない手助けまで、先回りしてすること。','人を満たして、自分のことだけ後回しにすること。'],
+  7:['無理に愛想よく、人に合わせて消耗すること。','一人で考える時間を削って、予定を詰め込むこと。','孤独を欠点だと責めること。中身で信頼されていい。'],
+  8:['力を小さく見せて、内にこもって消耗すること。','嫌われないよう遠慮して、主導権を手放すこと。','全部を自分の手で握ること。仕組みで回して大丈夫。'],
+  9:['人の感情を吸い込みすぎて、抱え込むこと。','全員に合わせて、自分の輪郭を見失うこと。','断れずに、全員の荷物を背負ってしまうこと。'],
+  11:['直感を「根拠は?」と、自分で問い詰めること。','人と違うことを「おかしいのかも」と否定すること。','刺激の多い場に長くいて、受信しすぎて疲れること。'],
+  22:['細部の完璧主義で、有限な力を浪費すること。','全部を完璧にしようとして、動きが止まること。','理想と現実の差に落ち込んで、着手が遅れること。'],
+  33:['「常識人でいなきゃ」と、自分を型にはめること。','全員を救おうとして、自己犠牲が限界を超えること。','細かいルールに縛られる役を、無理に抱えること。']
+};
+/* ── 今月の流れ（パーソナルマンス12種） ── */
+const MONTH = {
+  1:'今月は、新しく動き出す流れの月。迷っているより、小さく着手した人から前に進みます。',
+  2:'今月は、人と歩調を合わせる流れの月。一人で抱えず、まわりと組むほど回ります。',
+  3:'今月は、表に出す流れの月。ため込まず、思ったことを言葉や形にすると軽くなります。',
+  4:'今月は、土台を固める流れの月。派手さより、コツコツ積み上げたものが残ります。',
+  5:'今月は、変化を取り入れる流れの月。同じを守るより、新しい動きを一つ入れると乗れます。',
+  6:'今月は、人や場を整える流れの月。まわりをいたわりつつ、自分のケアも忘れずに。',
+  7:'今月は、掘り下げる流れの月。答えを急がず、一人で深める時間が力になります。',
+  8:'今月は、現実を動かす流れの月。遠慮せず、決めて前に進めると結果につながります。',
+  9:'今月は、区切りをつける流れの月。抱え込んだものを手放すと、次の余白ができます。',
+  11:'今月は、直感が冴える流れの月。理屈より、感じたことを信じて動くとハマります。',
+  22:'今月は、大きく動かす流れの月。目先でなく、長く効く仕組みに手をつけると遠くまで進みます。',
+  33:'今月は、与える流れの月。損得ぬきで人に寄りそいつつ、自分も満たす時間を取って。'
+};
+/* ── 夜空の色（パーソナルデー数ごと12トーン・低彩度の深色のみ） ── */
+const NIGHT = {
+  1 :{a:'#1a2452',b:'#0e1230'}, 2 :{a:'#182a44',b:'#0c1526'}, 3 :{a:'#241f40',b:'#12102a'},
+  4 :{a:'#172236',b:'#0b1120'}, 5 :{a:'#152c48',b:'#0a1626'}, 6 :{a:'#251d3c',b:'#130e24'},
+  7 :{a:'#0f1a34',b:'#06091a'}, 8 :{a:'#20233f',b:'#0f1124'}, 9 :{a:'#1b2438',b:'#0c1120'},
+  11:{a:'#1e2652',b:'#0d1330'}, 22:{a:'#152340',b:'#080f1e'}, 33:{a:'#2a2340',b:'#140f26'}
+};
+/* ── 数字の紋様（幾何ラインアート・設計図の延長。占星の意味づけはしない） ── */
+function glyphSVG(n){
+  const cx=120, cy=120, R=92, g='#D8B45E';
+  const line=(x1,y1,x2,y2)=>`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${g}" stroke-width="1" />`;
+  const dot=(x,y,r)=>`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${g}" />`;
+  const ring=(k,rad,rot)=>{ // k点を円環に並べ、順につなぎ、中心へ結ぶ
+    let pts=[], s='';
+    for(let i=0;i<k;i++){ const a=(-90+rot+360/k*i)*Math.PI/180; pts.push([cx+rad*Math.cos(a), cy+rad*Math.sin(a)]); }
+    for(let i=0;i<k;i++){ const [x1,y1]=pts[i], [x2,y2]=pts[(i+1)%k]; if(k>1) s+=line(x1,y1,x2,y2); s+=line(cx,cy,x1,y1); s+=dot(x1,y1,2.4); }
+    return s;
+  };
+  let body='';
+  if(n<=9){ body = (n===1) ? line(cx,cy-R,cx,cy+R)+dot(cx,cy-R,2.6)+dot(cx,cy+R,2.6) : ring(n,R,0); }
+  else if(n===11){ body = line(cx,cy-R,cx,cy+R)+dot(cx,cy-R,3)+dot(cx,cy+R,3)+line(cx-14,cy,cx+14,cy); }
+  else if(n===22){ body = ring(4,R,45)+ring(4,R*0.5,45); }        // 二重の格子
+  else { body = ring(3,R,0)+ring(3,R,60); }                        // 33＝重なる三角
+  body += `<circle cx="${cx}" cy="${cy}" r="1.8" fill="${g}" />`;
+  return `<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${body}</svg>`;
+}
+/* ── 星の散らし（夜カード背景・数個だけ） ── */
+function starField(seed){
+  const rnd = (s)=>{ let x=Math.sin(s)*10000; return x-Math.floor(x); };
+  let html=''; const n=9;
+  for(let i=0;i<n;i++){
+    const x=(rnd(seed+i*1.7)*94+3).toFixed(1), y=(rnd(seed+i*3.1)*88+4).toFixed(1);
+    const sz=(rnd(seed+i*5.3)*1.6+1).toFixed(1), dl=(rnd(seed+i*7.9)*4).toFixed(1);
+    html+=`<span class="star" style="left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;animation-delay:${dl}s"></span>`;
+  }
+  return html;
+}
+/* ── 季節（今日の月から判定）。金は主役のまま、光の色・粒・チップだけ季節で変える ── */
+function currentSeason(mo){
+  if(mo>=3 && mo<=5)  return 'spring';
+  if(mo>=6 && mo<=8)  return 'summer';
+  if(mo>=9 && mo<=11) return 'autumn';
+  return 'winter';
+}
+const SEASON = {
+  spring:{label:'春', accent:'#E7B7C0', glow:'rgba(224,150,165,.20)'},
+  summer:{label:'夏', accent:'#AAD0E8', glow:'rgba(90,150,205,.18)'},
+  autumn:{label:'秋', accent:'#E4B36A', glow:'rgba(205,130,55,.19)'},
+  winter:{label:'冬', accent:'#C6DAEC', glow:'rgba(150,185,220,.16)'}
+};
+/* ── 季節の光の粒（下から静かに立ちのぼる・数個だけ） ── */
+function seasonParticles(seed){
+  const rnd=(s)=>{ let x=Math.sin(s)*10000; return x-Math.floor(x); };
+  let html=''; const n=7;
+  for(let i=0;i<n;i++){
+    const x=(rnd(seed+i*2.3)*90+5).toFixed(1);
+    const sz=(rnd(seed+i*3.7)*3+2).toFixed(1);
+    const dur=(rnd(seed+i*5.1)*8+11).toFixed(1);
+    const dl=(rnd(seed+i*8.3)*dur).toFixed(1);
+    html+=`<span class="mote" style="left:${x}%;bottom:-4%;width:${sz}px;height:${sz}px;animation-duration:${dur}s;animation-delay:-${dl}s"></span>`;
+  }
+  return html;
+}
+/* ── 日付シード（同じ日は同じ値＝乱数を使わない） ── */
+function dateSeed(t){ return t.y*10000 + t.mo*100 + t.da; }
+/* ── パーソナルマンス数（今月の流れ用） ── */
+function personalMonth(bm, bd, ty, tmo){
+  const py = reduceMaster(digitSum(bm) + digitSum(bd) + digitSum(ty));
+  return reduceMaster(py + digitSum(tmo));
+}
+
 function renderPair(a, b){
   const na = NUM[a], nb = NUM[b], ra = REL[a], rb = REL[b];
   const same = (a === b);
@@ -1132,8 +1539,8 @@ $('#calcBtn').addEventListener('click', () => {
   void res.offsetWidth;
   cards.forEach(c => c.style.animation = '');
   res.classList.add('show');
-  $('#postReveal').hidden = false;   // 鑑定の結果が出たら、深掘りコンテンツ（Why Numbers 以下）を表示
-  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  nagiTrack('self-' + vNow);   // 計測：自分診断の完了（数字別）
+  $('#self').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
 /* ── 相性：計算実行 ── */
@@ -1150,22 +1557,21 @@ $('#pairBtn').addEventListener('click', () => {
   const box = $('#pairResult');
   box.innerHTML = renderPair(a, b);
   box.classList.add('show');
-  $('#postReveal').hidden = false;   // 鑑定の結果が出たら、深掘りコンテンツ（Why Numbers 以下）を表示
   $('#pairForm').style.display = 'none';
   $('#pairAgainBtn').addEventListener('click', () => {
     box.classList.remove('show');
     box.innerHTML = '';
     $('#pairForm').style.display = '';
-    $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+    $('#pair').scrollIntoView({behavior:'smooth', block:'start'});
   });
-  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  $('#pair').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
 /* ── もう一度 ── */
 $('#againBtn').addEventListener('click', () => {
   $('#result').classList.remove('show');
   $('#diaForm').style.display = '';
-  $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  $('#self').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
 /* ══════════ 今日の取説（パーソナルデー数） ══════════ */
@@ -1178,82 +1584,177 @@ function personalDay(bm, bd, ty, tmo, td){
   const pm = reduceMaster(py + digitSum(tmo));                          // パーソナルマンス
   return reduceMaster(pm + digitSum(td));                               // パーソナルデー
 }
-// 今日の取説を描画（cur=現在数, pd=パーソナルデー数, dateStr=表示用日付）
-function renderToday(cur, pd, dateStr){
-  const d = DAY[pd]; if(!d) return '';
-  const curTag = NUM[cur] ? NUM[cur].tag : '';
-  const same = (cur === pd);
-  const personal = same
-    ? `今日は、自分の数字「${cur}」と重なる"ホームな日"。「${curTag}」の持ち味（${CUR_EDGE[cur]}）が、そのまま今日の追い風になります。いつも以上に、自分の感覚を信じて動いてOKです。`
-    : `「${curTag}」の自分の持ち味は、${CUR_EDGE[cur]}。今日の"${d.favor}"とは、${d.bridge}`;
-  const noteHref = NUM_NOTE[cur] || NOTE_TOP;
+// 松竹梅（結果内の3段CTA・価格非表示）。cur＝現在数（梅を該当ガイドに結線）
+function matsuTakeUme(cur){
+  const umeHref = NUM_NOTE[cur] || NOTE_GUIDE;
   return `
-    <div class="res-head"><span class="small serif">${dateStr}の取説</span></div>
-    <div class="today-badge">
-      <span class="tb-num">${pd}${MASTERS.includes(pd)?'<span class="mn">Master</span>':''}</span>
-      <span class="tb-label">${d.label}</span>
-      <span class="tb-calc">生まれた月日と今日の日付を、数秘のルールで足した「今日のパーソナルデー数」です。占いではなく、今日という日の"数字"から読み解いています。</span>
-    </div>
-    <div class="read-full">
-      <div class="rf-head"><span class="rf-role">今日のモード</span><span class="rf-tag">"${pd}"の日 ─ ${d.label}</span></div>
-      <div class="sec"><h3><span class="dot"></span>今日のテーマ</h3><p>${d.theme}</p></div>
-      <div class="sec"><h3><span class="dot"></span>今日、追い風になること</h3><p>${d.tailwind}</p></div>
-      <div class="sec"><h3><span class="dot"></span>今日、ムリしなくていいこと</h3><p>${d.ease}</p></div>
-      <div class="sec"><h3><span class="dot"></span>現在数${cur}の自分に、ひとこと</h3><p>${personal}</p></div>
-    </div>
-    <div class="res-step">
-      <p class="sh serif">今日の一歩</p>
-      <p>${d.step}</p>
-    </div>
-    <div class="res-cta">
-      <p class="cta-bridge serif">また明日、のぞいてみてください。</p>
-      <span class="rc-eyebrow serif">現在数 <b>${cur}</b>（${curTag}）の完全ガイド</span>
-      <p class="h">今日の使い方の、その先へ。</p>
-      <p class="p">今日の取説は、日替わりの"モード"まで。自分の数字そのもの——才能の伸ばし方・つまずきの抜け方・向いてる仕事を、現在数ひとつぶんだけ深く書いたのが、完全ガイドです。</p>
-      <a class="btn btn-sub btn-lg" href="${noteHref}" target="_blank" rel="noopener">現在数${cur}の完全ガイドを読む</a>
-      <p class="cta-meta">note ／ 買い切り・追記でずっと更新中</p>
-    </div>
-    <div class="share-row">
-      <button class="res-again" id="todayAgainBtn" type="button">別の生年月日で見る</button>
-    </div>
-    <p class="res-disc">この取説は、生年月日と今日の日付から「パーソナルデー数」を計算し、今日出やすいモードを読み解くものです。運勢や吉凶を占うものではなく、今日の自分の使い方を知るための見方のひとつです。</p>
-    <p class="res-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>`;
+    <div class="mtu">
+      <p class="mtu-bridge serif">今日の取説は、日替わりの"モード"まで。<br>自分の数字そのものは、ここから深く読めます。</p>
+      <div class="mtu-grid">
+        <div class="mtu-card">
+          <span class="tier">Guide</span>
+          <h4>現在数${cur}の、完全ガイド</h4>
+          <p>まず、自分の数字ひとつを深く。才能の伸ばし方・つまずきの抜け方・向く仕事を、現在数ぶんだけ1冊に。</p>
+          <a class="btn btn-line" href="${umeHref}" target="_blank" rel="noopener">数秘${cur}のガイドを読む</a>
+        </div>
+        <div class="mtu-card reco">
+          <span class="flag">いちばん読まれています</span>
+          <span class="tier">Full Guide</span>
+          <h4>適職設計図（完全ガイド）</h4>
+          <p>仕事・働き方まで、全数字ぶんを一冊で。「自分はどこで力が出るのか」を設計図として読み解く決定版。</p>
+          <a class="btn btn-gold2" href="${NOTE_TEKISHOKU}" target="_blank" rel="noopener">適職設計図を見る</a>
+        </div>
+        <div class="mtu-card">
+          <span class="tier">Personal</span>
+          <h4>個別数秘鑑定</h4>
+          <p>自分専用に、僕が読み解く。3つの数字の掛け合わせを、35ページ以上の鑑定書に。毎月20名限定。</p>
+          <a class="btn btn-line" href="${NOTE_KANTEI}" target="_blank" rel="noopener">個別鑑定を見る</a>
+        </div>
+      </div>
+    </div>`;
 }
-// フォーム上部に今日の日付を表示（呼ぶたびに取り直す）
-function refreshTodayDate(){ $('#todayDate').textContent = fmtToday(todayObj()) + ' の取説'; }
-refreshTodayDate();
-// 今日の取説を計算して表示（doScroll=false ならスクロールしない）
-function runToday(doScroll){
-  const y = parseInt($('#tSelY').value,10), m = parseInt($('#tSelM').value,10), d = parseInt($('#tSelD').value,10);
-  const err = $('#todayErr');
-  if(!y || !m || !d){
-    err.textContent = '生まれた年・月・日を、すべて選んでください。';
-    return;
-  }
-  err.textContent = '';
-  const cur = lifePath(y,m,d);
+// 今日の取説を描画（cur=現在数, pd=パーソナルデー数, t=今日オブジェクト）
+function renderToday(cur, pd, t){
+  const d = DAY[pd]; if(!d) return '';
+  const seed = dateSeed(t);
+  const vi = ((seed % 3) + 3) % 3;                          // 一歩・注意のローテ（同じ日は同じ）
+  const step = (STEP_VAR[cur] || [d.step])[vi] || d.step;
+  const care = (CARE_VAR[cur] || ['がんばりすぎて、自分を後回しにすること。'])[vi];
+  const combo = (COMBO[cur] && COMBO[cur][pd]) ? COMBO[cur][pd] : '';
+  const pm = personalMonth(t.bm, t.bd, t.y, t.mo);
+  const monthLine = MONTH[pm] || '';
+  // 明日の予告
+  const tmo = new Date(t.y, t.mo-1, t.da); tmo.setDate(tmo.getDate()+1);
+  const pdN = personalDay(t.bm, t.bd, tmo.getFullYear(), tmo.getMonth()+1, tmo.getDate());
+  const tone = NIGHT[pdN] || NIGHT[1];
+  const curTag = NUM[cur] ? NUM[cur].tag : '';
+  const sea = SEASON[currentSeason(t.mo)];
+  return `
+    <p class="n-date">${fmtToday(t)}<span class="n-season">${sea.label}</span></p>
+    <div class="n-hero">
+      <div class="n-day">${pd}</div>
+      ${MASTERS.includes(pd)?'<span class="n-mnbadge">Master Number</span>':''}
+      <span class="n-label">"${pd}"の日 ─ ${d.label}</span>
+      <span class="n-calc">生まれた月日と今日の日付を、数秘のルールで足した「今日のパーソナルデー数」です。占いではなく、今日という日の"数字"から読み解いています。</span>
+    </div>
+    <div class="n-block"><h3><span class="d"></span>今日のテーマ</h3><p>${d.theme}</p></div>
+    <div class="n-block"><h3><span class="d"></span>今日、追い風になること</h3><p>${d.tailwind}</p></div>
+    <div class="n-block"><h3><span class="d"></span>今日、ムリしなくていいこと</h3><p>${d.ease}</p></div>
+    <div class="n-me">
+      <p class="lbl serif">現在数${cur}（${curTag}）の自分へ</p>
+      <p>${combo}</p>
+    </div>
+    <div class="n-do">
+      <div class="card step"><p class="h">今日、踏み出せる一歩</p><p>${step}</p></div>
+      <div class="card care"><p class="h">今日、気をつけること</p><p>${care}</p></div>
+    </div>
+    <p class="n-month">${monthLine}</p>
+    ${matsuTakeUme(cur)}
+    <p class="n-tomo">明日は"<b>${pdN}</b>"の日。<span class="dot" style="color:${tone.a}"></span>流れが変わります。<br>また明日、のぞいてみてください。</p>
+    <button class="n-again" id="todayAgainBtn" type="button">別の生年月日で見る</button>
+    <p class="n-disc">この取説は、生年月日と今日の日付から「パーソナルデー数」を計算し、今日出やすいモードを読み解くものです。運勢や吉凶を占うものではなく、今日の自分の使い方を知るための見方のひとつです。</p>
+    <p class="n-sign serif">現実をかえる数秘デザイン ｜ なぎ</p>`;
+}
+
+/* ── 生年月日の記憶（この端末のlocalStorageにのみ保存） ── */
+const NAGI_KEY = 'nagi_profile';
+function loadProfile(){
+  try{ const r = localStorage.getItem(NAGI_KEY); if(!r) return null;
+    const p = JSON.parse(r); if(p && p.y && p.m && p.d) return p; }catch(e){}
+  return null;
+}
+function saveProfile(y,m,d){ try{ localStorage.setItem(NAGI_KEY, JSON.stringify({y,m,d})); }catch(e){} }
+
+// 夜カードの見た目（背景トーン・紋様・星・季節の光）をパーソナルデー数＋季節に合わせる
+function paintNight(pd, animate){
+  const card = $('#todayCard'); if(!card) return;
+  const tone = NIGHT[pd] || NIGHT[1];
+  card.style.setProperty('--n-a', tone.a);
+  card.style.setProperty('--n-b', tone.b);
   const t = todayObj();
+  const sea = currentSeason(t.mo), sc = SEASON[sea];
+  card.classList.remove('season-spring','season-summer','season-autumn','season-winter');
+  card.classList.add('season-' + sea);
+  card.style.setProperty('--season-glow', sc.glow);
+  card.style.setProperty('--season-accent', sc.accent);
+  // 紋様は日付シードで少し回転（毎日わずかに違う）
+  const ang = ((dateSeed(t) % 23) - 11);
+  const g = $('#nightGlyph');
+  g.style.transform = 'translate(-50%,-50%) rotate(' + ang + 'deg)';
+  g.innerHTML = glyphSVG(pd);
+  $('#nightStars').innerHTML = starField(pd) + seasonParticles(pd * 7 + dateSeed(t));
+  const inner = $('#todayResult');
+  if(animate){ inner.classList.remove('n-ink'); void inner.offsetWidth; inner.classList.add('n-ink'); }
+}
+
+// 季節の雰囲気だけ（フォーム表示中の空カードにも華やかさを乗せる）
+function applySeasonAmbiance(){
+  const card = $('#todayCard'); if(!card) return;
+  const t = todayObj(), sea = currentSeason(t.mo), sc = SEASON[sea];
+  card.classList.remove('season-spring','season-summer','season-autumn','season-winter');
+  card.classList.add('season-' + sea);
+  card.style.setProperty('--season-glow', sc.glow);
+  card.style.setProperty('--season-accent', sc.accent);
+  $('#nightStars').innerHTML = seasonParticles(dateSeed(t) + 3);
+}
+// 今日の取説を計算して表示（save=trueで記憶、animate=trueでにじみ演出、scroll=trueでスクロール）
+function runToday(y, m, d, opt){
+  opt = opt || {};
+  const err = $('#todayErr');
+  if(!y || !m || !d){ if(err) err.textContent = '生まれた年・月・日を、すべて選んでください。'; return; }
+  if(err) err.textContent = '';
+  const cur = lifePath(y,m,d);
+  const t = todayObj(); t.bm = m; t.bd = d;
   const pd = personalDay(m, d, t.y, t.mo, t.da);
-  const box = $('#todayResult');
-  box.innerHTML = renderToday(cur, pd, fmtToday(t));
-  box.classList.add('show');
-  $('#todayForm').style.display = 'none';
-  $('#postReveal').hidden = false;
-  $('#todayAgainBtn').addEventListener('click', () => {
-    box.classList.remove('show');
-    box.innerHTML = '';
-    $('#todayForm').style.display = '';
-    $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
-  });
-  if(doScroll) $('#numbers').scrollIntoView({behavior:'smooth', block:'start'});
+  paintNight(pd, false);
+  $('#todayResult').innerHTML = renderToday(cur, pd, t);
+  paintNight(pd, opt.animate);
+  $('#todayForm').hidden = true;
+  $('#todayResult').hidden = false;
+  $('#todayMemory').hidden = false;
+  $('#todayMemory').innerHTML = `${y}年${m}月${d}日生まれ として表示中 ｜ <a id="todayChange">別の生年月日にする</a>`;
+  $('#todayChange').addEventListener('click', showTodayForm);
+  $('#todayAgainBtn').addEventListener('click', showTodayForm);
+  if(opt.save) saveProfile(y,m,d);
+  nagiTrack('today');
+  if(opt.scroll) $('#today').scrollIntoView({behavior:'smooth', block:'start'});
 }
-$('#todayBtn').addEventListener('click', () => runToday(true));
-// 「今日の取説」タブを開いた時：日付を取り直し、結果が出ていれば今日ぶんで計算し直す
-// （ページを開きっぱなしで日付をまたいでも、タブに戻れば最新の日付・内容になる）
-function refreshTodayTab(){
-  refreshTodayDate();
-  if($('#todayResult').classList.contains('show')) runToday(false);
+function showTodayForm(){
+  $('#todayResult').hidden = true;
+  $('#todayResult').innerHTML = '';
+  $('#todayMemory').hidden = true;
+  $('#todayForm').hidden = false;
+  $('#nightGlyph').innerHTML = '';
+  const c = $('#todayCard'); c.style.removeProperty('--n-a'); c.style.removeProperty('--n-b');
+  applySeasonAmbiance();   // 空カードにも季節の雰囲気は残す
+  $('#today').scrollIntoView({behavior:'smooth', block:'start'});
 }
+// フォームの「今日の取説を見る」
+$('#todayBtn').addEventListener('click', () => {
+  const y = parseInt($('#tSelY').value,10), m = parseInt($('#tSelM').value,10), d = parseInt($('#tSelD').value,10);
+  runToday(y, m, d, {save:true, animate:true, scroll:false});
+});
+// ヒーローとフォームに今日の日付を表示
+function refreshDates(){
+  const s = fmtToday(todayObj());
+  if($('#heroDate'))  $('#heroDate').textContent  = s;
+  if($('#todayDate')) $('#todayDate').textContent = s + ' の取説';
+}
+// 初期化：記憶があれば0タップで今日の取説を表示
+(function initToday(){
+  refreshDates();
+  const p = loadProfile();
+  if(p){
+    if($('#tSelY')) $('#tSelY').value = p.y;
+    if($('#tSelM')) $('#tSelM').value = p.m;
+    // 日セレクトを月に合わせて埋め直してから値を入れる
+    if($('#tSelM')) $('#tSelM').dispatchEvent(new Event('change'));
+    if($('#tSelD')) $('#tSelD').value = p.d;
+    runToday(p.y, p.m, p.d, {save:false, animate:true, scroll:false});
+  } else {
+    applySeasonAmbiance();   // 初回（フォーム表示）でも季節の光を乗せる
+  }
+})();
 
 /* ── ヘッダーのスクロール状態 ── */
 const hdr = $('#hdr');
@@ -1275,23 +1776,33 @@ if('IntersectionObserver' in window){
   $$('.reveal').forEach(el => el.classList.add('in'));
 }
 
-/* ── 診断タブ切替（自分／相性／今日の取説） ── */
-(function(){
-  const tabs = {
-    self:  {btn: $('#tabSelf'),  pane: $('#paneSelf')},
-    pair:  {btn: $('#tabPair'),  pane: $('#panePair')},
-    today: {btn: $('#tabToday'), pane: $('#paneToday')}
-  };
-  function select(which){
-    for(const k in tabs){
-      const on = (k === which);
-      tabs[k].btn.setAttribute('aria-selected', on);
-      tabs[k].pane.hidden = !on;
-    }
-    if(which === 'today') refreshTodayTab();   // 日付を取り直し、表示中なら再計算
-  }
-  for(const k in tabs){ tabs[k].btn.addEventListener('click', () => select(k)); }
-})();
+/* ══════════════════════════════════════════════
+   ▼ 計測（仮想ページビュー方式・Vercel無料プラン対応）
+   ダッシュボードのPages欄で /v/○○ として見える：
+   /v/self-11 …自分診断の完了（数字別） /v/pair …相性実行
+   /v/today …今日の取説実行 /v/note-guide-11 …数秘別ガイドのクリック
+   /v/note-kantei …個別鑑定のクリック /v/note-top …noteトップのクリック
+   ══════════════════════════════════════════════ */
+const NAGI_CLEAN = location.pathname + location.search + location.hash;   // 読み込み時の正規URL
+function nagiTrack(name){
+  try{
+    history.pushState(null, '', '/v/' + name);
+    setTimeout(() => { try{ history.replaceState(null, '', NAGI_CLEAN); }catch(e){} }, 400);
+  }catch(e){}
+}
+/* noteへのクリックを計測（リンクは新規タブで開くため遷移は妨げない） */
+document.addEventListener('click', (ev) => {
+  const a = ev.target && ev.target.closest ? ev.target.closest('a[href*="note.com"]') : null;
+  if(!a) return;
+  let label = 'note-top';
+  const h = a.href || '';
+  if(h === NOTE_KANTEI) label = 'note-kantei';
+  else if(h === NOTE_TEKISHOKU && NOTE_TEKISHOKU !== NOTE_TOP) label = 'note-tekishoku';
+  else { for(const k in NUM_NOTE){ if(NUM_NOTE[k] === h){ label = 'note-guide-' + k; break; } } }
+  nagiTrack(label);
+}, true);
+/* 相性の実行を計測（今日の取説は runToday 内で計測済み） */
+if($('#pairBtn'))  $('#pairBtn').addEventListener('click',  () => nagiTrack('pair'));
 </script>
 </body>
 </html>
