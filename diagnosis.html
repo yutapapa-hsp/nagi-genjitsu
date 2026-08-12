@@ -27,6 +27,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+<script>
+  if (/^https?:$/.test(location.protocol) && /\/diagnosis\.html$/.test(location.pathname)) {
+    try { history.replaceState(null, document.title, location.pathname.replace(/diagnosis\.html$/, '') + location.search + location.hash); } catch (_) {}
+  }
+</script>
 <style>
   :root{
     --bg:#F7F8FC; --white:#FFFFFF;
@@ -579,7 +584,7 @@
   }
   .btn-ink:hover,.btn-sub:hover{background:#0B327F;box-shadow:0 16px 34px rgba(6,27,82,.27)}
 
-  #today,#hero,#pair,#pair ~ section{display:none!important}
+  #today,#pair,#pair ~ section{display:none!important}
   #postReveal{display:block!important}
   #self{
     padding:100px 0 120px;
@@ -869,11 +874,20 @@
     #todayResult .mtu-card.reco{transform:none}
   }
 </style>
+<link rel="stylesheet" href="assets/numerology-theme.css">
 <!-- ▼ 計測：Vercel Web Analytics（本番ドメインで自動有効・ローカルでは無害） -->
 <script>window.va = window.va || function(){(window.vaq = window.vaq || []).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body>
+<body class="diagnosis-page">
+
+<div class="numerology-backdrop" aria-hidden="true">
+  <span class="blueprint-grid"></span>
+  <span class="blueprint-arc arc-a"></span>
+  <span class="blueprint-arc arc-b"></span>
+  <span class="blueprint-beam beam-a"></span>
+  <span class="blueprint-beam beam-b"></span>
+</div>
 
 <div class="number-field" aria-hidden="true">
   <span>1</span><span>3</span><span>7</span><span>11</span><span>22</span><span>5</span>
@@ -883,7 +897,7 @@
 <!-- ════════ HEADER ════════ -->
 <header id="hdr">
   <div class="hbar">
-    <a class="logo" href="index.html" aria-label="なぎ 現実をかえる数秘デザイン トップへ戻る">
+    <a class="logo" href="#hero" aria-label="なぎ 現実をかえる数秘デザイン トップへ戻る">
       <img class="logo-ava" src="assets/nagi-character.jpg" alt="なぎ" onerror="this.style.display='none'">
       <span class="logo-txt">
         <span class="en">NAGI</span>
@@ -902,13 +916,26 @@
     <span>3</span><span>7</span><span>1</span>
   </div>
   <div class="wrap hero-inner">
-    <span class="kicker center">Numerology Design</span>
-    <h1 class="hero-h">生年月日でわかる、<br><span class="em">自分の取扱説明書</span>。</h1>
-    <p class="hero-sub">3つの数字から、強み・つまずき・これから向かう方向を読み解く。<br>占いではなく、自分を現実で使うための“設計図”です。</p>
-    <div class="hero-cta">
-      <a class="btn btn-ink btn-lg" href="#self">無料で診断する（登録不要）</a>
+    <div class="hero-copy">
+      <span class="kicker">Numerology Design</span>
+      <p class="hero-eyebrow">数字で読む、現実の攻略マップ</p>
+      <h1 class="hero-h"><span class="em">生年月日</span>でわかる、<br>自分の取扱説明書。</h1>
+      <p class="hero-sub">1〜9・11・22・33の12タイプから、自分の核、持って生まれたクセ、これから向かう方向を読み解きます。占いではなく、自分を現実で使うための“設計図”。</p>
+      <div class="hero-cta">
+        <a class="btn btn-ink btn-lg" href="#self">このまま無料で判定する</a>
+      </div>
+      <p class="hero-note">登録不要・必要なのは生年月日だけ。結果までこの1ページで完結します。</p>
     </div>
-    <p class="hero-note">必要なのは生年月日だけ。結果はこの画面ですぐに読めます。</p>
+    <div class="number-architecture compact hero-architecture" aria-label="12の数秘タイプと3つの設計数を表す図">
+      <div class="orbit-label">生年月日<br><strong>設計図</strong><small>NOW · PAST · FUTURE</small></div>
+      <div class="orbit-ring orbit-ring-a" aria-hidden="true"></div>
+      <div class="orbit-ring orbit-ring-b" aria-hidden="true"></div>
+      <div class="orbit-numbers" aria-hidden="true">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+        <span>7</span><span>8</span><span>9</span><span>11</span><span>22</span><span>33</span>
+      </div>
+      <span class="orbit-caption">12 NUMEROLOGY TYPES</span>
+    </div>
   </div>
 </section>
 
@@ -952,23 +979,37 @@
 <!-- ════════ 自分の設計図（末尾・自分診断） ════════ -->
 <section id="self" class="sec-pad sec-white mini">
   <div class="wrap">
-    <div class="sec-head mini-head reveal">
-      <span class="mini-eyebrow">Your Design</span>
-      <h2 class="h">生年月日だけでわかる、<br>自分の"数秘タイプ"。</h2>
-      <p class="lead">タイプは全部で12種類。どれに当たるかは、生年月日だけで決まります。<br>現在数・過去数・未来数の3つの数字で、自分の設計図を読みます。</p>
+    <div class="diagnosis-intro reveal">
+      <div class="intro-copy">
+        <span class="mini-eyebrow">Your Numerology Design</span>
+        <p class="intro-kicker">数字は、自分を責めないための設計図。</p>
+        <h2 class="h">生年月日から、<br>自分の<span>数秘タイプ</span>を出す。</h2>
+        <p class="lead">現在数・過去数・未来数の3つを計算し、強み、つまずき、向かう方向を読み解きます。占いではなく、自分を現実で使うための“取扱説明書”です。</p>
+        <div class="intro-principles" aria-label="なぎの数秘の特徴">
+          <span>占いではなく設計</span><span>登録不要</span><span>12タイプ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="design-axis diagnosis-axis reveal d1" aria-label="診断で読み解く3つの数字">
+      <span><b>NOW</b><em>現在数</em>自分の核と、力の使い方</span>
+      <span><b>PAST</b><em>過去数</em>持って生まれたクセ</span>
+      <span><b>FUTURE</b><em>未来数</em>これから向かう方向</span>
     </div>
 
     <div class="dia-card reveal d1">
       <!-- 入力 -->
       <div id="diaForm">
-        <p class="dia-lead">生まれた年・月・日を選んでください。</p>
+        <span class="form-number">01</span>
+        <p class="form-eyebrow">Enter Birthday</p>
+        <p class="dia-lead">生まれた年・月・日を選ぶと、3つの数字をすぐに計算します。</p>
         <div class="dia-form">
           <div class="field"><label for="selY">Year</label><div class="sel y"><select id="selY" aria-label="生まれた年"></select></div></div>
           <div class="field"><label for="selM">Month</label><div class="sel m"><select id="selM" aria-label="生まれた月"></select></div></div>
           <div class="field"><label for="selD">Day</label><div class="sel d"><select id="selD" aria-label="生まれた日"></select></div></div>
         </div>
         <div class="dia-go">
-          <button class="btn btn-ink btn-lg" id="calcBtn" type="button">自分の設計図を出す</button>
+          <button class="btn btn-ink btn-lg" id="calcBtn" type="button">自分の数秘タイプを判定する</button>
         </div>
         <p class="dia-err" id="diaErr" role="alert"></p>
         <noscript><p class="dia-lead" style="margin-top:14px">※この鑑定は計算にJavaScriptを使います。オンにすると、自分の数字が出せます。</p></noscript>
@@ -2071,7 +2112,7 @@ function matsuTakeUme(cur){
   const umeHref = NUM_NOTE[cur] || NOTE_GUIDE;
   return `
     <div class="mtu">
-      <p class="mtu-bridge serif">ここで読めたのは、今日のあなたの“入口”まで。<br>数字の本質を知ると、才能の使い方と、つまずきから戻る道が一本につながります。</p>
+      <p class="mtu-bridge serif">ここで読めたのは、今日の自分の“入口”まで。<br>数字の本質を知ると、才能の使い方と、つまずきから戻る道が一本につながります。</p>
       <div class="mtu-grid">
         <div class="mtu-card">
           <span class="tier">Guide</span>

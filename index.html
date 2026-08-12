@@ -282,8 +282,18 @@
     }
     @media(prefers-reduced-motion:reduce){.float-num,.cta .shine{animation:none}.cta{transition:none}}
   </style>
+  <link rel="stylesheet" href="assets/numerology-theme.css">
+  <script>window.location.replace('diagnosis.html');</script>
+  <noscript><meta http-equiv="refresh" content="0;url=diagnosis.html"></noscript>
 </head>
-<body>
+<body class="landing-page">
+  <div class="numerology-backdrop" aria-hidden="true">
+    <span class="blueprint-grid"></span>
+    <span class="blueprint-arc arc-a"></span>
+    <span class="blueprint-arc arc-b"></span>
+    <span class="blueprint-beam beam-a"></span>
+    <span class="blueprint-beam beam-b"></span>
+  </div>
   <div class="brand" aria-label="NAGI 現実をかえる数秘デザイン">
     <img class="brand-avatar" src="assets/nagi-character-focus.jpg" alt="なぎ">
     <span class="brand-copy">
@@ -307,12 +317,33 @@
 
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <p class="kicker">Numerology Design</p>
-      <div class="ornament" aria-hidden="true"></div>
-      <h1 id="hero-title"><span class="blue">生年月日</span>でわかる、<br>自分の取扱説明書。</h1>
-      <p class="lead">生年月日を入れるだけ。全部で12タイプから、自分の“核”になる数字と、強み・つまずき・向かう方向を読み解く。<br>占いではなく、自分を現実で使うための“設計図”です。</p>
-      <a class="cta" href="diagnosis.html"><span>自分のタイプを無料で診断する</span><i class="shine" aria-hidden="true"></i></a>
-      <p class="note">必要なのは生年月日だけ。結果はこの画面ですぐに読めます。</p>
+      <div class="hero-copy">
+        <p class="kicker">Numerology Design</p>
+        <div class="ornament" aria-hidden="true"></div>
+        <p class="hero-eyebrow">数字で読む、現実の攻略マップ</p>
+        <h1 id="hero-title"><span class="blue">生年月日</span>でわかる、<br>自分の取扱説明書。</h1>
+        <p class="lead">生年月日から12タイプのどれに当てはまるかを計算し、強み・つまずき・向かう方向を読み解きます。占いではなく、自分を現実で使うための“設計図”。</p>
+        <div class="design-axis" aria-label="診断で読み解く3つの数字">
+          <span><b>NOW</b>現在数・自分の核</span>
+          <span><b>PAST</b>過去数・持って生まれたクセ</span>
+          <span><b>FUTURE</b>未来数・向かう方向</span>
+        </div>
+        <a class="cta" href="diagnosis.html"><span>自分の設計図を無料で出す</span><i class="shine" aria-hidden="true"></i></a>
+        <p class="note">登録不要・生年月日だけ。結果はその場で読めます。</p>
+      </div>
+
+      <div class="number-architecture" aria-label="12の数秘タイプと3つの設計数を表す図">
+        <div class="orbit-label">生年月日<br><strong>設計図</strong><small>3 NUMBERS</small></div>
+        <div class="orbit-ring orbit-ring-a" aria-hidden="true"></div>
+        <div class="orbit-ring orbit-ring-b" aria-hidden="true"></div>
+        <div class="orbit-numbers" aria-hidden="true">
+          <span style="--i:0">1</span><span style="--i:1">2</span><span style="--i:2">3</span>
+          <span style="--i:3">4</span><span style="--i:4">5</span><span style="--i:5">6</span>
+          <span style="--i:6">7</span><span style="--i:7">8</span><span style="--i:8">9</span>
+          <span style="--i:9">11</span><span style="--i:10">22</span><span style="--i:11">33</span>
+        </div>
+        <span class="orbit-caption">12 NUMEROLOGY TYPES</span>
+      </div>
     </section>
   </main>
 </body>
